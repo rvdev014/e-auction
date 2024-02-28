@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_categories', function (Blueprint $table) {
+        Schema::create('categorizables', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id')->comment('ID категории');
-            $table->unsignedBigInteger('categoryable_id')->comment('ID товара');
-            $table->string('categoryable_type')->comment('Тип товара');
+            $table->unsignedBigInteger('categorizable_id')->comment('ID товара');
+            $table->string('categorizable_type')->comment('Тип товара');
         });
     }
 

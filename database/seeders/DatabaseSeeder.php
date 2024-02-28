@@ -23,5 +23,18 @@ class DatabaseSeeder extends Seeder
                 'is_admin' => true,
             ]);
         }
+
+        if (!User::where('email', 'test@email.com')->exists()) {
+            User::create([
+                'name' => 'Test User',
+                'email' => 'test@email.com',
+                'phone' => '998935555555',
+                'password' => Hash::make('12345678'),
+            ]);
+        }
+
+        $this->call([
+            AdminSeeder::class,
+        ]);
     }
 }
