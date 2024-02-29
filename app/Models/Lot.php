@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package App\Models
  *
  * @property int $id
- * @property string $title
  * @property LotType $type
  * @property int $lotable_id
  * @property string $lotable_type
@@ -41,7 +40,6 @@ class Lot extends Model
     protected $table = 'lots';
 
     protected $fillable = [
-        'title',
         'type',
         'lotable_id',
         'lotable_type',

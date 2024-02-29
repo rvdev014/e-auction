@@ -26,13 +26,14 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $address
  * @property string $email
  * @property string $remember_token
+ * @property string $verification_code
+ * @property string $verification_code_expired_at
  * @property string $created_at
  * @property string $updated_at
  *
  * @property Attachment $attachments
  *
  * @mixin Builder
-
  */
 class User extends Authenticatable
 {
@@ -53,6 +54,8 @@ class User extends Authenticatable
         'stir',
         'address',
         'remember_token',
+        'verification_code',
+        'verification_code_expired_at',
     ];
 
     /**

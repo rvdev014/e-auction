@@ -7,6 +7,7 @@ use Filament\Forms;
 use Filament\Tables;
 use App\Enums\LotType;
 use Filament\Forms\Form;
+use App\Enums\LotStatus;
 use App\Models\Transport;
 use Filament\Tables\Table;
 use App\Enums\ProductType;
@@ -29,14 +30,6 @@ class LotResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('type')
-                    ->label('Аукцион тури')
-                    ->options(LotType::labels())
-                    ->default(LotType::OnIncrease->value)
-                    ->required(),
                 Forms\Components\Select::make('lotable_type')
                     ->label('Товар тури')
                     ->options(ProductType::labels())
@@ -56,24 +49,38 @@ class LotResource extends Resource
                     })
                     ->required(),
                 Forms\Components\DateTimePicker::make('apply_deadline')
+                    ->label('Ариза қабул қилиш тугаш вақти')
                     ->required(),
                 Forms\Components\DateTimePicker::make('starts_at')
+                    ->label('Аукцион бошланиш вақти')
                     ->required(),
                 Forms\Components\DateTimePicker::make('ends_at')
+                    ->label('Аукцион тугаши вақти')
                     ->required(),
                 Forms\Components\TextInput::make('starting_price')
+                    ->label('Бошланиш нархи (сўм)')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('deposit_amount')
+                    ->label('Закалат пули фоизда')
                     ->required()
                     ->numeric(),
+                Forms\Components\Select::make('type')
+                    ->label('Аукцион тури')
+                    ->options(LotType::labels())
+                    ->default(LotType::OnIncrease->value)
+                    ->required(),
                 Forms\Components\TextInput::make('step_amount')
+                    ->label('Қадам фоизда')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('status')
+                    ->label('Лот холати')
+                    ->default(LotStatus::Active->value)
+                    ->options(LotStatus::labels())
+                    ->required(),
                 Forms\Components\TextInput::make('cancel_reason')
+                    ->label('Бекор қилиш сабаби')
                     ->maxLength(255),
             ]);
     }
@@ -82,8 +89,6 @@ class LotResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->numeric()
                     ->sortable(),
