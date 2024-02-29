@@ -16,4 +16,22 @@ enum LotType: int
             self::FreeSale => 'Свободная продажа',
         };
     }
+
+    public static function values(): array
+    {
+        return [
+            self::OnIncrease->value,
+            self::OnDecrease->value,
+            self::FreeSale->value,
+        ];
+    }
+
+    public static function labels(): array
+    {
+        return [
+            self::OnIncrease->value => self::OnIncrease->getLabel(),
+            self::OnDecrease->value => self::OnDecrease->getLabel(),
+            self::FreeSale->value => self::FreeSale->getLabel(),
+        ];
+    }
 }

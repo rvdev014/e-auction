@@ -5,8 +5,11 @@ namespace App\Filament\Resources;
 use App\Models\Lot;
 use Filament\Forms;
 use Filament\Tables;
+use App\Enums\LotType;
 use Filament\Forms\Form;
+use App\Models\Transport;
 use Filament\Tables\Table;
+use App\Enums\ProductType;
 use Filament\Resources\Resource;
 use App\Filament\Resources\LotResource\Pages;
 use App\Filament\Resources\LotResource\RelationManagers;
@@ -14,7 +17,7 @@ use App\Filament\Resources\LotResource\RelationManagers;
 class LotResource extends Resource
 {
     protected static ?string $model = Lot::class;
-    protected static ?string $pluralLabel = 'Категориялар';
+    protected static ?string $pluralLabel = 'Лотлар';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getGloballySearchableAttributes(): array
@@ -30,18 +33,28 @@ class LotResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
-                    ->options([
-                        1 => 'Type 1',
-                        2 => 'Type 2',
-                        3 => 'Type 3',
-                    ])
+                    ->label('Аукцион тури')
+                    ->options(LotType::labels())
+                    ->default(LotType::OnIncrease->value)
                     ->required(),
-                Forms\Components\TextInput::make('lotable_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('lotable_type')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Select::make('lotable_type')
+                    ->label('Товар тури')
+                    ->options(ProductType::labels())
+                    ->afterStateUpdated(function ($state, callable $get, callable $set) {
+                        $set('lotable_id', null);
+                    })
+                    ->reactive()
+                    ->required(),
+                Forms\Components\Select::make('lotable_id')
+                    ->label('Товар')
+                    ->options(function (callable $get, callable $set) {
+                        $lotableType = $get('lotable_type');
+                        return match ($lotableType) {
+                            ProductType::Transport->value => Transport::pluck('name', 'id'),
+                            default => [],
+                        };
+                    })
+                    ->required(),
                 Forms\Components\DateTimePicker::make('apply_deadline')
                     ->required(),
                 Forms\Components\DateTimePicker::make('starts_at')
