@@ -6,6 +6,7 @@ use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Twilio\Exceptions\TwilioException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -35,9 +36,20 @@ class AuthService
             'verification_code' => $verificationCode,
         ]);
 
-        //        $this->smsService->sendSms($phone, $verificationCode);
+//        $this->sendVerificationNotification($phone, $verificationCode);
 
         return $user;
+    }
+
+    /**
+     * @throws TwilioException
+     */
+    public function sendVerificationNotification($phone, $verificationCode): void
+    {
+        $this->smsService->sendSms(
+            $phone,
+            view('verify.sms', compact('verificationCode'))
+        );
     }
 
     /**

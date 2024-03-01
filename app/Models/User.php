@@ -3,12 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\SmsService;
+use Laravel\Sanctum\HasApiTokens;
+use App\Interfaces\MustVerifyPhone;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 
 /**
@@ -35,7 +38,7 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @mixin Builder
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyPhone
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -88,17 +91,30 @@ class User extends Authenticatable
         return $this->is_admin;
     }
 
-    public function isPhoneVerified(): bool
-    {
-        return $this->phone_verified_at !== null;
-    }
-
     public function verifyCode(string $code): bool
     {
         if (!$this->verification_code || !empty($this->phone_verified_at)) {
             return false;
         }
-
         return $this->verification_code === $code;
+    }
+
+    public function hasVerifiedPhone(): bool
+    {
+        return $this->phone_verified_at !== null;
+    }
+
+    public function markPhoneAsVerified(): bool
+    {
+        return $this->forceFill([
+            'phone_verified_at' => Date::now(),
+            'verification_code' => null,
+            'verification_code_expired_at' => null,
+        ])->save();
+    }
+
+    public function getPhoneForVerification(): string
+    {
+        // TODO: Implement getPhoneForVerification() method.
     }
 }
