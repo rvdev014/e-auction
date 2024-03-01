@@ -8,7 +8,7 @@ jQuery(window).on('load',function(){
  // niceSelect
  $('select').niceSelect();
 
-// wow animate 
+// wow animate
 setTimeout(myGreeting, 1800);
 function myGreeting() {
   var wow = new WOW(
@@ -115,7 +115,6 @@ var heroSliderTwo = new Swiper('.banner1', {
   speed: 1500,
   loop: true,
   spaceBetween: 10,
-  loop: true,
   centeredSlides: true,
   roundLengths: true,
   parallax: true,
@@ -128,7 +127,7 @@ var heroSliderTwo = new Swiper('.banner1', {
   //   nextEl: '.hero-next3',
   //   prevEl: '.hero-prev3',
   // },
-  
+
   autoplay: {
     delay: 4000
   },
@@ -169,7 +168,7 @@ var swiper = new Swiper(".category1-slider", {
       768:{
         slidesPerView: 3
       },
-      992:{ 
+      992:{
         slidesPerView: 5
       },
       1200:{
@@ -178,7 +177,7 @@ var swiper = new Swiper(".category1-slider", {
       1400:{
         slidesPerView: 7
       },
-     
+
     }
 
   });
@@ -212,7 +211,7 @@ var swiper = new Swiper(".category1-slider", {
       768:{
         slidesPerView: 4
       },
-      992:{ 
+      992:{
         slidesPerView: 5
       },
       1200:{
@@ -251,13 +250,13 @@ var swiper = new Swiper(".upcoming-slider", {
     768:{
       slidesPerView: 2
     },
-    992:{ 
+    992:{
       slidesPerView: 2
     },
     1200:{
       slidesPerView: 3
     },
-   
+
   }
 
 });
@@ -289,13 +288,13 @@ var swiper = new Swiper(".upcoming-slider2", {
       slidesPerView: 2,
       pagination: false
     },
-    992:{ 
+    992:{
       slidesPerView: 2
     },
     1200:{
       slidesPerView: 3
     },
-   
+
   }
 });
 
@@ -325,13 +324,13 @@ var swiper = new Swiper(".upcoming-slider3", {
     768:{
       slidesPerView: 2
     },
-    992:{ 
+    992:{
       slidesPerView: 2
     },
     1200:{
       slidesPerView: 3
     },
-   
+
   }
 });
 
@@ -347,7 +346,7 @@ var swiper = new Swiper(".upcoming-slider3", {
       nextEl: '.blog-prev1',
       prevEl: '.blog-next1',
     },
-  
+
     breakpoints: {
         280:{
             slidesPerView: 1
@@ -358,15 +357,15 @@ var swiper = new Swiper(".upcoming-slider3", {
       768:{
         slidesPerView: 2
       },
-      992:{ 
+      992:{
         slidesPerView: 2
       },
       1200:{
         slidesPerView: 3
       },
-     
+
     }
-  
+
   });
 
     // testimonial-slider
@@ -381,7 +380,7 @@ var swiper = new Swiper(".upcoming-slider3", {
         nextEl: '.testi-prev1',
         prevEl: '.testi-next1',
       },
-    
+
       breakpoints: {
           280:{
               slidesPerView: 1
@@ -393,13 +392,13 @@ var swiper = new Swiper(".upcoming-slider3", {
         768:{
           slidesPerView: 1
         },
-        992:{ 
+        992:{
           slidesPerView: 2
         },
         1200:{
           slidesPerView: 3
         },
-       
+
       }
     });
     var swiper = new Swiper(".testimonial-slider2", {
@@ -412,7 +411,7 @@ var swiper = new Swiper(".upcoming-slider3", {
         nextEl: '.testi-prev2',
         prevEl: '.testi-next2',
       },
-    
+
       breakpoints: {
           280:{
               slidesPerView: 1
@@ -424,13 +423,13 @@ var swiper = new Swiper(".upcoming-slider3", {
         768:{
           slidesPerView: 1
         },
-        992:{ 
+        992:{
           slidesPerView: 2
         },
         1200:{
           slidesPerView: 3
         },
-       
+
       }
     });
 
@@ -594,16 +593,16 @@ setInterval(function() {
     function countDownTimer(start, targetDOM) {
       // Get todays date and time
       var now = new Date().getTime();
-      
+
       // Find the distance between now and the count down date
       var distance = start - now;
-      
+
       // Time calculations for days, hours, minutes and seconds
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
+
       // add 0 at the beginning if days, hours, minutes, seconds values are less than 10
       days = (days < 10) ? "0" + days : days;
       hours = (hours < 10) ? "0" + hours : hours;
@@ -615,9 +614,9 @@ setInterval(function() {
       if(el_up){
         document.querySelector("#" + targetDOM).textContent = days + "D : " + hours + "H : " + minutes + "M : " + seconds + "S ";
       }
-      
-      
-      // If the count down is over, write some text 
+
+
+      // If the count down is over, write some text
       if (distance < 0) {
         clearInterval();
         // document.querySelector("#" + targetDOM).textContent = "EXPIRED";
@@ -645,7 +644,7 @@ setInterval(function() {
     setInterval(function(){ countDownTimer(cdd9, "countdown-timer-9"); }, 1000);
 
 // password-hide and show
-   
+
 const togglePassword = document.querySelector('#togglePassword');
 
 const password = document.querySelector('#password');

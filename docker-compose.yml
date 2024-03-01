@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+    web:
+        image: nginx:alpine
+        ports:
+            - "5000:80"
+        volumes:
+            - .:/app
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
+        command: sh -c "chmod -R 777 /app && nginx -g 'daemon off;'"
+        depends_on:
+            - php-fpm
+
+    php-fpm:
+        build: docker/php-fpm
+        volumes:
+            - .:/app
+        environment:
+            - APP_ENV=local
+            - APP_DEBUG=true
+        depends_on:
+            - db
+
+#    pgadmin:
+#        image: dpage/pgadmin4
+#        container_name: pgadmin
+#        environment:
+#            PGADMIN_DEFAULT_EMAIL: 'admin@mail.com'
+#            PGADMIN_DEFAULT_PASSWORD: 'admin'
+#        volumes:
+#            - ./docker/storage/pgadmin:/root/.pgadmin
+#        ports:
+#            - "8001:80"
+#        depends_on:
+#            - db
+
+    db:
+        image: postgres
+        environment:
+            - POSTGRES_DB=e-auction
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=123456
+        volumes:
+            - ./docker/storage/postgres:/var/lib/postgresql/data
+
