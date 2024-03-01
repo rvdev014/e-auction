@@ -82,4 +82,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attachment::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
+    public function isPhoneVerified(): bool
+    {
+        return $this->phone_verified_at !== null;
+    }
+
+    public function verifyCode(string $code): bool
+    {
+        if (!$this->verification_code || !empty($this->phone_verified_at)) {
+            return false;
+        }
+
+        return $this->verification_code === $code;
+    }
 }

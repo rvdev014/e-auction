@@ -13,19 +13,7 @@
                             <p>Сизда аллақачон аккаунт борми? <a href="{{ route('login') }}">Бу ерда кириш</a></p>
                         </div>
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        @if (session()->has('error'))
-                            <div class="alert alert-danger">{{ session('error') }}</div>
-                        @endif
+                        @include('blocks.error')
 
                         <form method="post" class="w-100">
                             @csrf
@@ -33,7 +21,7 @@
                                 <div class="col-md-12">
                                     <div class="form-inner">
                                         <label>Телефон рақам</label>
-                                        <input type="tel" name="phone" placeholder="Телефон рақам">
+                                        <input type="text" name="phone" placeholder="Телефон рақам">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

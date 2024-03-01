@@ -5,8 +5,9 @@ namespace App\Services;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Twilio\Exceptions\TwilioException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class AuthService
 {
@@ -15,12 +16,17 @@ class AuthService
     ) {}
 
     /**
-     * @throws TwilioException
+     * @throws Exception
      */
     public function register(array $data): Model|User
     {
         $phone = $data['phone'];
         $password = $data['password'];
+
+        // check if user with this phone already exists
+        if (User::where('phone', $phone)->exists()) {
+            throw new Exception('User with this phone already exists');
+        }
 
         $verificationCode = rand(1000, 9999);
         $user = User::create([
@@ -29,7 +35,7 @@ class AuthService
             'verification_code' => $verificationCode,
         ]);
 
-        $this->smsService->sendSms($phone, $verificationCode);
+        //        $this->smsService->sendSms($phone, $verificationCode);
 
         return $user;
     }
@@ -37,16 +43,15 @@ class AuthService
     /**
      * @throws Exception
      */
-    public function login(array $data): Model|User
+    public function login(array $data): Authenticatable
     {
         $phone = $data['phone'];
         $password = $data['password'];
 
-        $user = User::where('phone', $phone)->firstOrFail();
-        if (!password_verify($password, $user->password)) {
+        if (!Auth::attempt(['phone' => $phone, 'password' => $password])) {
             throw new Exception('Invalid credentials');
         }
 
-        return $user;
+        return Auth::user();
     }
 }

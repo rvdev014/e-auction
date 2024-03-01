@@ -1,5 +1,5 @@
 @extends('layout.auth')
-@section('title', 'Тизимга кириш')
+@section('title', 'Рўйхатдан ўтиш')
 @section('content')
     <div class="signup-section pt-120 pb-120">
         <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="section-bg-top">
@@ -9,8 +9,7 @@
                 <div class="col-xl-6 col-lg-8 col-md-10">
                     <div class="form-wrapper wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".2s">
                         <div class="form-title">
-                            <h3>Тизимга кириш</h3>
-                            <p>Аккаунтингиз мавжуд эмас ми? <a href="{{ route('register') }}">Рўйхатдан ўтиш</a></p>
+                            <h3>СМС-код ни киритинг</h3>
                         </div>
 
                         @include('blocks.error')
@@ -20,20 +19,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-inner">
-                                        <label>Телефон рақам</label>
-                                        <input type="email" placeholder="Телефон рақам">
+                                        <label>СМС-код</label>
+                                        <input type="text" name="verification_code" placeholder="СМС-код">
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-inner">
-                                        <label>Парол</label>
-                                        <input type="email" placeholder="Парол">
-                                    </div>
-                                </div>
-
                             </div>
                             <button class="account-btn">
-                                Тизимга кириш
+                                Тасдиқлаш
                             </button>
                         </form>
                     </div>

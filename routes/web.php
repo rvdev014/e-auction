@@ -18,9 +18,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(AuthController::class)->group(function() {
-    Route::get('/login', 'showLoginForm')->name('login');
-    Route::post('/login', 'login');
-    Route::get('/register', 'showRegisterForm')->name('register');
-    Route::post('/register', 'register');
+Route::controller(AuthController::class)
+    ->middleware('guest')
+    ->group(function() {
+        Route::get('/login', 'showLoginForm')->name('login');
+        Route::post('/login', 'login');
+        Route::get('/register', 'showRegisterForm')->name('register');
+        Route::post('/register', 'register');
+        Route::get('/verify/{user}', 'showVerifyForm')->name('verify');
+        Route::post('/verify/{user}', 'verify');
+    });
+
+Route::middleware('auth')->group(function() {
+    Route::get('/home', function() {
+        return view('home');
+    });
 });
