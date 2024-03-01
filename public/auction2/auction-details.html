@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bidout - Auction and Bidding HTML Template</title>
+        <link rel="icon" href="assets/images/bg/sm-logo.png" type="image/gif" sizes="20x20">
+
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <!-- css file link -->
+        <link rel="stylesheet" href="assets/css/all.css">
+
+        <!-- bootstrap 5 -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+        <!-- box-icon -->
+        <link rel="stylesheet" href="assets/css/boxicons.min.css">
+
+        <!-- bootstrap icon -->
+        <link rel="stylesheet" href="assets/css/bootstrap-icons.css">
+
+        <!-- jquery ui -->
+        <link rel="stylesheet" href="assets/css/jquery-ui.css">
+
+        <!-- swiper-slide -->
+        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+
+        <!-- slick-slide -->
+        <link rel="stylesheet" href="assets/css/slick-theme.css">
+        <link rel="stylesheet" href="assets/css/slick.css">
+
+        <!-- select 2 -->
+        <link rel="stylesheet" href="assets/css/nice-select.css">
+
+        <!-- animate css -->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+        <!-- odometer css -->
+        <link rel="stylesheet" href="assets/css/odometer.css">
+
+        <!-- style css -->
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+
+<body>
+    <!-- preloader -->
+<!--    <div class="preloader">-->
+<!--        <div class="loader">-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- scroll-btn -->
+    <!-- <div class="scroll-btn">
+        <i class='bx bxs-up-arrow-circle'></i>
+    </div> -->
+
+    <!-- ========== header============= -->
+
+    <header class="header-area style-1">
+        <div class="header-logo">
+            <a href="index.html"><img alt="image" src="assets/images/bg/header-logo.png" ></a>
+        </div>
+        <div class="main-menu">
+            <div class="mobile-logo-area d-lg-none d-flex justify-content-between align-items-center">
+                <div class="mobile-logo-wrap ">
+                    <a href="index.html"><img alt="image" src="assets/images/bg/header-logo.png" ></a>
+                </div>
+                <div class="menu-close-btn">
+                    <i class="bi bi-x-lg"></i>
+                </div>
+            </div>
+            <ul class="menu-list">
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="about.html">About Us</a>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="#">Browse Product</a><i class='bx bx-plus dropdown-icon'></i>
+                    <ul class="submenu">
+                        <li><a href="live-auction.html">Auction</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ========== header end============= -->
+
+    <!-- ========== inner-page-banner start ============= -->
+
+    <div class="inner-banner">
+        <div class="container">
+            <h2 class="inner-banner-title  wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".4s">
+                Аукцион тафсилотлари
+            </h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">
+                      Бош сахифа
+                  </a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Аукцион тафсилотлари</li>
+                </ol>
+              </nav>
+        </div>
+    </div>
+
+    <!-- ========== inner-page-banner end ============= -->
+
+    <!-- ========== auction-details start ============= -->
+
+    <div class="auction-details-section pt-120 pb-120">
+        <img alt="image" src="assets/images/bg/section-bg.png" class="img-fluid section-bg-top" >
+        <img alt="image" src="assets/images/bg/section-bg.png" class="img-fluid section-bg-bottom" >
+        <div class="container">
+            <div class="row g-4 mb-50">
+                <div class="col-xl-6 col-lg-7 d-flex flex-row align-items-start justify-content-lg-start justify-content-center flex-md-nowrap flex-wrap gap-4">
+                    <ul class="nav small-image-list d-flex flex-md-column flex-row justify-content-center gap-4  wow fadeInDown"  data-wow-duration="1.5s" data-wow-delay=".4s">
+                        <li class="nav-item">
+                            <div  id="details-img1" data-bs-toggle="pill" data-bs-target="#gallery-img1" aria-controls="gallery-img1">
+                                <img alt="image" src="assets/images/bg/prod-gallery1.png" class="img-fluid" >
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div  id="details-img2" data-bs-toggle="pill" data-bs-target="#gallery-img2" aria-controls="gallery-img2">
+                            <img alt="image" src="assets/images/bg/prod-gallery2.png" class="img-fluid" >
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div  id="details-img3" data-bs-toggle="pill" data-bs-target="#gallery-img3" aria-controls="gallery-img3">
+                                <img alt="image" src="assets/images/bg/prod-gallery3.png" class="img-fluid" >
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="tab-content mb-4 d-flex justify-content-lg-start justify-content-center  wow fadeInUp"  data-wow-duration="1.5s" data-wow-delay=".4s">
+                        <div class="tab-pane big-image fade show active" id="gallery-img1">
+                            <div class="auction-gallery-timer d-flex align-items-center justify-content-center flex-wrap">
+                                <h3 id="countdown-timer-1">&nbsp;</h3>
+                            </div>
+                            <img alt="image" src="assets/images/bg/prod-gallery1.png" class="img-fluid" >
+                        </div>
+                        <div class="tab-pane big-image fade" id="gallery-img2">
+                            <div class="auction-gallery-timer d-flex align-items-center justify-content-center">
+                                <h3 id="countdown-timer-2">&nbsp;</h3>
+                            </div>
+                            <img alt="image" src="assets/images/bg/prod-gallery2.png" class="img-fluid" >
+                        </div>
+                        <div class="tab-pane big-image fade" id="gallery-img3">
+                            <div class="auction-gallery-timer d-flex align-items-center justify-content-center">
+                                <h3 id="countdown-timer-3">&nbsp;</h3>
+                            </div>
+                            <img alt="image" src="assets/images/bg/prod-gallery3.png" class="img-fluid" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-5">
+                    <div class="product-details-right  wow fadeInDown"  data-wow-duration="1.5s" data-wow-delay=".2s">
+                        <h3>Creative Fashion Riboon Digital Watch Little Elegant.</h3>
+                        <p class="para">Korem ipsum dolor amet, consectetur adipiscing elit. Maece nas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla.</p>
+                        <h4>Bidding Price: <span>$465.00</span></h4>
+                        <div class="bid-form">
+                            <div class="form-title">
+                                <h5>Bid Now</h5>
+                                <p>Bid Amount : Minimum Bid $20.00</p>
+                            </div>
+                            <form>
+                                <div class="form-inner gap-2">
+                                    <input type="text" placeholder="$00.00">
+                                    <button class="eg-btn btn--primary btn--sm" type="submit">Place Bid</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center g-4">
+                <div class="col-lg-12">
+                    <ul class="nav nav-pills d-flex flex-row justify-content-start gap-sm-4 gap-3 mb-45 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active details-tab-btn" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Лот маълумотлари</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link details-tab-btn" id="pills-bid-tab" data-bs-toggle="pill" data-bs-target="#pills-bid" type="button" role="tab" aria-controls="pills-bid" aria-selected="false">Таклифлар тарихи</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active wow fadeInUp"  data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="describe-content">
+
+                                <div class="faq-wrap wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".2s">
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Where on your site can I access AI for Blog Ideas/Titles?
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <ul class="describe-list">
+                                                        <li><a href="#">Amet consectetur adipisicing elit. Maxime reprehenderit quaerat, velit rem atque vel impedit!  Expensive Design.</a></li>
+                                                        <li><a href="#">Consectetur adipisicing elit. Maxime reprehenderit quaerat</a></li>
+                                                        <li><a href="#">Fuga magni veritatis ad temporibus atque adipisci nisi rerum...</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    What if I don't have a company name?
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <ul class="describe-list">
+                                                        <li><a href="#">Amet consectetur adipisicing elit. Maxime reprehenderit quaerat, velit rem atque vel impedit!  Expensive Design.</a></li>
+                                                        <li><a href="#">Consectetur adipisicing elit. Maxime reprehenderit quaerat</a></li>
+                                                        <li><a href="#">Fuga magni veritatis ad temporibus atque adipisci nisi rerum...</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingThree">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    What is the best way to get my blog title noticed?
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <p>
+                                                        Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam. Donec a nibh in libero maximus vehicula. Etiam sit amet condimentum erat. Pellentesque ultrices sagittis turpis, quis tempus ante viverra et.Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-bid" role="tabpanel" aria-labelledby="pills-bid-tab">
+                            <div class="bid-list-area">
+                                <ul class="bid-list">
+                                    <li>
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-7">
+                                                <div class="bidder-area">
+                                                    <div class="bidder-img">
+                                                        <img alt="image" src="assets/images/bg/bidder1.png" >
+                                                    </div>
+                                                    <div class="bidder-content">
+                                                        <a href="#"><h6>Robart FOX</h6></a>
+                                                        <p>24.50 ETH</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 text-end">
+                                                <div class="bid-time">
+                                                    <p>4 Hours Ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-7">
+                                                <div class="bidder-area">
+                                                    <div class="bidder-img">
+                                                        <img alt="image" src="assets/images/bg/bidder2.png" >
+                                                    </div>
+                                                    <div class="bidder-content">
+                                                        <a href="#"><h6>Jane Cooper</h6></a>
+                                                        <p>224.5 ETH</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 text-end">
+                                                <div class="bid-time">
+                                                    <p>5 Hours Ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-7">
+                                                <div class="bidder-area">
+                                                    <div class="bidder-img">
+                                                        <img alt="image" src="assets/images/bg/bidder3.png" >
+                                                    </div>
+                                                    <div class="bidder-content">
+                                                        <a href="#"><h6>Guy Hawkins</h6></a>
+                                                        <p>34.5 ETH</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 text-end">
+                                                <div class="bid-time">
+                                                    <p>6 Hours 45 minutes Ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-7">
+                                                <div class="bidder-area">
+                                                    <div class="bidder-img">
+                                                        <img alt="image" src="assets/images/bg/bidder1.png" >
+                                                    </div>
+                                                    <div class="bidder-content">
+                                                        <a href="#"><h6>Robart FOX</h6></a>
+                                                        <p>24.50 ETH</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 text-end">
+                                                <div class="bid-time">
+                                                    <p>4 Hours Ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-7">
+                                                <div class="bidder-area">
+                                                    <div class="bidder-img">
+                                                        <img alt="image" src="assets/images/bg/bidder2.png" >
+                                                    </div>
+                                                    <div class="bidder-content">
+                                                        <a href="#"><h6>Robart FOX</h6></a>
+                                                        <p>24.50 ETH</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 text-end">
+                                                <div class="bid-time">
+                                                    <p>4 Hours Ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== auction-details end ============= -->
+
+
+    <!-- =============== Footer-action-section start =============== -->
+
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <a href="index.html"><img alt="image" src="assets/images/bg/footer-logo.png" ></a>
+                            <p>Lorem ipsum dolor sit amet consecte tur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row d-flex align-items-center g-4">
+                    <div class="col-lg-6 d-flex justify-content-lg-start justify-content-center">
+                        <p>Copyright 2022 <a href="#">E-auskion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =============== Footer-action-section end =============== -->
+
+    <!-- js file link -->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/jquery.nice-select.js"></script>
+    <script src="assets/js/odometer.min.js"></script>
+    <script src="assets/js/viewport.jquery.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
