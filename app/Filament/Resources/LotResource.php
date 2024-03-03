@@ -33,18 +33,18 @@ class LotResource extends Resource
                 Forms\Components\Select::make('lotable_type')
                     ->label('Товар тури')
                     ->options(ProductType::labels())
-                    ->afterStateUpdated(function ($state, callable $get, callable $set) {
+                    ->afterStateUpdated(function($state, callable $get, callable $set) {
                         $set('lotable_id', null);
                     })
                     ->reactive()
                     ->required(),
                 Forms\Components\Select::make('lotable_id')
                     ->label('Товар')
-                    ->options(function (callable $get, callable $set) {
+                    ->options(function(callable $get, callable $set) {
                         $lotableType = $get('lotable_type');
                         return match ($lotableType) {
                             ProductType::Transport->value => Transport::pluck('name', 'id'),
-                            default => [],
+                            default                       => [],
                         };
                     })
                     ->required(),
@@ -89,38 +89,41 @@ class LotResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('type')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Лот холати')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('lotable_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('lotable_type')
-                    ->searchable(),
+                    ->label('Товар')
+                    ->formatStateUsing(fn($record) => $record->lotable?->name),
                 Tables\Columns\TextColumn::make('apply_deadline')
+                    ->label('Ариза қабул қилиш тугаш вақти')
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('starts_at')
+                    ->label('Аукцион бошланиш вақти')
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('ends_at')
+                    ->label('Аукцион тугаши вақти')
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('starting_price')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Бошланиш нархи (сўм)')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('deposit_amount')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Закалат пули фоизда')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('step_amount')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Қадам фоизда')
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Аукцион тури')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('cancel_reason')
+                    ->label('Бекор қилиш сабаби')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Яратилган вақти')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

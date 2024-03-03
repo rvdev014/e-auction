@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tashkent',
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'uz',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -192,5 +192,12 @@ return [
         'api_key_sid' => env('TWILIO_API_KEY_SID'),
         'api_key_secret' => env('TWILIO_API_KEY_SECRET'),
         'from' => env('TWILIO_NUMBER'),
+    ],
+
+    'sms' => [
+        'verification_code' => [
+            'length' => 6,
+            'expired_in' => 5 * 60,
+        ],
     ],
 ];

@@ -1,5 +1,14 @@
 <?php
 
+use App\Enums\LotStatus;
+use App\Livewire\LotListPage;
+use App\Livewire\HomePage;
+use App\Livewire\LoginPage;
+use App\Livewire\LotApplyPage;
+use App\Livewire\LotDetailsPage;
+use App\Livewire\RegisterPage;
+use App\Livewire\VerifyPhonePage;
+use App\Livewire\UserProfilePage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -14,27 +23,35 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function() {
-    return view('welcome');
+Route::get('', HomePage::class)->name('home');
+
+Route::middleware('guest')->group(function() {
+    Route::get('/login', LoginPage::class)->name('login');
+    Route::get('register', RegisterPage::class)->name('register');
 });
 
-Route::controller(AuthController::class)->middleware('guest')->group(function() {
-    Route::get('/login', 'showLoginForm')->name('login');
-    Route::post('/login', 'login');
-    Route::get('/register', 'showRegisterForm')->name('register');
-    Route::post('/register', 'register');
-    Route::get('/verify/{user}', 'showVerifyForm')
-        ->where('user', '[0-9]+')
-        ->name('verify');
-    Route::post('/verify/{user}', 'verify')->where('user', '[0-9]+');
+Route::middleware('auth')->group(function() {
+    Route::get('verify-phone', VerifyPhonePage::class)
+        ->middleware('not-verified')
+        ->name('verify-phone');
+
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('/home', fn() => view('home'))->name('home');
-    Route::get('/profile', fn() => view('home'))->name('user.profile');
-    //        Route::post('/logout', 'logout')->name('logout');
+    Route::get('profile', UserProfilePage::class)->name('user.profile');
+    Route::get('lot-list/{status}', LotListPage::class)
+        ->whereIn('status', LotStatus::values())
+        ->name('lots');
+
+    Route::get('lot-details/{lot}', LotDetailsPage::class)
+        ->where('lot', '[0-9]+')
+        ->name('lot.details');
+
+    Route::get('lot-apply/{lot}', LotApplyPage::class)
+        ->where('lot', '[0-9]+')
+        ->name('lot.apply');
 });
 
-Route::get('/verify/notify', fn() => 'Notice')
-    ->middleware('auth')
-    ->name('verify.notice');
+
+Route::view('{any}', 'layouts.404')->name('error.404');

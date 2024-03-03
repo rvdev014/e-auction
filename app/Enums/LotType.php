@@ -2,7 +2,11 @@
 
 namespace App\Enums;
 
-enum LotType: int
+use Filament\Support\Contracts\HasIcon;
+use Filament\Support\Contracts\HasLabel;
+use Filament\Support\Contracts\HasColor;
+
+enum LotType: int implements HasLabel, HasColor, HasIcon
 {
     case OnIncrease = 1;
     case OnDecrease = 2;
@@ -33,5 +37,23 @@ enum LotType: int
             self::OnDecrease->value => self::OnDecrease->getLabel(),
             self::FreeSale->value => self::FreeSale->getLabel(),
         ];
+    }
+
+    public function getColor(): string|array|null
+    {
+        return match ($this) {
+            self::OnIncrease => 'success',
+            self::OnDecrease => 'danger',
+            self::FreeSale => 'warning',
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::OnIncrease => '',
+            self::OnDecrease => '',
+            self::FreeSale => '',
+        };
     }
 }

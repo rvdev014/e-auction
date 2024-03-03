@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\AuthService;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\View\View;
+use App\Http\Requests\AuthRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
 
 class AuthController extends Controller
 {
@@ -16,59 +16,55 @@ class AuthController extends Controller
         private readonly AuthService $authService
     ) {}
 
-    public function showLoginForm(): View
+    public function login(AuthRequest $request): RedirectResponse
     {
-        return view('auth.login');
-    }
-
-    public function login(Request $request)
-    {
-        $request->validate([
-            'phone' => 'required',
-            'password' => 'required'
-        ]);
-
         try {
             $this->authService->login($request->all());
-            return redirect()->intended('home');
+            return redirect()->intended();
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
 
-
-    public function showRegisterForm(): View
+    public function register(AuthRequest $request): RedirectResponse
     {
-        return view('auth.register');
-    }
-
-
-    public function register(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'phone' => 'required|unique:users',
-            'password' => 'required|string|min:6|confirmed'
-        ]);
-
         try {
-            $this->authService->register($request->all());
-            return redirect()->route('verify')->with('success', 'You have been registered successfully');
+            $user = $this->authService->register($request->all());
+            Auth::login($user);
+            return redirect()->route('verify-phone')->with('success', 'Сизнинг аккаунтингиз муваффақиятли яратилди');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
 
-    public function showVerifyForm(User $user): View
+    public function verify(AuthRequest $request): RedirectResponse
     {
-        return view('auth.verify', compact('user'));
+        /** @var User $user */
+        $user = $request->user();
+
+        if ($user->hasVerifiedPhone()) {
+            return redirect()->route(RouteServiceProvider::HOME)->with('success', 'Рақам тасдиқланган');
+        }
+
+        if (!$user->verifyCode($request->input('verification_code'))) {
+            return back()->with('error', 'Верификация коди нотўғри йоки муддати ўтган');
+        }
+
+        $user->markPhoneAsVerified();
+        return redirect()->route(RouteServiceProvider::HOME)->with('success', 'Сизнинг телефон рақамингиз муваффақиятли тасдиқланди');
     }
 
-    public function verify(User $user, Request $request): RedirectResponse
+    public function resend(): RedirectResponse
     {
-        $request->validate(['verification_code' => 'required']);
-        if (!$user->verifyCode($request->input('verification_code'))) {
-            return back()->with('error', 'Invalid verification code');
-        }
-        return redirect()->route('login')->with('success', 'You have been verified successfully');
+        /** @var User $user */
+        $user = Auth::user();
+        $user->sendPhoneVerificationNotification();
+        return back()->with('success', 'Верификация коди жўнатилди');
+    }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

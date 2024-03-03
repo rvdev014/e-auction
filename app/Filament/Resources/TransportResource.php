@@ -8,6 +8,7 @@ use Filament\Forms\Form;
 use App\Models\Transport;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use App\Tables\Columns\MultiFileColumn;
 use App\Filament\Resources\TransportResource\Pages;
 use App\Filament\Resources\TransportResource\RelationManagers;
 
@@ -111,25 +112,40 @@ class TransportResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
+                Tables\Columns\ViewColumn::make('mediaAttachments')
+                    ->view('tables.columns.multi-file-column', [
+                        'relation' => 'mediaAttachments',
+                    ])
+                    ->label('Медиа файллар'),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Номи')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('owner')
+                    ->label('Автотранспорт эгаси')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('car_number')
+                    ->label('Давлат рақами')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('year_of_issue')
+                    ->label('Ишлаб чиқарилган йили')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('color')
+                    ->label('Ранги')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('technical_condition')
+                    ->label('Техник ҳолати')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contract')
+                    ->label('Шартнома')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
+                    ->label('Манзил')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('model')
+                    ->label('Модели')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Яратилган вақти')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

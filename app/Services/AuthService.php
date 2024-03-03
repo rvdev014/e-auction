@@ -24,32 +24,18 @@ class AuthService
         $phone = $data['phone'];
         $password = $data['password'];
 
-        // check if user with this phone already exists
         if (User::where('phone', $phone)->exists()) {
             throw new Exception('User with this phone already exists');
         }
 
-        $verificationCode = rand(1000, 9999);
         $user = User::create([
             'phone' => $phone,
             'password' => Hash::make($password),
-            'verification_code' => $verificationCode,
         ]);
 
-//        $this->sendVerificationNotification($phone, $verificationCode);
+        $user->sendPhoneVerificationNotification();
 
         return $user;
-    }
-
-    /**
-     * @throws TwilioException
-     */
-    public function sendVerificationNotification($phone, $verificationCode): void
-    {
-        $this->smsService->sendSms(
-            $phone,
-            view('verify.sms', compact('verificationCode'))
-        );
     }
 
     /**
@@ -61,9 +47,10 @@ class AuthService
         $password = $data['password'];
 
         if (!Auth::attempt(['phone' => $phone, 'password' => $password])) {
-            throw new Exception('Invalid credentials');
+            throw new Exception('Телефон рақам ёки парол нотўғри');
         }
 
         return Auth::user();
     }
+
 }

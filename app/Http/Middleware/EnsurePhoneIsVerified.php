@@ -29,7 +29,7 @@ class EnsurePhoneIsVerified
         if (!$user || ($user instanceof MustVerifyPhone && !$user->hasVerifiedPhone())) {
             return $request->expectsJson()
                 ? abort(403, 'Your phone number is not verified.')
-                : Redirect::guest(URL::route('verify.notice'));
+                : Redirect::guest(URL::route('verify-phone'));
         }
 
         return $next($request);
