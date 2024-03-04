@@ -43,7 +43,7 @@
                     <a href="{{ route('register') }}" wire:navigate>Рўйхатдан ўтиш</a>
                 </li>
                 <li>
-                    <a href="{{ route('login') }}" wire:navigate>Рўйхатдан ўтиш</a>
+                    <a href="{{ route('login') }}" wire:navigate>Тизимга кириш</a>
                 </li>
             @endif
         </ul>

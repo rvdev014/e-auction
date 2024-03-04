@@ -28,8 +28,9 @@
                 <div class="tab-content mb-4 d-flex justify-content-lg-start justify-content-center  wow fadeInUp"
                      data-wow-duration="1.5s" data-wow-delay=".4s">
                     <div class="tab-pane big-image fade show active" id="gallery-img1">
-                        <img alt="image" src="{{ asset('storage/' . $lot->lotable->mediaAttachments[0]?->file_path) }}"
-                             class="img-fluid">
+                        @if (!$lot->lotable->mediaAttachments->isEmpty())
+                            <img alt="image" src="{{ asset('storage/' . $lot->lotable->mediaAttachments[0]?->file_path) }}" class="img-fluid">
+                        @endif
                     </div>
                     <div class="tab-pane big-image fade" id="gallery-img2">
                         <div class="auction-gallery-timer d-flex align-items-center justify-content-center">

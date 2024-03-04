@@ -29,7 +29,7 @@ class LotApplyPage extends Component
         try {
             $this->lotService->applyLot($this->lot);
             session()->flash('success', 'You have successfully applied for the lot');
-            $this->redirectRoute('lot.details', ['lot' => $this->lot->id]);
+            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
         } catch (Throwable $e) {
             $this->addError('isApproved', $e->getMessage());
         }

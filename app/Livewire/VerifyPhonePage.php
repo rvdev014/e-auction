@@ -15,7 +15,7 @@ class VerifyPhonePage extends Component
     #[Rule('required|string')]
     public string $verification_code = '';
 
-    public function submitForm()
+    public function submitForm(): void
     {
         $this->validate();
 
@@ -23,21 +23,20 @@ class VerifyPhonePage extends Component
         $user = Auth::user();
 
         if ($user->hasVerifiedPhone()) {
-            return redirect()->route(RouteServiceProvider::HOME)->with(
-                'success',
-                'Рақам тасдиқланган'
-            );
+            session()->flash('success', 'Рақам тасдиқланган');
+            $this->redirectRoute(RouteServiceProvider::HOME, navigate: true);
+            return;
         }
 
         if (!$user->verifyCode($this->verification_code)) {
             $this->addError('verification_code', 'Верификация коди нотўғри йоки муддати ўтган');
-            return redirect()->route('verify-phone');
+            return;
         }
 
         $user->markPhoneAsVerified();
-        return redirect()
-            ->route(RouteServiceProvider::HOME)
-            ->with('success', 'Сизнинг телефон рақамингиз муваффақиятли тасдиқланди');
+
+        session()->flash('success', 'Сизнинг телефон рақамингиз муваффақиятли тасдиқланди');
+        $this->redirectRoute(RouteServiceProvider::HOME, navigate: true);
     }
 
     public function resend(): void

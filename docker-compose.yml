@@ -22,18 +22,17 @@ services:
         depends_on:
             - db
 
-#    pgadmin:
-#        image: dpage/pgadmin4
-#        container_name: pgadmin
-#        environment:
-#            PGADMIN_DEFAULT_EMAIL: 'admin@mail.com'
-#            PGADMIN_DEFAULT_PASSWORD: 'admin'
-#        volumes:
-#            - ./docker/storage/pgadmin:/root/.pgadmin
-#        ports:
-#            - "8001:80"
-#        depends_on:
-#            - db
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: 'admin@mail.com'
+            PGADMIN_DEFAULT_PASSWORD: 'admin'
+        volumes:
+            - ./docker/storage/pgadmin:/root/.pgadmin
+        ports:
+            - "5001:80"
+        depends_on:
+            - db
 
     db:
         image: postgres

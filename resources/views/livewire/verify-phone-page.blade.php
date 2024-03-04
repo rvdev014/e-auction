@@ -30,9 +30,13 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="account-btn">
+                        <button
+                            class="account-btn"
+                            wire.loading.attr="disabled"
+                        >
                             Тасдиқлаш
                         </button>
+                        <p wire:loading>Loading....</p>
                     </form>
                 </div>
             </div>
