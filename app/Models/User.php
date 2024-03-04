@@ -118,9 +118,14 @@ class User extends Authenticatable implements MustVerifyPhone
 
     public function lots(): BelongsToMany
     {
-        return $this->belongsToMany(Lot::class, 'lot_users')
-            ->withPivot('is_winner', 'price')
+        return $this->belongsToMany(Lot::class, 'lot_steps')
+            ->withPivot('price')
             ->withTimestamps();
+    }
+
+    public function steps(): HasMany
+    {
+        return $this->hasMany(LotStep::class);
     }
 
     public function isAdmin(): bool

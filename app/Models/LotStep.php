@@ -21,16 +21,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @mixin Builder
  */
-class LotUser extends Model
+class LotStep extends Model
 {
     use HasFactory;
 
-    protected $table = 'lot_users';
+    protected $table = 'lot_steps';
 
     protected $fillable = [
         'lot_id',
         'user_id',
-        'is_winner',
         'price',
     ];
 

@@ -7,6 +7,7 @@ use App\Enums\LotStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -32,6 +33,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @property Model $lotable
  * @property User[] $users
+ * @property LotStep[] $steps
+ * @property LotStep[] $activeSteps
  *
  * @mixin Builder
  */
@@ -67,6 +70,18 @@ class Lot extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'lot_users');
+        return $this->belongsToMany(User::class, 'lot_steps');
+    }
+
+    public function steps(): HasMany
+    {
+        return $this->hasMany(LotStep::class);
+    }
+
+    public function activeSteps(): HasMany
+    {
+        return $this->hasMany(LotStep::class)
+            ->where('price', '>', 0)
+            ->orderBy('price', 'desc');
     }
 }

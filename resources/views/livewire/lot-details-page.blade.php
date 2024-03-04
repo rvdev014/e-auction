@@ -29,7 +29,9 @@
                      data-wow-duration="1.5s" data-wow-delay=".4s">
                     <div class="tab-pane big-image fade show active" id="gallery-img1">
                         @if (!$lot->lotable->mediaAttachments->isEmpty())
-                            <img alt="image" src="{{ asset('storage/' . $lot->lotable->mediaAttachments[0]?->file_path) }}" class="img-fluid">
+                            <img alt="image"
+                                 src="{{ asset('storage/' . $lot->lotable->mediaAttachments[0]?->file_path) }}"
+                                 class="img-fluid">
                         @endif
                     </div>
                     <div class="tab-pane big-image fade" id="gallery-img2">
@@ -48,87 +50,96 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-5">
+            <div class="col-xl-6 col-lg-5" >
                 <div class="product-details-right  wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s">
-                    <h3>{{ $lot->lotable->name }}</h3>
 
-                    <div class="lot-item-wrapper">
-                        <div class="lot-item">
-                            <p class="lot-item-label">Ариза қабул қилиш тугаш вақти: </p>
-                            <p class="lot-item-text">{{ $lot->apply_deadline }}</p>
+                    <div class="bid-form" style="margin-top: 0">
+                        <div class="form-title" style="margin-bottom: 20px">
+                            <h3>{{ $lot->lotable->name }}</h3>
                         </div>
-                        <div class="lot-item">
-                            <p class="lot-item-label">Аукцион бошланиш вақти: </p>
-                            <p class="lot-item-text">{{ $lot->starts_at }}</p>
-                        </div>
-                        <div class="lot-item">
-                            <p class="lot-item-label">Аукцион тугаш вақти: </p>
-                            <p class="lot-item-text">{{ $lot->ends_at }}</p>
-                        </div>
-                        <div class="lot-item">
-                            <p class="lot-item-label">Бошланиш нархи (сўм): </p>
-                            <p class="lot-item-text">{{ $lot->starting_price }}</p>
-                        </div>
-                        <div class="lot-item">
-                            <p class="lot-item-label">Закалат пули фоизда: </p>
-                            <p class="lot-item-text">{{ $lot->deposit_amount }}</p>
-                        </div>
-                        <div class="lot-item">
-                            <p class="lot-item-label">Аукцион тури: </p>
-                            <p class="lot-item-text">{{ $lot->type->getLabel() }}</p>
-                        </div>
-                        <div class="lot-item">
-                            <p class="lot-item-label">Аукцион холати: </p>
-                            <p class="lot-item-text">{{ $lot->status->getLabel() }}</p>
+
+                        <div class="lot-item-wrapper">
+                            <div class="lot-item">
+                                <p class="lot-item-label">Ариза қабул қилиш тугаш вақти: </p>
+                                <p class="lot-item-text">{{ $lot->apply_deadline }}</p>
+                            </div>
+                            <div class="lot-item">
+                                <p class="lot-item-label">Аукцион бошланиш вақти: </p>
+                                <p class="lot-item-text">{{ $lot->starts_at }}</p>
+                            </div>
+                            <div class="lot-item">
+                                <p class="lot-item-label">Аукцион тугаш вақти: </p>
+                                <p class="lot-item-text">{{ $lot->ends_at }}</p>
+                            </div>
+                            <div class="lot-item">
+                                <p class="lot-item-label">Бошланиш нархи: </p>
+                                <p class="lot-item-text">{{ $lot->starting_price }} сўм</p>
+                            </div>
+                            <div class="lot-item">
+                                <p class="lot-item-label">Закалат пули фоизда: </p>
+                                <p class="lot-item-text">{{ $lot->deposit_amount }}</p>
+                            </div>
+                            <div class="lot-item">
+                                <p class="lot-item-label">Аукцион тури: </p>
+                                <p class="lot-item-text">{{ $lot->type->getLabel() }}</p>
+                            </div>
+                            <div class="lot-item">
+                                <p class="lot-item-label">Аукцион холати: </p>
+                                <p class="lot-item-text">{{ $lot->status->getLabel() }}</p>
+                            </div>
                         </div>
                     </div>
 
-                    {{--    TIMER   --}}
-                    @if($lot->starts_at > now())
-                        <div class="lot-item-block">
-                            <h5>Аукцион бошлагунча: <span id="start_time">---</span></h5>
-                        </div>
-                    @elseif($lot->ends_at > now())
-                        <div class="lot-item-block">
-                            <h5>Аукцион бошланган! Тугагунча: <span id="ends_time">---</span></h5>
-                        </div>
-                    @endif
-                    {{--    TIMER    --}}
+                    @include('livewire.components.lot-timer', ['lot' => $lot])
 
 
-                    @if($lot->ends_at > now())
-                        @if($lot->starts_at < now() && $lot->ends_at > now())
-                            <div class="lot-item-block">
-                                <h4 class="lot-block-title">Аукционда иштирок этиш учун: </h4>
+                    @php
+                        $isLotStarted = $lot->starts_at < now() && $lot->ends_at > now();
+                        $isLotApplied = $this->lot->steps()->where('user_id', auth()->user()->id)->exists();
+                        $isLotApplyExpired = $lot->apply_deadline < now();
+                    @endphp
+
+                    @if ($lot->ends_at > now())
+                        @if ($isLotStarted && $isLotApplied)
+                            <div class="bid-form">
+                                <div class="form-title">
+                                    <h5>Аукционда иштирок этиш</h5>
+                                    <p>Кадам нархи (сўм): Минимум {{ $this->maxPrice }} сўм</p>
+                                </div>
                                 <form wire:submit="onStep">
-                                    <label>
-                                        Кадам нархи (сўм):
-                                        <input type="text" name="step" wire:model="step">
-                                        @error('step') <span class="error">{{ $message }}</span> @enderror
-                                    </label>
-                                    <button class="eg-btn btn--primary btn--sm">
-                                        Кадам қўйишни бошлаш
-                                    </button>
+                                    <div class="form-inner gap-2">
+                                        <div class="lot-step-input">
+                                            <input type="text" name="step" placeholder="00.00" wire:model="step">
+                                            @error('step') <span class="error">{{ $message }}</span> @enderror
+                                        </div>
+                                        <button class="eg-btn btn--primary btn--sm">Кадам қўйиш</button>
+                                    </div>
                                 </form>
                             </div>
-                        @elseif ($lot->apply_deadline < now())
-                            <div class="lot-item-block">
-                                <h4 class="lot-block-title">Ариза қабул қилиш муддати ўтган</h4>
+                        @elseif ($isLotApplyExpired)
+                            <div class="bid-form">
+                                <div class="form-title">
+                                    <h5>Ариза қабул қилиш муддати ўтган</h5>
+                                </div>
                             </div>
                         @elseif ($isLotApplied)
-                            <div class="lot-item-block">
-                                <h4 class="lot-block-title">Сиз ушбу лот учун ариза бергансиз.</h4>
+                            <div class="bid-form">
+                                <div class="form-title">
+                                    <h5>Сиз ушбу лот учун ариза бергансиз</h5>
+                                </div>
                             </div>
-                        @else
-                            <div class="lot-item-block">
-                                <h4 class="lot-block-title">Иштирок этиш учун</h4>
-                                <p>Для подачи заявки на этот лот, нажмите кнопку ниже</p>
-                                <a
-                                    href="{{ route('lot.apply', $lot->id) }}"
-                                    class="eg-btn btn--primary btn--sm"
-                                    type="submit"
-                                    wire:navigate
-                                >Заявка бериш</a>
+                        @elseif ($lot->starts_at > now())
+                            <div class="bid-form">
+                                <div class="form-title">
+                                    <h5>Иштирок этиш учун</h5>
+                                    <p>Для подачи заявки на этот лот, нажмите кнопку ниже</p>
+                                    <a
+                                        href="{{ route('lot.apply', $lot->id) }}"
+                                        class="eg-btn btn--primary btn--sm"
+                                        style="margin-top: 20px"
+                                        wire:navigate
+                                    >Заявка бериш</a>
+                                </div>
                             </div>
                         @endif
                     @endif
@@ -137,59 +148,9 @@
             </div>
         </div>
 
+        @if ($lot->activeSteps->isNotEmpty())
+            @include('livewire.components.lot-step-list', ['lot' => $lot])
+        @endif
+
     </div>
 </div>
-
-@script
-
-<script>
-
-    const startTime = new Date('{{ $lot->starts_at }}').getTime();
-    const endsTime = new Date('{{ $lot->ends_at }}').getTime();
-    const now = new Date().getTime();
-
-    function getDateLeft(distance) {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        return days + "д " + hours + "ч " + minutes + "м " + seconds + "с";
-    }
-
-    let distanceToStart = startTime - now;
-    let distanceToEnd = endsTime - now;
-
-    if (distanceToStart > 0) {
-        const x = setInterval(function () {
-            const now = new Date().getTime();
-            const distance = startTime - now;
-            if (distance > 0) {
-                document.getElementById("start_time").innerHTML = getDateLeft(distance);
-            } else {
-                if (distance <= 0) {
-                    $wire.dispatch('lot_started')
-                    clearInterval(x);
-                }
-            }
-        }, 1000);
-    }
-
-    if (distanceToStart < 0 && distanceToEnd > 0) {
-        const x = setInterval(function () {
-            const now = new Date().getTime();
-            const distance = endsTime - now;
-            if (distance > 0) {
-                document.getElementById("ends_time").innerHTML = getDateLeft(distance);
-            } else {
-                if (distance <= 0) {
-                    $wire.dispatch('lot_ended')
-                    clearInterval(x);
-                }
-            }
-        }, 1000);
-    }
-
-</script>
-
-@endscript

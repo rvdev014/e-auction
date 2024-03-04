@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Exception;
 use App\Models\Lot;
-use App\Models\LotUser;
+use App\Models\LotStep;
 use Twilio\Exceptions\TwilioException;
 
 class LotService
@@ -17,7 +17,11 @@ class LotService
      */
     public function applyLot(Lot $lot): void
     {
-        LotUser::create([
+        if ($lot->steps()->where('user_id', auth()->id())->exists()) {
+            throw new Exception('You have already applied for this lot');
+        }
+
+        LotStep::create([
             'lot_id' => $lot->id,
             'user_id' => auth()->id(),
         ]);

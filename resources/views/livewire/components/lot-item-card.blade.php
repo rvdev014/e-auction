@@ -7,7 +7,7 @@
         </div>
         <div class="auction-content">
             <h4><a href="{{ route('lot.details', $lot->id) }}">{{ $lot->lotable->name }}</a></h4>
-            <p>Bidding Price : <span>{{ $lot->starting_price }}</span></p>
+            <p>Бошланиш нархи: <span>{{ $lot->starting_price }} сўм</span></p>
         </div>
     </div>
 </div>
