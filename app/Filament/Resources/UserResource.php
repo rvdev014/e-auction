@@ -34,6 +34,8 @@ class UserResource extends Resource
                     ->disabled()
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('balance')
+                    ->numeric(),
                 Forms\Components\TextInput::make('stir')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
@@ -49,14 +51,22 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Исм Фамилия')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('Телефон')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('balance')
+                    ->label('Баланс')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('stir')
+                    ->label('СТИР')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
+                    ->label('Манзил')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Электрон почта')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

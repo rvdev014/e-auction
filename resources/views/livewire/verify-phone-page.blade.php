@@ -36,7 +36,6 @@
                         >
                             Тасдиқлаш
                         </button>
-                        <p wire:loading>Loading....</p>
                     </form>
                 </div>
             </div>

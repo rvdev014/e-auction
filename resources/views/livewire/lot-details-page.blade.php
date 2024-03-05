@@ -1,6 +1,12 @@
 @php
+    use App\Enums\LotStatus;
+
     /** @var App\Models\Lot $lot */
     $images = $lot->lotable->mediaAttachments;
+    $isLotActive = !$lot->is_cancelled && $lot->ends_at > now();
+    $isLotStarted = $lot->starts_at < now() && $lot->ends_at > now();
+    $isLotApplied = $this->lot->steps()->where('user_id', auth()->user()->id)->exists();
+    $isLotApplyExpired = $lot->apply_deadline < now();
 @endphp
 
 <div class="auction-details-section">
@@ -29,9 +35,11 @@
                      data-wow-duration="1.5s" data-wow-delay=".4s">
                     <div class="tab-pane big-image fade show active" id="gallery-img1">
                         @if (!$lot->lotable->mediaAttachments->isEmpty())
-                            <img alt="image"
-                                 src="{{ asset('storage/' . $lot->lotable->mediaAttachments[0]?->file_path) }}"
-                                 class="img-fluid">
+                            <img
+                                alt="image"
+                                src="{{ asset('storage/' . $lot->lotable->mediaAttachments[0]?->file_path) }}"
+                                class="img-fluid"
+                            >
                         @endif
                     </div>
                     <div class="tab-pane big-image fade" id="gallery-img2">
@@ -50,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-5" >
+            <div class="col-xl-6 col-lg-5">
                 <div class="product-details-right  wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s">
 
                     <div class="bid-form" style="margin-top: 0">
@@ -61,15 +69,15 @@
                         <div class="lot-item-wrapper">
                             <div class="lot-item">
                                 <p class="lot-item-label">Ариза қабул қилиш тугаш вақти: </p>
-                                <p class="lot-item-text">{{ $lot->apply_deadline }}</p>
+                                <p class="lot-item-text">{{ $lot->apply_deadline->format('d-M H:i') }}</p>
                             </div>
                             <div class="lot-item">
                                 <p class="lot-item-label">Аукцион бошланиш вақти: </p>
-                                <p class="lot-item-text">{{ $lot->starts_at }}</p>
+                                <p class="lot-item-text">{{ $lot->starts_at->format('d-M H:i') }}</p>
                             </div>
                             <div class="lot-item">
                                 <p class="lot-item-label">Аукцион тугаш вақти: </p>
-                                <p class="lot-item-text">{{ $lot->ends_at }}</p>
+                                <p class="lot-item-text">{{ $lot->ends_at->format('d-M H:i') }}</p>
                             </div>
                             <div class="lot-item">
                                 <p class="lot-item-label">Бошланиш нархи: </p>
@@ -85,21 +93,22 @@
                             </div>
                             <div class="lot-item">
                                 <p class="lot-item-label">Аукцион холати: </p>
-                                <p class="lot-item-text">{{ $lot->status->getLabel() }}</p>
+                                <p class="lot-item-text">
+                                    @if($lot->is_cancelled)
+                                        <span class="text-danger">{{ LotStatus::Cancelled->getLabel() }}</span>
+                                    @elseif ($lot->ends_at->isPast())
+                                        <span>{{ LotStatus::Ended->getLabel() }}</span>
+                                    @else
+                                        <span class="text-success">{{ LotStatus::Active->getLabel() }}</span>
+                                    @endif
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     @include('livewire.components.lot-timer', ['lot' => $lot])
 
-
-                    @php
-                        $isLotStarted = $lot->starts_at < now() && $lot->ends_at > now();
-                        $isLotApplied = $this->lot->steps()->where('user_id', auth()->user()->id)->exists();
-                        $isLotApplyExpired = $lot->apply_deadline < now();
-                    @endphp
-
-                    @if ($lot->ends_at > now())
+                    @if ($isLotActive)
                         @if ($isLotStarted && $isLotApplied)
                             <div class="bid-form">
                                 <div class="form-title">

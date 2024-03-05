@@ -5,12 +5,10 @@ namespace App\Services;
 use Exception;
 use App\Models\Lot;
 use App\Models\LotStep;
-use Twilio\Exceptions\TwilioException;
 
 class LotService
 {
-    public function __construct(private readonly SmsService $smsService)
-    {}
+    public function __construct(private readonly SmsService $smsService) {}
 
     /**
      * @throws Exception
@@ -25,6 +23,11 @@ class LotService
             'lot_id' => $lot->id,
             'user_id' => auth()->id(),
         ]);
-//        $this->smsService->sendSms('Your application has been accepted', auth()->user()->phone);
+        //        $this->smsService->sendSms('Your application has been accepted', auth()->user()->phone);
+    }
+
+    public function isLotActive(Lot $lot): bool
+    {
+        return $lot->ends_at > now() && !$lot->is_cancelled;
     }
 }

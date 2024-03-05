@@ -18,7 +18,14 @@ class LotListPage extends Component
 
     public function render(): View
     {
-        $lots = Lot::where('status', $this->status)->get();
+        $lotsQuery = Lot::query();
+
+        $lots = match ($this->status) {
+            LotStatus::Active => $lotsQuery->active()->paginate(10),
+            LotStatus::Ended => $lotsQuery->ended()->paginate(10),
+            LotStatus::Cancelled => $lotsQuery->cancelled()->paginate(10),
+        };
+
         return view('livewire.lot-list-page', [
             'lots' => $lots,
         ]);

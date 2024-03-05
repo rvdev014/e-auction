@@ -1,5 +1,8 @@
 <div class="bid-list-area" wire:poll.visible.5s>
-    <h3 class="bid-title">Кадамлар тарихи</h3>
+    <div class="bid-step-header">
+        <h3 class="bid-title">Кадамлар тарихи</h3>
+        <button class="eg-btn btn--primary btn--sm" wire:click="$refresh">Йангилаш</button>
+    </div>
     <ul class="bid-list">
         @foreach($lot->activeSteps as $step)
             <li>
@@ -17,7 +20,7 @@
                     </div>
                     <div class="col-5 text-end">
                         <div class="bid-time">
-                            <p>{{ $step->created_at->format('Y-m-d H:i') }}</p>
+                            <p>{{ $step->updated_at->format('d-M H:i') }}</p>
                         </div>
                     </div>
                 </div>

@@ -74,11 +74,8 @@ class LotResource extends Resource
                     ->label('Қадам фоизда')
                     ->required()
                     ->numeric(),
-                Forms\Components\Select::make('status')
-                    ->label('Лот холати')
-                    ->default(LotStatus::Active->value)
-                    ->options(LotStatus::labels())
-                    ->required(),
+                Forms\Components\Toggle::make('is_cancelled')
+                    ->label('Бекор килинган'),
                 Forms\Components\TextInput::make('cancel_reason')
                     ->label('Бекор қилиш сабаби')
                     ->maxLength(255),
@@ -89,9 +86,10 @@ class LotResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('status')
-                    ->label('Лот холати')
-                    ->badge(),
+                Tables\Columns\ViewColumn::make('lot_status')
+                    ->view('tables.columns.lot-status-column')
+                    ->width('300px')
+                    ->label('Лот холати'),
                 Tables\Columns\TextColumn::make('lotable_id')
                     ->label('Товар')
                     ->formatStateUsing(fn($record) => $record->lotable?->name),
@@ -119,6 +117,9 @@ class LotResource extends Resource
                 Tables\Columns\TextColumn::make('type')
                     ->label('Аукцион тури')
                     ->badge(),
+                /*Tables\Columns\IconColumn::make('is_cancelled')
+                    ->label('Бекор килинган')
+                    ->boolean(),*/
                 Tables\Columns\TextColumn::make('cancel_reason')
                     ->label('Бекор қилиш сабаби')
                     ->searchable(),

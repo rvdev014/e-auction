@@ -1,17 +1,20 @@
 {{--    TIMER   --}}
-<div class="bid-form">
-    @if($lot->starts_at > now())
+@if($lot->starts_at > now())
+    <div class="bid-form" wire:ignore>
         <div class="form-title">
             <h5>Аукцион бошланмаган</h5>
             <p>Аукцион бошлагунча: <span id="start_time" class="lot-timer">---</span></p>
         </div>
-    @elseif($lot->ends_at > now())
+    </div>
+@elseif(!$lot->is_cancelled && $lot->ends_at > now())
+    <div class="bid-form" wire:ignore>
         <div class="form-title">
             <h5>Аукцион бошланган</h5>
             <p>Тугагунча: <span id="ends_time" class="lot-timer">---</span></p>
         </div>
-    @endif
-</div>
+    </div>
+@endif
+
 {{--    TIMER    --}}
 
 @script
@@ -37,7 +40,7 @@
         const x = setInterval(function () {
             const now = new Date().getTime();
             const distance = startTime - now;
-            if (distance > 0) {
+            if (distance > 0 && document.getElementById("start_time")) {
                 document.getElementById("start_time").innerHTML = getDateLeft(distance);
             } else {
                 if (distance <= 0) {
@@ -52,7 +55,7 @@
         const x = setInterval(function () {
             const now = new Date().getTime();
             const distance = endsTime - now;
-            if (distance > 0) {
+            if (distance > 0 && document.getElementById("ends_time")) {
                 document.getElementById("ends_time").innerHTML = getDateLeft(distance);
             } else {
                 if (distance <= 0) {

@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $phone_verified_at
  * @property string $is_admin
  * @property string $stir
+ * @property int $balance
  * @property int $region_id
  * @property int $district_id
  * @property string $passport
@@ -75,6 +76,7 @@ class User extends Authenticatable implements MustVerifyPhone
         'district_id',
         'passport',
         'passport_date',
+        'balance',
         'pinfl',
         'birth_date',
         'lots_member_number',
@@ -119,7 +121,7 @@ class User extends Authenticatable implements MustVerifyPhone
     public function lots(): BelongsToMany
     {
         return $this->belongsToMany(Lot::class, 'lot_steps')
-            ->withPivot('price')
+            ->withPivot(['price'])
             ->withTimestamps();
     }
 
