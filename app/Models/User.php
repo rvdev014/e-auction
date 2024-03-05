@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
 use Nette\Utils\Random;
 use Laravel\Sanctum\HasApiTokens;
 use App\Interfaces\MustVerifyPhone;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,7 +53,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @mixin Builder
  */
-class User extends Authenticatable implements MustVerifyPhone
+class User extends Authenticatable implements MustVerifyPhone, FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -164,5 +166,10 @@ class User extends Authenticatable implements MustVerifyPhone
             'verification_code_expired_at' => now()->addSeconds(config('app.sms.verification_code.expired_in')),
         ])->save();
         //        $this->notify(new SendVerifySMS);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->isAdmin();
     }
 }

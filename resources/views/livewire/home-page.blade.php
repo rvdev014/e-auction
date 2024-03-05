@@ -1,3 +1,7 @@
+@php
+use App\Enums\LotStatus;
+@endphp
+
 <div>
     <div class="hero-area hero-style-one">
         <div class="hero-main-wrapper position-relative">
@@ -9,11 +13,11 @@
                                 <div class="row d-flex justify-content-center align-items-center">
                                     <div class="col-xl-10 col-lg-10">
                                         <div class="banner1-content">
-                                            <span>E-auksion</span>
-                                            <h1>Хуш келибсиз! </h1>
+                                            <span>{{ config('app.name') }}</span>
+                                            <h1>Хуш келибсиз!</h1>
                                             <p>Бизнинг онлайн бозоримизда сизни кўришимиздан кҳурсандмиз!.
                                             </p>
-                                            <a href="live-auction.html" class="eg-btn btn--primary btn--lg">
+                                            <a href="{{ route('lots', LotStatus::Active) }}" class="eg-btn btn--primary btn--lg" wire:navigate>
                                                 Лотларни кўриш
                                             </a>
                                         </div>
@@ -43,154 +47,21 @@
                 </div>
             </div>
             <div class="row gy-4 mb-60 d-flex justify-content-center">
-                <div class="col-lg-4 col-md-6 col-sm-10 ">
-                    <div data-wow-duration="1.5s" data-wow-delay="0.2s"
-                         class="eg-card auction-card1 wow animate fadeInDown">
-                        <div class="auction-img">
-                            <img alt="image" src="{{ asset('auction/assets/images/bg/live-auc1.png') }}">
-                            <div class="auction-timer">
-                                <div class="countdown" id="timer1">
-                                    <h4><span id="hours1">05</span>H : <span id="minutes1">52</span>M : <span
-                                            id="seconds1">32</span>S</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="auction-content">
-                            <h4><a href="auction-details.html">Brand New royal Enfield 250 CC For Sale</a></h4>
-                            <p>Bidding Price : <span><span>$85.9</span></span></p>
-                            <div class="auction-card-bttm">
-                                <a href="auction-details.html" class="eg-btn btn--primary btn--sm">Place a Bid</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-10 ">
-                    <div data-wow-duration="1.5s" data-wow-delay="0.4s"
-                         class="eg-card auction-card1 wow animate fadeInDown">
-                        <div class="auction-img">
-                            <img alt="image" src="{{ asset('auction/assets/images/bg/live-auc2.png') }}">
-                            <div class="auction-timer">
-                                <div class="countdown" id="timer2">
-                                    <h4><span id="hours2">05</span>H : <span id="minutes2">52</span>M : <span
-                                            id="seconds2">32</span>S</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="auction-content">
-                            <h4><a href="auction-details.html">Wedding Special Exclusive Cupple Ring (S2022)</a></h4>
-                            <p>Bidding Price : <span>$85.9</span></p>
-                            <div class="auction-card-bttm">
-                                <a href="auction-details.html" class="eg-btn btn--primary btn--sm">Place a Bid</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-10 ">
-                    <div data-wow-duration="1.5s" data-wow-delay="0.6s"
-                         class="eg-card auction-card1 wow animate fadeInDown">
-                        <div class="auction-img">
-                            <img alt="image" src="{{ asset('auction/assets/images/bg/live-auc3.png') }}">
-                            <div class="auction-timer">
-                                <div class="countdown" id="timer3">
-                                    <h4><span id="hours3">05</span>H : <span id="minutes3">52</span>M : <span
-                                            id="seconds3">32</span>S</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="auction-content">
-                            <h4><a href="auction-details.html">Brand New Honda CBR 600 RR For Special Sale (2022)</a>
-                            </h4>
-                            <p>Bidding Price : <span>$85.9</span></p>
-                            <div class="auction-card-bttm">
-                                <a href="auction-details.html" class="eg-btn btn--primary btn--sm">Place a Bid</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-10 ">
-                    <div data-wow-duration="1.5s" data-wow-delay=".2s"
-                         class="eg-card auction-card1 wow animate fadeInDown">
-                        <div class="auction-img">
-                            <img alt="image" src="{{ asset('auction/assets/images/bg/live-auc4.png') }}">
-                            <div class="auction-timer">
-                                <div class="countdown" id="timer4">
-                                    <h4><span id="hours4">05</span>H : <span id="minutes4">52</span>M : <span
-                                            id="seconds4">32</span>S</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="auction-content">
-                            <h4><a href="auction-details.html">Toyota AIGID A Class Hatchback Sale (2017 - 2021)</a>
-                            </h4>
-                            <p>Bidding Price : <span>$85.9</span></p>
-                            <div class="auction-card-bttm">
-                                <a href="auction-details.html" class="eg-btn btn--primary btn--sm">Place a Bid</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-10 ">
-                    <div data-wow-duration="1.5s" data-wow-delay=".4s"
-                         class="eg-card auction-card1 wow animate fadeInDown">
-                        <div class="auction-img">
-                            <img alt="image" src="{{ asset('auction/assets/images/bg/live-auc5.png') }}">
-                            <div class="auction-timer">
-                                <div class="countdown" id="timer5">
-                                    <h4><span id="hours5">05</span>H : <span id="minutes5">52</span>M : <span
-                                            id="seconds5">32</span>S</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="auction-content">
-                            <h4><a href="auction-details.html">Havit HV-G61 USB Black Double Game Pad With Vibrat</a>
-                            </h4>
-                            <p>Bidding Price : <span>$85.9</span></p>
-                            <div class="auction-card-bttm">
-                                <a href="auction-details.html" class="eg-btn btn--primary btn--sm">Place a Bid</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-10 ">
-                    <div data-wow-duration="1.5s" data-wow-delay=".4s"
-                         class="eg-card auction-card1 wow animate fadeInDown">
-                        <div class="auction-img">
-                            <img alt="image" src="{{ asset('auction/assets/images/bg/live-auc6.png') }}">
-                            <div class="auction-timer">
-                                <div class="countdown" id="timer6">
-                                    <h4><span id="hours6">05</span>H : <span id="minutes6">52</span>M : <span
-                                            id="seconds6">32</span>S</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="auction-content">
-                            <h4><a href="auction-details.html">IPhone 11 Pro Max All Variants Available For Special
-                                    Sale</a>
-                            </h4>
-                            <p>Bidding Price : <span>$85.9</span></p>
-                            <div class="auction-card-bttm">
-                                <a href="auction-details.html" class="eg-btn btn--primary btn--sm">Place a Bid</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                @foreach($lots as $lot)
+                    @include('livewire.components.lot-card', ['lot' => $lot])
+                @endforeach
             </div>
-            <div class="row d-flex justify-content-center">
+            {{--<div class="row d-flex justify-content-center">
                 <div class="col-md-4 text-center">
                     <a href="live-auction.html" class="eg-btn btn--primary btn--md mx-auto">
                         Барчасини кўриш
                     </a>
                 </div>
-            </div>
+            </div>--}}
         </div>
     </div>
 
-    <div class="upcoming-seciton pb-120">
+    {{--<div class="upcoming-seciton pb-120">
         <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg">
         <div class="container">
             <div class="row d-flex justify-content-center">
@@ -465,7 +336,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
     <div class="testimonial-section pt-80 pb-80">
         <img alt="image" src="{{ asset('auction/assets/images/bg/client-right.png') }}" class="client-right-vector">

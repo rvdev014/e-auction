@@ -1,6 +1,6 @@
 <div class="bid-list-area" wire:poll.visible.5s>
     <div class="bid-step-header">
-        <h3 class="bid-title">Кадамлар тарихи</h3>
+        <h3 class="bid-title">Ставкалар тарихи</h3>
         <button class="eg-btn btn--primary btn--sm" wire:click="$refresh">Йангилаш</button>
     </div>
     <ul class="bid-list">
