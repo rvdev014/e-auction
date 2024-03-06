@@ -13,8 +13,10 @@
     @include('livewire.components.breadcrumb', ['title' => 'Аукцион сахифаси'])
 
     <div class="auction-details-section">
-        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-top">
-        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-bottom">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}"
+             class="img-fluid section-bg-top">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}"
+             class="img-fluid section-bg-bottom">
         <div class="container">
             <div class="row g-4 mb-50">
                 <div
@@ -109,7 +111,9 @@
                             </div>
                         </div>
 
-                        @include('livewire.components.lot-timer', ['lot' => $lot])
+                        @if ($isLotActive)
+                            @include('livewire.components.lot-timer', ['lot' => $lot])
+                        @endif
 
                         @if ($isLotActive)
                             @if ($isLotStarted && $isLotApplied)
@@ -162,7 +166,9 @@
 
             <div class="row d-flex justify-content-center g-4">
                 <div class="col-lg-12">
-                    <ul wire:ignore class="nav nav-pills d-flex flex-row justify-content-start gap-sm-4 gap-3 mb-45 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-tab" role="tablist">
+                    <ul wire:ignore
+                        class="nav nav-pills d-flex flex-row justify-content-start gap-sm-4 gap-3 mb-45 wow fadeInDown"
+                        data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button
                                 class="nav-link details-tab-btn {{ $this->tab === 'lot-info' ? 'active' : '' }}"
@@ -174,7 +180,8 @@
                                 aria-controls="pills-home"
                                 aria-selected="true"
                                 wire:click="setTab('lot-info')"
-                            >Лот маълумотлари</button>
+                            >Лот маълумотлари
+                            </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button
@@ -187,14 +194,19 @@
                                 aria-controls="pills-bid"
                                 aria-selected="false"
                                 wire:click="setTab('lot-steps')"
-                            >Ставкалар тарихи</button>
+                            >Ставкалар тарихи
+                            </button>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
-                        <div wire:ignore class="tab-pane fade show @if($this->tab === 'lot-info') active @endif wow fadeInUp"  data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div wire:ignore
+                             class="tab-pane fade show @if($this->tab === 'lot-info') active @endif wow fadeInUp"
+                             data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-home" role="tabpanel"
+                             aria-labelledby="pills-home-tab">
                             @include('livewire.components.lot-info-accordion', ['lot' => $lot])
                         </div>
-                        <div class="tab-pane fade show @if($this->tab === 'lot-steps') active @endif wow fadeInUp" id="pills-bid" role="tabpanel" aria-labelledby="pills-bid-tab">
+                        <div class="tab-pane fade show @if($this->tab === 'lot-steps') active @endif wow fadeInUp"
+                             id="pills-bid" role="tabpanel" aria-labelledby="pills-bid-tab">
                             @include('livewire.components.lot-step-list', ['lot' => $lot])
                         </div>
                     </div>
