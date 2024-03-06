@@ -97,17 +97,19 @@ class Lot extends Model
             ->orderBy('updated_at', 'desc');
     }
 
-    public function scopeActive($query)
+    public function scopeActive(Builder $query)
     {
-        return $query->where('ends_at', '>', now());
+        return $query
+            ->where('ends_at', '>', now())
+            ->where('is_cancelled', false);
     }
 
-    public function scopeEnded($query)
+    public function scopeEnded(Builder $query)
     {
         return $query->where('ends_at', '<', now());
     }
 
-    public function scopeCancelled($query)
+    public function scopeCancelled(Builder $query)
     {
         return $query->where('is_cancelled', true);
     }
