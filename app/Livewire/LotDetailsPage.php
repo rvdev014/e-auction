@@ -5,9 +5,9 @@ namespace App\Livewire;
 use Throwable;
 use App\Models\Lot;
 use Livewire\Component;
-use App\Enums\LotStatus;
 use Livewire\Attributes\On;
 use App\Services\LotService;
+use Livewire\Attributes\Url;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Computed;
 use Illuminate\Contracts\View\View;
@@ -23,6 +23,14 @@ class LotDetailsPage extends Component
     public int $step;
 
     public Lot $lot;
+
+    #[Url(keep: true)]
+    public string $tab = 'lot-info';
+
+    public function setTab($tab): void
+    {
+        $this->tab = $tab;
+    }
 
     public function boot(LotService $lotService): void
     {

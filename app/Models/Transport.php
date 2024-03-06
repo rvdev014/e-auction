@@ -34,9 +34,9 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
  *
  * @property Lot $lots
  * @property Category $categories
- * @property Collection<Attachment> $attachments
- * @property Collection<Attachment> $mediaAttachments
- * @property Collection<Attachment> $docAttachments
+ * @property Attachment[] $attachments
+ * @property Attachment[] $mediaAttachments
+ * @property Attachment[] $docAttachments
  *
  * @mixin Builder
  */

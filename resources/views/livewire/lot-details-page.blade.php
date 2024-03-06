@@ -160,19 +160,25 @@
                 </div>
             </div>
 
-            @if ($lot->activeSteps->isNotEmpty())
-                @include('livewire.components.lot-step-list', ['lot' => $lot])
-            @endif
-
             <div class="row d-flex justify-content-center g-4">
                 <div class="col-lg-12">
-                    <ul class="nav nav-pills d-flex flex-row justify-content-start gap-sm-4 gap-3 mb-45 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-tab" role="tablist">
+                    <ul wire:ignore class="nav nav-pills d-flex flex-row justify-content-start gap-sm-4 gap-3 mb-45 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active details-tab-btn" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Лот маълумотлари</button>
+                            <button
+                                class="nav-link details-tab-btn {{ $this->tab === 'lot-info' ? 'active' : '' }}"
+                                id="pills-home-tab"
+                                data-bs-toggle="pill"
+                                data-bs-target="#pills-home"
+                                type="button"
+                                role="tab"
+                                aria-controls="pills-home"
+                                aria-selected="true"
+                                wire:click="setTab('lot-info')"
+                            >Лот маълумотлари</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button
-                                class="nav-link details-tab-btn"
+                                class="nav-link details-tab-btn {{ $this->tab === 'lot-steps' ? 'active' : '' }}"
                                 id="pills-bid-tab"
                                 data-bs-toggle="pill"
                                 data-bs-target="#pills-bid"
@@ -180,69 +186,17 @@
                                 role="tab"
                                 aria-controls="pills-bid"
                                 aria-selected="false"
+                                wire:click="setTab('lot-steps')"
                             >Ставкалар тарихи</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active wow fadeInUp"  data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                            <div class="describe-content">
-
-                                <div class="faq-wrap wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".2s">
-                                    <div class="accordion" id="accordionExample">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingOne">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    Where on your site can I access AI for Blog Ideas/Titles?
-                                                </button>
-                                            </h2>
-                                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <ul class="describe-list">
-                                                        <li><a href="#">Amet consectetur adipisicing elit. Maxime reprehenderit quaerat, velit rem atque vel impedit!  Expensive Design.</a></li>
-                                                        <li><a href="#">Consectetur adipisicing elit. Maxime reprehenderit quaerat</a></li>
-                                                        <li><a href="#">Fuga magni veritatis ad temporibus atque adipisci nisi rerum...</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingTwo">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                    What if I don't have a company name?
-                                                </button>
-                                            </h2>
-                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <ul class="describe-list">
-                                                        <li><a href="#">Amet consectetur adipisicing elit. Maxime reprehenderit quaerat, velit rem atque vel impedit!  Expensive Design.</a></li>
-                                                        <li><a href="#">Consectetur adipisicing elit. Maxime reprehenderit quaerat</a></li>
-                                                        <li><a href="#">Fuga magni veritatis ad temporibus atque adipisci nisi rerum...</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingThree">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                    What is the best way to get my blog title noticed?
-                                                </button>
-                                            </h2>
-                                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <p>
-                                                        Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam. Donec a nibh in libero maximus vehicula. Etiam sit amet condimentum erat. Pellentesque ultrices sagittis turpis, quis tempus ante viverra et.Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div wire:ignore class="tab-pane fade show @if($this->tab === 'lot-info') active @endif wow fadeInUp"  data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            @include('livewire.components.lot-info-accordion', ['lot' => $lot])
                         </div>
-                        {{--<div class="tab-pane fade" id="pills-bid" role="tabpanel" aria-labelledby="pills-bid-tab">
+                        <div class="tab-pane fade show @if($this->tab === 'lot-steps') active @endif wow fadeInUp" id="pills-bid" role="tabpanel" aria-labelledby="pills-bid-tab">
                             @include('livewire.components.lot-step-list', ['lot' => $lot])
-                        </div>--}}
+                        </div>
                     </div>
                 </div>
             </div>

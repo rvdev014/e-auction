@@ -95,7 +95,6 @@ class TransportResource extends Resource
                         return $value->toArray();
                     })
                     ->storeFiles(false)
-                    ->image()
                     ->columnSpanFull(),
                 Forms\Components\Select::make('categories')
                     ->label('Категориялар')

@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Model $lotable
+ * @property Transport|Model $lotable
  * @property User[] $users
  * @property LotStep $latestStep
  * @property LotStep[] $steps

@@ -1,7 +1,7 @@
 <div class="inner-banner">
     <div class="container">
         <h2 class="inner-banner-title  wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".4s">
-            Аукцион тафсилотлари
+            {{ $title }}
         </h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
