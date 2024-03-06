@@ -2,17 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Models\User;
+use Filament\Forms;
+use Filament\Tables;
+use Filament\Forms\Form;
+use App\Models\Category;
+use Filament\Tables\Table;
+use App\Enums\CategoryType;
+use Filament\Resources\Resource;
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoryResource extends Resource
 {
@@ -29,16 +27,15 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('parent_id')
-                    ->numeric(),
+                Forms\Components\Select::make('parent_id')
+                    ->options(Category::pluck('title', 'id')->toArray())
+                    ->nullable(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('type')
-                    // casts to CategoryType
-                    ->enum(Category::class)
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('type')
+                    ->options(CategoryType::labels())
+                    ->required(),
             ]);
     }
 

@@ -7,7 +7,6 @@ use Filament\Forms;
 use Filament\Tables;
 use App\Enums\LotType;
 use Filament\Forms\Form;
-use App\Enums\LotStatus;
 use App\Models\Transport;
 use Filament\Tables\Table;
 use App\Enums\ProductType;
@@ -23,7 +22,7 @@ class LotResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['title'];
+        return ['lotable.name'];
     }
 
     public static function form(Form $form): Form
