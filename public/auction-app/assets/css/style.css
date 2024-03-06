@@ -47,8 +47,10 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-  font-family: "Saira", sans-serif;
+h6,
+p,
+span {
+  font-family: "Saira", "Inter", sans-serif;
 }
 
 body {
@@ -3208,7 +3210,8 @@ header.style-3 .mobile-menu-form input[type=text] {
 }
 
 .auction-card1 .auction-img img {
-  width: 100%;
+  width: auto;
+  height: 195px;
   border-radius: 5px 5px 0px 0px;
   transition: all 0.65s ease;
 }
@@ -7114,6 +7117,7 @@ live-auction Page
 =================================================*/
 .auction-details-section {
   position: relative;
+  padding: 50px 0;
 }
 
 .auction-details-section .section-bg-top {
@@ -7171,7 +7175,7 @@ live-auction Page
 }
 
 .product-details-right .bid-form {
-  margin-top: 40px;
+  margin-top: 20px;
   box-shadow: 5px 2px 30px rgba(0, 0, 0, 0.06);
   border-radius: 5px;
   background: #fff;
@@ -7180,7 +7184,6 @@ live-auction Page
 
 .product-details-right .bid-form .form-title {
   padding-bottom: 3px;
-  margin-bottom: 20px;
 }
 
 .product-details-right .bid-form .form-title h5 {
@@ -7222,7 +7225,7 @@ live-auction Page
 .product-details-right .bid-form .form-inner {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .product-details-right .bid-form .form-inner input[type="text"] {
@@ -7243,7 +7246,8 @@ live-auction Page
   border: 1px solid #32c36c;
 }
 
-.product-details-right .bid-form .form-inner button {
+.product-details-right .bid-form button,
+.product-details-right .bid-form a {
   outline: none;
   border: none;
   padding: 10px 35px;
@@ -7336,7 +7340,9 @@ live-auction Page
 }
 
 .bid-list {
-  padding-left: 0;
+  min-height: 150px;
+  padding: 10px 20px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.06);
 }
 
 .bid-list li {
@@ -7346,7 +7352,7 @@ live-auction Page
 
 .bid-list li:last-child {
   border-bottom: unset;
-  padding-bottom: 0px;
+  /*padding-bottom: 0px;*/
 }
 
 .bid-list .bidder-area {
@@ -7358,6 +7364,12 @@ live-auction Page
 
 .bid-list .bidder-area .bidder-img {
   margin-right: 25px;
+}
+
+.bid-list .bidder-area .bidder-img img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 @media (max-width: 767px) {
@@ -7391,12 +7403,16 @@ live-auction Page
 }
 
 .bid-list-area {
-  max-height: 350px;
-  overflow-y: auto;
+  padding: 25px;
   background: #FFFFFF;
   box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.06);
   border-radius: 0px 0px 5px 5px;
-  padding: 0px 20px;
+}
+
+.bid-list-area .bid-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1F2230;
 }
 
 .bid-list-area::-webkit-scrollbar {
@@ -7963,7 +7979,7 @@ live-auction Page
   width: 100%;
   min-width: 0px;
   color: #696969;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   color: #696969;
   font-family: "Saira", sans-serif;
@@ -8820,3 +8836,122 @@ live-auction Page
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.lot-item-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.lot-item-row {
+
+}
+
+.lot-item-block {
+    margin-bottom: 20px;
+}
+
+.lot-item-block p {
+    margin-bottom: 10px!important;
+}
+
+.lot-block-title {
+    font-size: 18px!important;
+    font-weight: bold!important;
+    font-family: "Saira", sans-serif;
+}
+
+.lot-item-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0!important;
+}
+
+.lot-item-text {
+    font-size: 16px;
+}
+
+button[disabled] {
+    background-color: #32c36c;
+    color: white;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+
+.current-lots {
+    box-shadow: 5px 2px 30px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 40px;
+}
+
+.current-lots h3 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #1F2230;
+    margin-bottom: 5px;
+}
+
+.lot-step-input {
+    flex-grow: 1;
+}
+
+.error {
+    margin-top: 10px;
+    color: red;
+}
+
+
+.bid-step-header {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.current-lots-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.current-lots-list {
+    width: 100%;
+    display: grid;
+    /*grid-template-columns: repeat(2, 1fr);*/
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.lot-documents-list {
+    display: flex;
+    gap: 20px;
+}
+
+.lot-document {
+    width: 100px;
+    height: 130px;
+    position: relative;
+}
+
+.lot-document-name {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+}
+
+.lot-document-name p {
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    margin: 0;
+}

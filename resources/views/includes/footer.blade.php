@@ -4,7 +4,7 @@
             <div class="row gy-5">
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-item">
-                        <a href="index.html"><img alt="image" src="{{ asset('auction/assets/images/bg/footer-logo.png') }}"></a>
+                        <a href="index.html"><img alt="image" src="{{ asset('auction-app/assets/images/bg/footer-logo.png') }}"></a>
                         <p>Lorem ipsum dolor sit amet consecte tur adipisicing elit, sed do eiusmod tempor
                             incididunt ut labore.</p>
                     </div>

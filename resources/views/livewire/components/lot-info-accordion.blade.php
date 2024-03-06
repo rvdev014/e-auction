@@ -89,7 +89,7 @@
                                 <a href="{{ asset('storage/' . $document->file_path) }}"
                                    download="{{ $document->file_name }}">
                                     <div class="lot-document">
-                                        <img src="{{ asset('auction/assets/images/doc.png') }}" alt="document">
+                                        <img src="{{ asset('auction-app/assets/images/doc.png') }}" alt="document">
                                         <div class="lot-document-name">
                                             <p>{{ $document->file_name }}</p>
                                         </div>

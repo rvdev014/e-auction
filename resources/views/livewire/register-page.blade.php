@@ -1,6 +1,6 @@
 <div class="signup-section pt-120 pb-120">
-    <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="section-bg-top">
-    <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="section-bg-bottom">
+    <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="section-bg-top">
+    <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="section-bg-bottom">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-xl-6 col-lg-8 col-md-10">

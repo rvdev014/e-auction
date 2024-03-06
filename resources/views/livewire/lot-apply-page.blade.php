@@ -1,6 +1,6 @@
 <div class="auction-details-section container">
-    <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-top">
-    <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-bottom">
+    <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-top">
+    <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-bottom">
 
     <div class="lot-public-offer">
         <a href="{{ route('lot.details', $lot->id) }}" style="display: block;margin-bottom: 20px">< Орқага</a>

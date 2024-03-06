@@ -2,8 +2,8 @@
     @include('livewire.components.breadcrumb', ['title' => 'Менинг маълумотларим'])
 
     <div class="dashboard-section pt-120 pb-120">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-top">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-bottom">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-top">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-bottom">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-3">

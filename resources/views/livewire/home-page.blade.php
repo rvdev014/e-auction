@@ -33,10 +33,10 @@ use App\Enums\LotStatus;
     </div>
 
     <div class="live-auction pt-80 pb-120">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg">
         <div class="container position-relative">
-            <img alt="image" src="{{ asset('auction/assets/images/bg/dotted1.png') }}" class="dotted1">
-            <img alt="image" src="{{ asset('auction/assets/images/bg/dotted1.png') }}" class="dotted2">
+            <img alt="image" src="{{ asset('auction-app/assets/images/bg/dotted1.png') }}" class="dotted1">
+            <img alt="image" src="{{ asset('auction-app/assets/images/bg/dotted1.png') }}" class="dotted2">
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
                     <div class="section-title1">
@@ -62,7 +62,7 @@ use App\Enums\LotStatus;
     </div>
 
     {{--<div class="upcoming-seciton pb-120">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg">
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
@@ -80,7 +80,7 @@ use App\Enums\LotStatus;
                             <div class="eg-card c-feature-card1 wow animate fadeInDown" data-wow-duration="1.5s"
                                  data-wow-delay="0.2s">
                                 <div class="auction-img">
-                                    <img alt="image" src="{{ asset('auction/assets/images/bg/umcoming1.png') }}">
+                                    <img alt="image" src="{{ asset('auction-app/assets/images/bg/umcoming1.png') }}">
                                     <div class="auction-timer2 gap-lg-3 gap-md-2 gap-1" id="timer7">
                                         <div class="countdown-single">
                                             <h5 id="days7">7</h5>
@@ -105,7 +105,7 @@ use App\Enums\LotStatus;
                                         </div>
                                         <div class="author-emo">
                                             <img alt="image"
-                                                 src="{{ asset('auction/assets/images/bg/upcoming-author1.png') }}">
+                                                 src="{{ asset('auction-app/assets/images/bg/upcoming-author1.png') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@ use App\Enums\LotStatus;
                             <div class="eg-card c-feature-card1 wow animate fadeInDown" data-wow-duration="1.5s"
                                  data-wow-delay="0.4s">
                                 <div class="auction-img">
-                                    <img alt="image" src="{{ asset('auction/assets/images/bg/umcoming2.png') }}">
+                                    <img alt="image" src="{{ asset('auction-app/assets/images/bg/umcoming2.png') }}">
                                     <div class="auction-timer2 gap-lg-3 gap-md-2 gap-1" id="timer8">
                                         <div class="countdown-single">
                                             <h5 id="days8">7</h5>
@@ -166,7 +166,7 @@ use App\Enums\LotStatus;
                                         </div>
                                         <div class="author-emo">
                                             <img alt="image"
-                                                 src="{{ asset('auction/assets/images/bg/upcoming-author2.png') }}">
+                                                 src="{{ asset('auction-app/assets/images/bg/upcoming-author2.png') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@ use App\Enums\LotStatus;
                             <div class="eg-card c-feature-card1 wow animate fadeInDown" data-wow-duration="1.5s"
                                  data-wow-delay="0.6s">
                                 <div class="auction-img">
-                                    <img alt="image" src="{{ asset('auction/assets/images/bg/umcoming3.png') }}">
+                                    <img alt="image" src="{{ asset('auction-app/assets/images/bg/umcoming3.png') }}">
                                     <div class="auction-timer2 gap-lg-3 gap-md-2 gap-1" id="timer9">
                                         <div class="countdown-single">
                                             <h5 id="days9">7</h5>
@@ -227,7 +227,7 @@ use App\Enums\LotStatus;
                                         </div>
                                         <div class="author-emo">
                                             <img alt="image"
-                                                 src="{{ asset('auction/assets/images/bg/upcoming-author3.png') }}">
+                                                 src="{{ asset('auction-app/assets/images/bg/upcoming-author3.png') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -263,7 +263,7 @@ use App\Enums\LotStatus;
                             <div class="eg-card c-feature-card1 wow animate fadeInDown" data-wow-duration="1.5s"
                                  data-wow-delay=".8s">
                                 <div class="auction-img">
-                                    <img alt="image" src="{{ asset('auction/assets/images/bg/umcoming4.png') }}">
+                                    <img alt="image" src="{{ asset('auction-app/assets/images/bg/umcoming4.png') }}">
                                     <div class="auction-timer2 gap-lg-3 gap-md-2 gap-1" id="timer10">
                                         <div class="countdown-single">
                                             <h5 id="days10">7</h5>
@@ -288,7 +288,7 @@ use App\Enums\LotStatus;
                                         </div>
                                         <div class="author-emo">
                                             <img alt="image"
-                                                 src="{{ asset('auction/assets/images/bg/upcoming-author1.png') }}">
+                                                 src="{{ asset('auction-app/assets/images/bg/upcoming-author1.png') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -339,11 +339,11 @@ use App\Enums\LotStatus;
     </div>--}}
 
     <div class="testimonial-section pt-80 pb-80">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/client-right.png') }}" class="client-right-vector">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/client-left.png') }}" class="client-left-vector">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/clent-circle1.png') }}" class="client-circle1">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/clent-circle2.png') }}" class="client-circle2">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/clent-circle3.png') }}" class="client-circle3">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/client-right.png') }}" class="client-right-vector">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/client-left.png') }}" class="client-left-vector">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/clent-circle1.png') }}" class="client-circle1">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/clent-circle2.png') }}" class="client-circle2">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/clent-circle3.png') }}" class="client-circle3">
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
@@ -361,10 +361,10 @@ use App\Enums\LotStatus;
                         <div class="swiper-slide">
                             <div class="testimonial-single hover-border1 wow fadeInDown" data-wow-duration="1.5s"
                                  data-wow-delay=".2s">
-                                <img alt="image" src="{{ asset('auction/assets/images/icons/quote-green.svg') }}"
+                                <img alt="image" src="{{ asset('auction-app/assets/images/icons/quote-green.svg') }}"
                                      class="quote-icon">
                                 <div class="testi-img">
-                                    <img alt="image" src="{{ asset('auction/assets/images/bg/testi1.png') }}">
+                                    <img alt="image" src="{{ asset('auction-app/assets/images/bg/testi1.png') }}">
                                 </div>
                                 <div class="testi-content">
                                     <p class="para">The Pacific Grove Chamber of Commerce would like to thank eLab
@@ -380,10 +380,10 @@ use App\Enums\LotStatus;
                         <div class="swiper-slide">
                             <div class="testimonial-single hover-border1 wow fadeInDown" data-wow-duration="1.5s"
                                  data-wow-delay=".4s">
-                                <img alt="image" src="{{ asset('auction/assets/images/icons/quote-green.svg') }}"
+                                <img alt="image" src="{{ asset('auction-app/assets/images/icons/quote-green.svg') }}"
                                      class="quote-icon">
                                 <div class="testi-img">
-                                    <img alt="image" src="{{ asset('auction/assets/images/bg/testi2.png') }}">
+                                    <img alt="image" src="{{ asset('auction-app/assets/images/bg/testi2.png') }}">
                                 </div>
                                 <div class="testi-content">
                                     <p class="para">Nullam cursus tempor ex. Nullam nec dui id metus consequat congue ac
@@ -399,10 +399,10 @@ use App\Enums\LotStatus;
                         <div class="swiper-slide">
                             <div class="testimonial-single hover-border1 wow fadeInDown" data-wow-duration="1.5s"
                                  data-wow-delay=".4s">
-                                <img alt="image" src="{{ asset('auction/assets/images/icons/quote-green.svg') }}"
+                                <img alt="image" src="{{ asset('auction-app/assets/images/icons/quote-green.svg') }}"
                                      class="quote-icon">
                                 <div class="testi-img">
-                                    <img alt="image" src="{{ asset('auction/assets/images/bg/testi3.png') }}">
+                                    <img alt="image" src="{{ asset('auction-app/assets/images/bg/testi3.png') }}">
                                 </div>
                                 <div class="testi-content">
                                     <p class="para">Maecenas vitae porttitor neque, ac porttitor nunc. Duis venenatis
@@ -444,61 +444,61 @@ use App\Enums\LotStatus;
                 <div class="slick-wrapper wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="0.2s">
                     <div id="slick1">
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor1.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor1.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor2.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor2.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor3.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor3.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor4.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor4.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor5.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor5.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor6.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor6.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor7.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor7.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor8.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor8.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor9.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor9.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor1.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor1.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor3.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor3.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor5.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor5.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor8.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor8.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor6.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor6.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor7.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor7.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor8.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor8.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor1.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor1.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor2.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor2.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor9.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor9.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor8.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor8.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor9.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor9.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor1.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor1.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor3.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor3.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor5.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor5.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor8.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor8.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor6.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor6.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor7.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor7.png') }}"></div>
                         <div class="slide-item"><img alt="image"
-                                                     src="{{ asset('auction/assets/images/bg/sponsor8.png') }}"></div>
+                                                     src="{{ asset('auction-app/assets/images/bg/sponsor8.png') }}"></div>
                     </div>
                 </div>
             </div>

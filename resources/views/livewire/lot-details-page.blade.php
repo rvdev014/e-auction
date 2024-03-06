@@ -13,8 +13,8 @@
     @include('livewire.components.breadcrumb', ['title' => 'Аукцион сахифаси'])
 
     <div class="auction-details-section">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-top">
-        <img alt="image" src="{{ asset('auction/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-bottom">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-top">
+        <img alt="image" src="{{ asset('auction-app/assets/images/bg/section-bg.png') }}" class="img-fluid section-bg-bottom">
         <div class="container">
             <div class="row g-4 mb-50">
                 <div
@@ -49,14 +49,14 @@
                             <div class="auction-gallery-timer d-flex align-items-center justify-content-center">
                                 <h3 id="countdown-timer-2">&nbsp;</h3>
                             </div>
-                            <img alt="image" src="{{ asset('auction/assets/images/bg/prod-gallery2.png') }}"
+                            <img alt="image" src="{{ asset('auction-app/assets/images/bg/prod-gallery2.png') }}"
                                  class="img-fluid">
                         </div>
                         <div class="tab-pane big-image fade" id="gallery-img3">
                             <div class="auction-gallery-timer d-flex align-items-center justify-content-center">
                                 <h3 id="countdown-timer-3">&nbsp;</h3>
                             </div>
-                            <img alt="image" src="{{ asset('auction/assets/images/bg/prod-gallery3.png') }}"
+                            <img alt="image" src="{{ asset('auction-app/assets/images/bg/prod-gallery3.png') }}"
                                  class="img-fluid">
                         </div>
                     </div>

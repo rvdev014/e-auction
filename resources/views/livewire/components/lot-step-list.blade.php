@@ -29,7 +29,7 @@
                     <div class="col-7">
                         <div class="bidder-area">
                             <div class="bidder-img">
-                                <img alt="image" src="{{ asset('auction/assets/images/empty-avatar.png') }}"/>
+                                <img alt="image" src="{{ asset('auction-app/assets/images/empty-avatar.png') }}"/>
                             </div>
                             <div class="bidder-content">
                                 <h6>{{ $step->user->name }}</h6>

@@ -11,7 +11,7 @@ jQuery(window).on('load',function(){
 // wow animate
 setTimeout(myGreeting, 1800);
 function myGreeting() {
-  var wow = new WOW(
+  /*var wow = new WOW(
     {
       boxClass:     'wow',      // animated element css class (default is wow)
       animateClass: 'animated', // animation css class (default is animated)
@@ -26,15 +26,15 @@ function myGreeting() {
       resetAnimation: true,     // reset animation on end (default is true)
     }
   );
-  wow.init();
+  wow.init();*/
 }
 
 // sticky header
 
-window.addEventListener('scroll',function(){
+/*window.addEventListener('scroll',function(){
   const header = document.querySelector('header.style-1, header.style-2, header.style-3');
   header.classList.toggle("sticky",window.scrollY > 0);
-});
+});*/
 
 // mobile-search-area
 

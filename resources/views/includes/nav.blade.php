@@ -2,14 +2,14 @@
 <header class="header-area style-1">
     <div class="header-logo">
         <a href="{{ route('home') }}" wire:navigate>
-            <img alt="image" src="{{ asset('auction/assets/images/bg/header-logo.png') }}"/>
+            <img alt="image" src="{{ asset('auction-app/assets/images/bg/header-logo.png') }}"/>
         </a>
     </div>
     <div class="main-menu">
         <div class="mobile-logo-area d-lg-none d-flex justify-content-between align-items-center">
             <div class="mobile-logo-wrap ">
                 <a href="{{ route('home') }}" wire:navigate>
-                    <img alt="image" src="{{ asset('auction/assets/images/bg/header-logo.png') }}"/>
+                    <img alt="image" src="{{ asset('auction-app/assets/images/bg/header-logo.png') }}"/>
                 </a>
             </div>
             <div class="menu-close-btn">
