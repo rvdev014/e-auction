@@ -29,12 +29,14 @@ class CategoryResource extends Resource
             ->schema([
                 Forms\Components\Select::make('parent_id')
                     ->options(Category::pluck('title', 'id')->toArray())
+                    ->native(false)
                     ->nullable(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
                     ->options(CategoryType::labels())
+                    ->native(false)
                     ->required(),
             ]);
     }

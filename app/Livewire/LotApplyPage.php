@@ -22,13 +22,13 @@ class LotApplyPage extends Component
     public function onApply(): void
     {
         if (!$this->isApproved) {
-            $this->addError('isApproved', 'Approve public offer');
+            $this->addError('isApproved', 'Оммавий офертани кабул килишингиз керак');
             return;
         }
 
         try {
             $this->lotService->applyLot($this->lot);
-            session()->flash('success', 'You have successfully applied for the lot');
+            session()->flash('success', 'Лотга аризангиз кабул килинди');
             $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
         } catch (Throwable $e) {
             $this->addError('isApproved', $e->getMessage());

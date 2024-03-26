@@ -25,6 +25,7 @@ class UserUpdateRequestResource extends Resource
             ->schema([
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
+                    ->native(false)
                     ->required(),
                 Forms\Components\TextInput::make('data')
                     ->required(),

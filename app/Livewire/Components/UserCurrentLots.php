@@ -14,16 +14,9 @@ class UserCurrentLots extends Component
     {
         /** @var User $user */
         $user = auth()->user();
-        $lots = Lot::query()
-            ->with([
-                'latestStep' => fn ($query) => $query->where('user_id', $user->id),
-            ])
-            ->whereHas('steps', fn (Builder $query) => $query->where('user_id', $user->id))
-            ->get();
-
 
         return view('livewire.components.user-current-lots', [
-            'lots' => $lots,
+            'lots' => $user->lots,
         ]);
     }
 }

@@ -1,29 +1,22 @@
 @php
     /** @var App\Models\Lot $lot */
-    $isLotStarted = $lot->starts_at < now() && $lot->ends_at > now();
 @endphp
 
-<div class="bid-list-area" @if($isLotStarted) wire:poll.visible.5s @endif>
+<div class="bid-list-area" @if($lot->isStarted()) wire:poll.visible.5s @endif>
     <div class="bid-step-header">
         <h3 class="bid-title">Ставкалар тарихи</h3>
-        @if($isLotStarted)
+        @if($lot->isStarted())
             <button class="eg-btn btn--primary btn--sm" wire:click="$refresh">Йангилаш</button>
         @endif
     </div>
 
     <ul class="bid-list">
-        @if ($lot->activeSteps->isEmpty())
-            <div class="row d-flex align-items-center">
-                <div class="col-12">
-                    <div class="bidder-area">
-                        <div class="bidder-content">
-                            <h6>Ставкалар мавжуд эмас</h6>
-                        </div>
-                    </div>
-                </div>
+        @if ($lot->steps->isEmpty())
+            <div class="alert alert-warning">
+                Ставкалар мавжуд эмас
             </div>
         @endif
-        @foreach($lot->activeSteps as $step)
+        @foreach($lot->steps as $step)
             <li>
                 <div class="row d-flex align-items-center">
                     <div class="col-7">
@@ -32,7 +25,12 @@
                                 <img alt="image" src="{{ asset('auction-app/assets/images/empty-avatar.png') }}"/>
                             </div>
                             <div class="bidder-content">
-                                <h6>{{ $step->user->name }}</h6>
+                                <h6 style="margin-bottom: 0">
+                                    {{ $step->lotUser->user->name }} (#{{ $step->lotUser->user->lots_member_number }})
+                                    @if ($step->lotUser->is_winner)
+                                        <span class="badge bg-success">Голиб</span>
+                                    @endif
+                                </h6>
                                 <p>{{ $step->price }} сўм</p>
                             </div>
                         </div>

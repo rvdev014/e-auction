@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Services\LotService;
+use App\Services\PaymentService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +14,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule
+            ->call(function() {
+                app(LotService::class)->startActiveLots();
+                app(LotService::class)->endLots();
+                app(PaymentService::class)->checkUserPayments();
+            })
+            ->everyMinute()
+            ->onSuccess(function() {
+                echo 'The task was successful';
+            })
+            ->onFailure(function() {
+                echo 'The task failed';
+            });
     }
 
     /**
@@ -20,7 +34,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

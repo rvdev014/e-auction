@@ -5,7 +5,10 @@ namespace App\Livewire;
 use Throwable;
 use App\Models\Lot;
 use Livewire\Component;
+use App\Models\LotUser;
+use App\Enums\LotStatus;
 use Livewire\Attributes\On;
+use App\Models\LotUserStep;
 use App\Services\LotService;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Rule;
@@ -42,8 +45,8 @@ class LotDetailsPage extends Component
         try {
             $this->validateOnly('step');
 
-            if (!$this->lotService->isLotActive($this->lot)) {
-                session()->flash('error', 'Аукцион тугади');
+            if (!$this->lot->isStarted()) {
+                session()->flash('error', 'Аукцион бошланмаган ёки тугаган');
                 $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
                 return;
             }
@@ -53,13 +56,12 @@ class LotDetailsPage extends Component
                 return;
             }
 
-            $this->lot->steps()->updateOrCreate([
-                'user_id' => auth()->id(),
-                'price' => null,
-            ], ['price' => $this->step]);
+            /** @var LotUser $lotUser */
+            $lotUser = $this->lot->lotUsers()->where('user_id', auth()->id())->first();
+            $lotUser->steps()->create(['price' => $this->step]);
 
-            $this->dispatch('lot_step', $this->lot->id);
             $this->reset('step');
+            $this->tab = 'lot-step';
         } catch (Throwable $e) {
             $this->addError('step', $e->getMessage());
         }
@@ -68,6 +70,21 @@ class LotDetailsPage extends Component
     #[On('lot_started')]
     public function lotStarted(): void
     {
+        try {
+            $this->lotService->startLot($this->lot);
+            session()->flash('success', 'Аукцион бошланди');
+            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
+        } catch (Throwable $e) {
+            session()->flash('error', $e->getMessage());
+            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
+        }
+
+        if (!$this->lot->isActive()) {
+            session()->flash('error', 'Аукцион бошланмади. Иштирокчилар йетарли эмас');
+            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
+            return;
+        }
+
         session()->flash('success', 'Аукцион бошланди');
         $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
     }
@@ -75,8 +92,14 @@ class LotDetailsPage extends Component
     #[On('lot_ended')]
     public function lotEnded(): void
     {
-        session()->flash('success', 'Аукцион тугади');
-        $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
+        try {
+            $this->lotService->endLot($this->lot);
+            session()->flash('success', 'Аукцион тугади');
+            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
+        } catch (Throwable $e) {
+            session()->flash('error', $e->getMessage());
+            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
+        }
     }
 
     #[Computed('maxPrice')]

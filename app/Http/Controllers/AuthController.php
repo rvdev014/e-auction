@@ -31,7 +31,7 @@ class AuthController extends Controller
         try {
             $user = $this->authService->register($request->all());
             Auth::login($user);
-            return redirect()->route('verify-phone')->with('success', 'Сизнинг аккаунтингиз муваффақиятли яратилди');
+            return redirect()->route('verify-phone')->with('success', 'Рўйхатдан ўтиш учун телефон рақамингизни тасдиқланг');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -51,6 +51,7 @@ class AuthController extends Controller
         }
 
         $user->markPhoneAsVerified();
+
         return redirect()->route(RouteServiceProvider::HOME)->with('success', 'Сизнинг телефон рақамингиз муваффақиятли тасдиқланди');
     }
 
@@ -58,8 +59,13 @@ class AuthController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
-        $user->sendPhoneVerificationNotification();
-        return back()->with('success', 'Верификация коди жўнатилди');
+        try {
+            $user->sendPhoneVerificationNotification();
+            return back()->with('success', 'Верификация коди жўнатилди');
+        } catch (Exception $e) {
+            logger()->error($e);
+            return back()->with('error', 'Верификация коди жўнатишда хатолик юз берди');
+        }
     }
 
     public function logout(): RedirectResponse

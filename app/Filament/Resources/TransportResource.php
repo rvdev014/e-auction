@@ -98,6 +98,7 @@ class TransportResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Select::make('categories')
                     ->label('Категориялар')
+                    ->native(false)
                     ->multiple()
                     ->preload()
                     ->relationship('categories', 'title')

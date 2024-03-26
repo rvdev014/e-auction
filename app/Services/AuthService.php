@@ -3,19 +3,15 @@
 namespace App\Services;
 
 use Exception;
+use Throwable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Twilio\Exceptions\TwilioException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class AuthService
 {
-    public function __construct(
-        private readonly SmsService $smsService
-    ) {}
-
     /**
      * @throws Exception
      */
@@ -33,7 +29,11 @@ class AuthService
             'password' => Hash::make($password),
         ]);
 
-        $user->sendPhoneVerificationNotification();
+        try {
+            $user->sendPhoneVerificationNotification();
+        } catch (Throwable $e) {
+            logger()->error($e);
+        }
 
         return $user;
     }
@@ -51,6 +51,15 @@ class AuthService
         }
 
         return Auth::user();
+    }
+
+    public function verify(User $user): void
+    {
+        $user->markPhoneAsVerified();
+        $user->messages()->create([
+            'title' => 'Телефон рақам тасдиқланди',
+            'body' => 'Сизнинг телефон рақамингиз муваффақиятли тасдиқланди',
+        ]);
     }
 
 }

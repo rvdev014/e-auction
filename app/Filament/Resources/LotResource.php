@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use App\Models\Transport;
 use Filament\Tables\Table;
 use App\Enums\ProductType;
+use App\Enums\LotPaymentStatus;
 use Filament\Resources\Resource;
 use App\Filament\Resources\LotResource\Pages;
 use App\Filament\Resources\LotResource\RelationManagers;
@@ -31,6 +32,7 @@ class LotResource extends Resource
             ->schema([
                 Forms\Components\Select::make('lotable_type')
                     ->label('Товар тури')
+                    ->native(false)
                     ->options(ProductType::labels())
                     ->afterStateUpdated(function($state, callable $get, callable $set) {
                         $set('lotable_id', null);
@@ -39,6 +41,7 @@ class LotResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('lotable_id')
                     ->label('Товар')
+                    ->native(false)
                     ->options(function(callable $get, callable $set) {
                         $lotableType = $get('lotable_type');
                         return match ($lotableType) {
@@ -66,9 +69,15 @@ class LotResource extends Resource
                     ->numeric(),
                 Forms\Components\Select::make('type')
                     ->label('Аукцион тури')
+                    ->native(false)
                     ->options(LotType::labels())
                     ->default(LotType::OnIncrease->value)
                     ->required(),
+                Forms\Components\Select::make('payment_status')
+                    ->label('Тўлов холати')
+                    ->native(false)
+                    ->options(LotPaymentStatus::labels())
+                    ->default(LotPaymentStatus::NotPaid->value),
                 Forms\Components\TextInput::make('step_amount')
                     ->label('Қадам фоизда')
                     ->required()
@@ -89,6 +98,9 @@ class LotResource extends Resource
                     ->view('tables.columns.lot-status-column')
                     ->width('300px')
                     ->label('Лот холати'),
+                Tables\Columns\TextColumn::make('payment_status')
+                    ->label('Тўлов холати')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('lotable_id')
                     ->label('Товар')
                     ->formatStateUsing(fn($record) => $record->lotable?->name),

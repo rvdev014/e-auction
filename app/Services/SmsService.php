@@ -2,39 +2,49 @@
 
 namespace App\Services;
 
-use Twilio\Rest\Client;
-use Twilio\Exceptions\TwilioException;
-use Twilio\Exceptions\ConfigurationException;
-use Twilio\Rest\Api\V2010\Account\MessageInstance;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Exception\GuzzleException;
 
 class SmsService
 {
     private Client $client;
-    private string $fromNumber;
 
-    /**
-     * @throws ConfigurationException
-     */
     public function __construct()
     {
-        $this->client = new Client(
-            config('app.twilio.account_sid'),
-            config('app.twilio.auth_token')
-        );
-        $this->fromNumber = config('app.twilio.from');
+        $this->client = new Client([
+            'base_uri' => config('app.sms.api.url'),
+            'auth' => [config('app.sms.api.username'), config('app.sms.api.password')],
+        ]);
     }
 
     /**
-     * @throws TwilioException
+     * @throws GuzzleException
      */
-    public function sendSms(string $phone, string $body): MessageInstance
+    public function sendSms(string $phone, string $body)
     {
-        return $this->client->messages->create(
-            "+$phone",
-            [
-                'from' => $this->fromNumber,
-                'body' => $body,
+        if (config('app.env') === 'local') {
+            Log::channel('sms')->info('SMS sent to ' . $phone . ' with body: ' . $body);
+            return ['status' => 'success'];
+        }
+
+        $response = $this->client->post('send', [
+            'json' => [
+                'messages' => [
+                    [
+                        'recipient' => $phone,
+                        'message-id' => 'abc000000001',
+                        'sms' => [
+                            'originator' => '3700',
+                            'content' => [
+                                'text' => $body
+                            ]
+                        ]
+                    ]
+                ]
             ]
-        );
+        ]);
+
+        return json_decode($response->getBody()->getContents(), true);
     }
 }

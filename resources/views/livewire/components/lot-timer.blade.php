@@ -1,3 +1,7 @@
+@php
+/** @var App\Models\Lot $lot */
+@endphp
+
 {{--    TIMER   --}}
 @if($lot->starts_at > now())
     <div class="bid-form" wire:ignore>
@@ -6,7 +10,7 @@
             <p>Аукцион бошлагунча: <span id="start_time" class="lot-timer">---</span></p>
         </div>
     </div>
-@elseif(!$lot->is_cancelled && $lot->ends_at > now())
+@elseif($lot->isStarted())
     <div class="bid-form" wire:ignore>
         <div class="form-title">
             <h5>Аукцион бошланган</h5>

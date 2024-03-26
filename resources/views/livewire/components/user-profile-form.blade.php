@@ -9,7 +9,10 @@
         </div>
 
         <div class="form-wrapper">
-            <form method="post" wire:submit.prevent="onSubmit(Object.fromEntries(new FormData($event.target)))">
+            <form
+                method="post"
+                wire:submit.prevent="onSubmit(Object.fromEntries(new FormData($event.target)))"
+            >
                 <div class="row">
                     <div class="col-xl-6 col-lg-12 col-md-6">
                         <div class="form-inner">
@@ -31,7 +34,7 @@
                                 type="text"
                                 placeholder="Телефон рақам"
                                 value="{{ $user->phone }}"
-                                disabled
+                                readonly
                             />
                         </div>
                     </div>
@@ -40,10 +43,10 @@
                             <label for="lots_member_number">Аукционда қатнашиш учун фишка рақами:</label>
                             <input
                                 id="lots_member_number"
-                                name="lots_member_number"
                                 type="text"
                                 value="{{ $user->lots_member_number }}"
                                 placeholder="Аукционда қатнашиш учун фишка рақами"
+                                readonly
                             />
                         </div>
                     </div>
@@ -65,7 +68,7 @@
                             <input
                                 id="birth_date"
                                 name="birth_date"
-                                type="text"
+                                type="date"
                                 value="{{ $user->birth_date }}"
                                 placeholder="Туғилган кун"
                             />
@@ -128,7 +131,7 @@
                             <input
                                 id="passport_date"
                                 name="passport_date"
-                                type="text"
+                                type="date"
                                 value="{{ $user->passport_date }}"
                                 placeholder="01.01.2024"
                             />
@@ -163,10 +166,11 @@
                             <label for="email">Электрон почта:</label>
                             <input
                                 id="email"
-                                name="email"
+{{--                                name="email"--}}
                                 type="text"
                                 value="{{ $user->email }}"
                                 placeholder="Электрон почта"
+                                readonly
                             />
                         </div>
                     </div>
@@ -182,9 +186,45 @@
                             />
                         </div>
                     </div>
+                    <div class="col-xl-6 col-lg-12 col-md-6">
+                        <div class="form-inner">
+                            <label for="type">Жисмоний/Юридик шахс: <sup style="color: red">*</sup></label>
+                            <select id="field_type" name="type" wire:model="type">
+                                <option></option>
+                                <option value="1" @if($user->type == '1') selected @endif>Жисмоний шахс</option>
+                                <option value="2" @if($user->type == '2') selected @endif>Юридик шахс</option>
+                            </select>
+                            @error('type') <span class="error">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-6">
+                        <div class="form-inner">
+                            <label for="type">Файл юклаш: </label>
+                            <input id="files" type="file" wire:model="files" multiple/>
+                            <div wire:loading wire:target="files">Uploading...</div>
+                            @error('files') <span class="error">{{ $message }}</span> @enderror
+                        </div>
+                        @if ($user->attachments->isNotEmpty())
+                            <div class="form-inner">
+                                <label for="type">Юкланган файллар: </label>
+                                <ul>
+                                    @foreach($user->attachments as $file)
+                                        <li>
+                                            <a href="{{ $file->file_path }}" target="_blank">{{ $file->file_name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
-                <button type="submit" class="eg-btn btn--primary">Сақлаш</button>
+                <button
+                    type="submit"
+                    class="eg-btn btn--primary"
+                    wire:loading.attr="disabled"
+                    wire:target="files"
+                >Сақлаш</button>
             </form>
         </div>
     </div>
@@ -198,6 +238,11 @@
         setTimeout(() => {
             $(districtSelect).niceSelect();
         }, 100);
+    });
+
+    $(document).on('change', '#field_type', function (e) {
+        console.log('e.target.value', e.target.value)
+        $wire.set('type', e.target.value);
     });
 
     $(document).on('change', '#region_id', function (e) {

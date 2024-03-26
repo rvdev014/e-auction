@@ -25,6 +25,7 @@ class DistrictResource extends Resource
             ->schema([
                 Forms\Components\Select::make('region_id')
                     ->relationship('region', 'name')
+                    ->native(false)
                     ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()

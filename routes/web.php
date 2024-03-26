@@ -1,12 +1,12 @@
 <?php
 
 use App\Enums\LotStatus;
-use App\Livewire\LotListPage;
 use App\Livewire\HomePage;
 use App\Livewire\LoginPage;
+use App\Livewire\LotListPage;
 use App\Livewire\LotApplyPage;
-use App\Livewire\LotDetailsPage;
 use App\Livewire\RegisterPage;
+use App\Livewire\LotDetailsPage;
 use App\Livewire\VerifyPhonePage;
 use App\Livewire\UserProfilePage;
 use Illuminate\Support\Facades\Route;
@@ -48,10 +48,18 @@ Route::middleware(['auth', 'verified'])->group(function() {
         ->where('lot', '[0-9]+')
         ->name('lot.details');
 
+    Route::get(
+        'lot-report/{lot}',
+        function($lot) {
+            return view('layouts.lot-report', ['lot' => $lot]);
+        }
+    )
+        ->where('lot', '[0-9]+')
+        ->name('lot.report');
+
     Route::get('lot-apply/{lot}', LotApplyPage::class)
         ->where('lot', '[0-9]+')
         ->name('lot.apply');
 });
-
 
 Route::view('{any}', 'layouts.404')->name('error.404');

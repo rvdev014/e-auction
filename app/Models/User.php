@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Panel;
 use Nette\Utils\Random;
+use App\Services\SmsService;
 use Laravel\Sanctum\HasApiTokens;
 use App\Interfaces\MustVerifyPhone;
 use Illuminate\Notifications\Notifiable;
@@ -12,9 +13,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 
 /**
@@ -29,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $phone_verified_at
  * @property string $is_admin
  * @property string $stir
+ * @property int $type
  * @property int $balance
  * @property int $region_id
  * @property int $district_id
@@ -50,6 +54,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Region $region
  * @property District $district
  * @property Lot[] $lots
+ * @property Message[] $messages
  *
  * @mixin Builder
  */
@@ -70,6 +75,7 @@ class User extends Authenticatable implements MustVerifyPhone, FilamentUser
         'phone_verified_at',
         'is_admin',
         'stir',
+        'type',
         'address',
         'remember_token',
         'verification_code',
@@ -105,6 +111,20 @@ class User extends Authenticatable implements MustVerifyPhone, FilamentUser
         'password' => 'hashed',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function(User $user) {
+            $user->generateLotsMemberNumber();
+        });
+    }
+
+    private function generateLotsMemberNumber(): void
+    {
+        $this->lots_member_number = str_pad($this->id, 10, '0', STR_PAD_LEFT);
+    }
+
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);
@@ -115,21 +135,26 @@ class User extends Authenticatable implements MustVerifyPhone, FilamentUser
         return $this->belongsTo(District::class);
     }
 
-    public function attachments(): HasMany
+    public function attachments(): MorphMany
     {
-        return $this->hasMany(Attachment::class);
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 
     public function lots(): BelongsToMany
     {
-        return $this->belongsToMany(Lot::class, 'lot_steps')
-            ->withPivot(['price'])
+        return $this->belongsToMany(Lot::class, 'lot_users')
+            ->withPivot(['is_winner'])
             ->withTimestamps();
     }
 
-    public function steps(): HasMany
+    public function steps(): HasManyThrough
     {
-        return $this->hasMany(LotStep::class);
+        return $this->hasManyThrough(LotUserStep::class, LotUser::class);
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class)->orderByDesc('created_at');
     }
 
     public function isAdmin(): bool
@@ -165,7 +190,16 @@ class User extends Authenticatable implements MustVerifyPhone, FilamentUser
             'verification_code' => Random::generate(config('app.sms.verification_code.length'), '0-9'),
             'verification_code_expired_at' => now()->addSeconds(config('app.sms.verification_code.expired_in')),
         ])->save();
-        //        $this->notify(new SendVerifySMS);
+
+        $verifyLink = route('verify-phone');
+        app(SmsService::class)->sendSms(
+            $this->phone,
+            <<<TEXT
+Сизнинг телефон рақамингизни тасдиқлаш учун верификация коди: {$this->verification_code}
+
+$verifyLink
+TEXT
+        );
     }
 
     public function canAccessPanel(Panel $panel): bool

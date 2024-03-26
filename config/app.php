@@ -195,6 +195,11 @@ return [
     ],
 
     'sms' => [
+        'api' => [
+            'url' => env('SMS_URL'),
+            'username' => env('SMS_USERNAME'),
+            'password' => env('SMS_PASSWORD'),
+        ],
         'verification_code' => [
             'length' => 6,
             'expired_in' => 5 * 60,

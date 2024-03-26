@@ -6,18 +6,39 @@ use Throwable;
 use App\Models\Region;
 use Livewire\Component;
 use App\Models\District;
+use Illuminate\Http\Request;
+use Livewire\WithFileUploads;
+use Livewire\Attributes\Rule;
 use App\Models\UserUpdateRequest;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use App\Enums\UserUpdateRequestStatus;
 
 class UserProfileForm extends Component
 {
+    use WithFileUploads;
+
     public int|null $region_id = null;
     public int|null $district_id = null;
 
-    public function onSubmit($formData): void
+    #[Rule(['type' => 'required'])]
+    public int|null $type = null;
+
+    #[Rule(['files.*' => 'image'])]
+    public $files;
+
+    public function onSubmit($formData, Request $request): void
     {
+        DB::beginTransaction();
+
         try {
+            $filesPath = [];
+            /** @var UploadedFile $file */
+            foreach ($this->files as $file) {
+                $filesPath[] = $file->store('user-update-requests', 'public');
+            }
+
             UserUpdateRequest::updateOrCreate([
                 'user_id' => auth()->id(),
             ], [
@@ -25,12 +46,17 @@ class UserProfileForm extends Component
                     ...$formData,
                     'region_id' => $this->region_id,
                     'district_id' => $this->district_id,
+                    'type' => $this->type,
+                    'files' => $filesPath
                 ],
                 'status' => UserUpdateRequestStatus::Pending
             ]);
+
+            DB::commit();
             session()->flash('success', 'Маълумотлар озгартириш учун суровнома юборилди');
-            $this->redirectRoute('user.profile', navigate: true);
+            $this->redirectRoute('user.profile');
         } catch (Throwable $th) {
+            DB::rollBack();
             session()->flash('error', 'Хатолик юз берди' . $th->getMessage());
         }
     }

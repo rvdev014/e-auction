@@ -30,7 +30,7 @@ class LotFactory extends Factory
             'starting_price' => $this->faker->numberBetween(1000, 10000),
             'deposit_amount' => $this->faker->numberBetween(10, 50),
             'step_amount' => $this->faker->numberBetween(5, 10),
-            'status' => $this->faker->randomElement(LotStatus::values()),
+            'status' => LotStatus::Active->value,
             'cancel_reason' => $this->faker->optional()->sentence(),
         ];
     }

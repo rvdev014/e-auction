@@ -34,8 +34,6 @@ class UserResource extends Resource
                     ->disabled()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('balance')
-                    ->numeric(),
                 Forms\Components\TextInput::make('stir')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')

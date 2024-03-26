@@ -1,12 +1,6 @@
 @php
     use App\Enums\LotStatus;
-
     /** @var App\Models\Lot $lot */
-    $images = $lot->lotable->mediaAttachments;
-    $isLotActive = !$lot->is_cancelled && $lot->ends_at > now();
-    $isLotStarted = $lot->starts_at < now() && $lot->ends_at > now();
-    $isLotApplied = $this->lot->steps()->where('user_id', auth()->user()->id)->exists();
-    $isLotApplyExpired = $lot->apply_deadline < now();
 @endphp
 
 <div>
@@ -24,7 +18,7 @@
                     <ul class="nav small-image-list d-flex flex-md-column flex-row justify-content-center gap-4  wow fadeInDown"
                         data-wow-duration="1.5s" data-wow-delay=".4s">
 
-                        @foreach($images as $image)
+                        @foreach($lot->lotable->mediaAttachments as $image)
                             <li class="nav-item">
                                 <div id="details-img{{ $loop->index + 4 }}" data-bs-toggle="pill"
                                      data-bs-target="#gallery-img{{ $loop->index + 4 }}"
@@ -97,6 +91,10 @@
                                     <p class="lot-item-text">{{ $lot->type->getLabel() }}</p>
                                 </div>
                                 <div class="lot-item">
+                                    <p class="lot-item-label">Консалтинг хизмат хаққи: </p>
+                                    <p class="lot-item-text">680 000 сўм</p>
+                                </div>
+                                <div class="lot-item">
                                     <p class="lot-item-label">Аукцион холати: </p>
                                     <p class="lot-item-text">
                                         @if($lot->is_cancelled)
@@ -111,12 +109,9 @@
                             </div>
                         </div>
 
-                        @if ($isLotActive)
+                        @if (!$lot->is_cancelled)
                             @include('livewire.components.lot-timer', ['lot' => $lot])
-                        @endif
-
-                        @if ($isLotActive)
-                            @if ($isLotStarted && $isLotApplied)
+                            @if ($lot->isStartedAndApplied())
                                 <div class="bid-form">
                                     <div class="form-title">
                                         <h5>Аукционда иштирок этиш</h5>
@@ -132,19 +127,19 @@
                                         </div>
                                     </form>
                                 </div>
-                            @elseif ($isLotApplyExpired)
+                            @elseif ($lot->isApplyExpired())
                                 <div class="bid-form">
                                     <div class="form-title">
                                         <h5>Ариза қабул қилиш муддати ўтган</h5>
                                     </div>
                                 </div>
-                            @elseif ($isLotApplied)
+                            @elseif ($lot->isApplied())
                                 <div class="bid-form">
                                     <div class="form-title">
                                         <h5>Сиз ушбу лот учун ариза бергансиз</h5>
                                     </div>
                                 </div>
-                            @elseif ($lot->starts_at > now())
+                            @else
                                 <div class="bid-form">
                                     <div class="form-title">
                                         <h5>Иштирок этиш учун</h5>
