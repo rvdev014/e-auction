@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Lot;
 use App\Enums\LotStatus;
 use App\Livewire\HomePage;
 use App\Livewire\LoginPage;
 use App\Livewire\LotListPage;
 use App\Livewire\LotApplyPage;
 use App\Livewire\RegisterPage;
+use Barryvdh\DomPDF\Facade\PDF;
 use App\Livewire\LotDetailsPage;
 use App\Livewire\VerifyPhonePage;
 use App\Livewire\UserProfilePage;
@@ -50,8 +52,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get(
         'lot-report/{lot}',
-        function($lot) {
-            return view('layouts.lot-report', ['lot' => $lot]);
+        function(Lot $lot) {
+            $pdf = Pdf::loadView('layouts.lot-report', ['lot' => $lot]);
+            return $pdf->stream('invoice.pdf');
         }
     )
         ->where('lot', '[0-9]+')
