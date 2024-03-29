@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property DateTime $starts_at
  * @property DateTime $ends_at
  * @property DateTime $payment_deadline
+ * @property DateTime $reports_at
  * @property int $starting_price
  * @property int $deposit_amount
  * @property int $payment_status
@@ -68,6 +69,7 @@ class Lot extends Model
         'status',
         'payment_status',
         'payment_deadline',
+        'reports_at',
         'number',
         'is_cancelled',
         'cancel_reason',
@@ -81,6 +83,7 @@ class Lot extends Model
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
         'payment_deadline' => 'datetime',
+        'reports_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

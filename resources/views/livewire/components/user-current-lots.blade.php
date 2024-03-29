@@ -6,6 +6,7 @@
 <div class="current-lots">
     <div class="current-lots-header">
         <h3 class="current-lots-header">Лотлар рўйхати</h3>
+        <a download="oferta.pdf" href="{{ asset('auction-app/pdf/oferta.pdf') }}" class="btn--sm btn--primary">Оферта юклаб олиш</a>
     </div>
     <div class="table-wrapper">
         @if ($lots->isEmpty())

@@ -8955,3 +8955,7 @@ button {
     color: #fff;
     margin: 0;
 }
+
+.text-bold {
+    font-weight: bold!important;
+}

@@ -33,7 +33,7 @@
                         <td>{{ $report->winner?->lastStep?->price }} сўм</td>
                         <td style="white-space: nowrap">{{ $report->starts_at->format('d-M H:i') }}</td>
                         <td>
-                            <a href="#">PDF форматда юклаш</a>
+                            <a href="{{ route('lot.report.pdf', $report->id) }}" class="btn--sm btn--primary">PDF юклаб олиш</a>
                         </td>
                     </tr>
                 @endforeach

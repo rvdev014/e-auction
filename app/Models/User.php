@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int $district_id
  * @property string $passport
  * @property string $passport_date
+ * @property string $passport_given
  * @property string $pinfl
  * @property string $birth_date
  * @property string $lots_member_number
@@ -84,6 +85,7 @@ class User extends Authenticatable implements MustVerifyPhone, FilamentUser
         'district_id',
         'passport',
         'passport_date',
+        'passport_given',
         'balance',
         'pinfl',
         'birth_date',
