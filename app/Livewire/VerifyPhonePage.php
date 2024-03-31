@@ -42,7 +42,7 @@ class VerifyPhonePage extends Component
         $this->redirectRoute(RouteServiceProvider::HOME, navigate: true);
     }
 
-    public function resend($throwable): void
+    public function resend(): void
     {
         // throttle request 2 times per minute
         if (session()->has('phone_verification_resend')) {
