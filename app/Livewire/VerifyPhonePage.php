@@ -15,15 +15,8 @@ use App\Providers\RouteServiceProvider;
 #[Layout('layouts.auth')]
 class VerifyPhonePage extends Component
 {
-    private readonly AuthService $authService;
-
     #[Rule('required|string')]
     public string $verification_code = '';
-
-    public function boot(AuthService $authService): void
-    {
-        $this->authService = $authService;
-    }
 
     public function submitForm(): void
     {
@@ -43,7 +36,7 @@ class VerifyPhonePage extends Component
             return;
         }
 
-        $this->authService->verify($user);
+        app(AuthService::class)->verify($user);
 
         session()->flash('success', 'Сизнинг телефон рақамингиз муваффақиятли тасдиқланди');
         $this->redirectRoute(RouteServiceProvider::HOME, navigate: true);

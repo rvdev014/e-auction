@@ -12,24 +12,17 @@ use App\Providers\RouteServiceProvider;
 #[Layout('layouts.auth')]
 class LoginPage extends Component
 {
-    private readonly AuthService $authService;
-
     #[Rule('required|string')]
     public string $phone = '';
 
     #[Rule('required|string')]
     public string $password = '';
 
-    public function boot(AuthService $authService): void
-    {
-        $this->authService = $authService;
-    }
-
     public function submitForm(): void
     {
         try {
             $this->validate();
-            $this->authService->login([
+            app(AuthService::class)->login([
                 'phone' => $this->phone,
                 'password' => $this->password,
             ]);

@@ -10,14 +10,8 @@ use Illuminate\Contracts\View\View;
 
 class LotApplyPage extends Component
 {
-    private readonly LotService $lotService;
     public Lot $lot;
     public bool $isApproved = false;
-
-    public function boot(LotService $lotService): void
-    {
-        $this->lotService = $lotService;
-    }
 
     public function onApply(): void
     {
@@ -27,7 +21,7 @@ class LotApplyPage extends Component
         }
 
         try {
-            $this->lotService->applyLot($this->lot);
+            app(LotService::class)->applyLot($this->lot);
             session()->flash('success', 'Лотга аризангиз кабул килинди');
             $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
         } catch (Throwable $e) {

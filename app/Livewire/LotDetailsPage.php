@@ -20,8 +20,6 @@ use Illuminate\Contracts\View\View;
  */
 class LotDetailsPage extends Component
 {
-    private readonly LotService $lotService;
-
     #[Rule('required|integer')]
     public int $step;
 
@@ -33,11 +31,6 @@ class LotDetailsPage extends Component
     public function setTab($tab): void
     {
         $this->tab = $tab;
-    }
-
-    public function boot(LotService $lotService): void
-    {
-        $this->lotService = $lotService;
     }
 
     public function onStep(): void
@@ -71,7 +64,7 @@ class LotDetailsPage extends Component
     public function lotStarted(): void
     {
         try {
-            $this->lotService->startLot($this->lot);
+            app(LotService::class)->startLot($this->lot);
             session()->flash('success', 'Аукцион бошланди');
             $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
         } catch (Throwable $e) {
@@ -93,7 +86,7 @@ class LotDetailsPage extends Component
     public function lotEnded(): void
     {
         try {
-            $this->lotService->endLot($this->lot);
+            app(LotService::class)->endLot($this->lot);
             session()->flash('success', 'Аукцион тугади');
             $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
         } catch (Throwable $e) {

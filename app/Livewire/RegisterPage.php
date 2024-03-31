@@ -20,17 +20,14 @@ class RegisterPage extends Component
 
     public string $password_confirmation  = '';
 
-    private readonly AuthService $authService;
-    public function boot(AuthService $authService): void
-    {
-        $this->authService = $authService;
-    }
-
     public function submitForm(): void
     {
+        /** @var AuthService $authService */
+        $authService = app(AuthService::class);
+
         try {
             $this->validate();
-            $user = $this->authService->register([
+            $user = $authService->register([
                 'phone' => $this->phone,
                 'password' => $this->password,
                 'password_confirmation' => $this->password,
