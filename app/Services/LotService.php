@@ -163,7 +163,7 @@ TEXT
 
     public function getPaymentDeadline(): Carbon
     {
-        return now()->addMinutes(5);
+        return now()->addDays(10);
     }
 
     /**
