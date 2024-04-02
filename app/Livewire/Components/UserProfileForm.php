@@ -34,9 +34,11 @@ class UserProfileForm extends Component
 
         try {
             $filesPath = [];
-            /** @var UploadedFile $file */
-            foreach ($this->files as $file) {
-                $filesPath[] = $file->store('user-update-requests', 'public');
+            if (!empty($this->files)) {
+                /** @var UploadedFile $file */
+                foreach ($this->files as $file) {
+                    $filesPath[] = $file->store('user-update-requests', 'public');
+                }
             }
 
             UserUpdateRequest::updateOrCreate([
@@ -65,6 +67,7 @@ class UserProfileForm extends Component
     {
         $this->dispatch('regionIdUpdated', $this->region_id);
         $this->reset('district_id');
+        $this->district_id = District::where('region_id', $this->region_id)?->first()?->id;
     }
 
     public function updatedDistrictId()

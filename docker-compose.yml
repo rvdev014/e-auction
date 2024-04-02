@@ -16,6 +16,7 @@ services:
         build: docker/php-fpm
         volumes:
             - .:/app
+            - vendor:/app/vendor
         environment:
             - APP_ENV=local
             - APP_DEBUG=true
@@ -28,7 +29,7 @@ services:
             PGADMIN_DEFAULT_EMAIL: 'admin@mail.com'
             PGADMIN_DEFAULT_PASSWORD: 'admin'
         volumes:
-            - ./docker/storage/pgadmin:/root/.pgadmin
+            - pgadmin2:/root/.pgadmin
         ports:
             - "5001:80"
         depends_on:
@@ -41,7 +42,9 @@ services:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=123456
         volumes:
-            - postgres:/var/lib/postgresql/data
+            - postgres2:/var/lib/postgresql/data
 
 volumes:
-    postgres:
+    postgres2:
+    pgadmin2:
+    vendor:

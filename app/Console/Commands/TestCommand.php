@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Lot;
+use App\Models\User;
 use App\Models\Transport;
 use App\Services\SmsService;
 use Illuminate\Console\Command;
@@ -29,16 +30,8 @@ class TestCommand extends Command
      */
     public function handle(): void
     {
-        /*$lot = Lot::find(1);
-        dd($lot->winnerStep);*/
+        User::factory()->count(1)->create();
 
-        app(SmsService::class)->sendSms('998935146491', 'Test message from TestCommand.');
-
-        /*$transports = Transport::with('categories')->get();
-        foreach ($transports as $transport) {
-            $this->info($transport->name . ' (' . $transport->owner . ')' . ' - ' . $transport->car_number);
-            $this->info("Categories: " . $transport->categories->pluck('title')->implode(', ') . "\n");
-            $this->info('---');
-        }*/
+//        app(SmsService::class)->sendSms('998935146491', 'Test message from TestCommand.');
     }
 }

@@ -1,3 +1,7 @@
+@php
+/** @var App\Models\User $user */
+@endphp
+
 <div>
     <div class="dashboard-profile">
 
@@ -145,7 +149,7 @@
                                 name="passport_given"
                                 type="text"
                                 value="{{ $user->passport_given }}"
-                                placeholder="01.01.2024"
+                                placeholder="Паспорт ким томонидан берилган"
                             />
                         </div>
                     </div>
@@ -233,12 +237,12 @@
 @script
 <script>
 
-    Livewire.on('regionIdUpdated', (regionId) => {
+    /*Livewire.on('regionIdUpdated', (regionId) => {
         const districtSelect = document.getElementById('district_id');
         setTimeout(() => {
             $(districtSelect).niceSelect();
         }, 100);
-    });
+    });*/
 
     $(document).on('change', '#field_type', function (e) {
         console.log('e.target.value', e.target.value)

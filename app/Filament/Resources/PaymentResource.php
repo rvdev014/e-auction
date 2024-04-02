@@ -26,7 +26,7 @@ class PaymentResource extends Resource
                     ->label('Фойдаланувчи')
                     ->native(false)
                     ->reactive()
-                    ->relationship('user', 'name')
+                    ->relationship('user', 'phone')
                     ->required(),
                 Forms\Components\TextInput::make('amount')
                     ->label('Миқдор')

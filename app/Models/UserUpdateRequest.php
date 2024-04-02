@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\UserUpdateRequestStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,7 +34,7 @@ class UserUpdateRequest extends Model
     ];
 
     protected $casts = [
-        'data' => 'array',
+        'data' => AsCollection::class,
         'status' => UserUpdateRequestStatus::class,
     ];
 

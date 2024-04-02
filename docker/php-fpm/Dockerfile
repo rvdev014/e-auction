@@ -19,7 +19,8 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install pgsql pdo_pgsql && \
     docker-php-ext-configure intl && \
     docker-php-ext-install -j$(nproc) intl && \
-    docker-php-ext-install zip
+    docker-php-ext-install zip && \
+    docker-php-ext-install gd
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 

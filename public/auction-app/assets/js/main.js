@@ -6,7 +6,7 @@ jQuery(window).on('load',function(){
 });
 
  // niceSelect
- $('select').niceSelect();
+ // $('select').niceSelect();
 
 // wow animate
 setTimeout(myGreeting, 1800);

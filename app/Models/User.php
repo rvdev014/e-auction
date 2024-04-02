@@ -125,6 +125,7 @@ class User extends Authenticatable implements MustVerifyPhone, FilamentUser
     private function generateLotsMemberNumber(): void
     {
         $this->lots_member_number = str_pad($this->id, 10, '0', STR_PAD_LEFT);
+        $this->save();
     }
 
     public function region(): BelongsTo

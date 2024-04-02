@@ -147,6 +147,7 @@ class Lot extends Model
     private function generateNumber(): void
     {
         $this->number = str_pad($this->id, 10, '0', STR_PAD_LEFT);
+        $this->save();
     }
 
     public function isValid(): bool
