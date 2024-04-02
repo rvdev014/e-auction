@@ -51,7 +51,7 @@ class TransportResource extends Resource
                 ]),
                 Forms\Components\Grid::make(3)->schema([
                     Forms\Components\TextInput::make('model')
-                        ->label('Модели')
+                        ->label('Русуми/Модели')
                         ->maxLength(255),
                     Forms\Components\TextInput::make('contract')
                         ->label('Шартнома')

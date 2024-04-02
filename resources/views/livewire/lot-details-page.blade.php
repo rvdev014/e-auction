@@ -30,9 +30,18 @@
                         @endforeach
 
                     </ul>
-                    <div class="tab-content mb-4 d-flex justify-content-lg-start justify-content-center  wow fadeInUp"
-                         data-wow-duration="1.5s" data-wow-delay=".4s">
+                    <div
+                        class="tab-content mb-4 d-flex justify-content-lg-start justify-content-center  wow fadeInUp"
+                        data-wow-duration="1.5s"
+                        data-wow-delay=".4s"
+                    >
                         <div class="tab-pane big-image fade show active" id="gallery-img1">
+                            @if($lot->starts_at > now())
+                                <div
+                                    class="auction-gallery-timer d-flex align-items-center justify-content-center flex-wrap">
+                                    <h3 id="start_time">&nbsp;</h3>
+                                </div>
+                            @endif
                             @if (!$lot->lotable->mediaAttachments->isEmpty())
                                 <img
                                     alt="image"
@@ -40,20 +49,6 @@
                                     class="img-fluid"
                                 >
                             @endif
-                        </div>
-                        <div class="tab-pane big-image fade" id="gallery-img2">
-                            <div class="auction-gallery-timer d-flex align-items-center justify-content-center">
-                                <h3 id="countdown-timer-2">&nbsp;</h3>
-                            </div>
-                            <img alt="image" src="{{ asset('auction-app/assets/images/bg/prod-gallery2.png') }}"
-                                 class="img-fluid">
-                        </div>
-                        <div class="tab-pane big-image fade" id="gallery-img3">
-                            <div class="auction-gallery-timer d-flex align-items-center justify-content-center">
-                                <h3 id="countdown-timer-3">&nbsp;</h3>
-                            </div>
-                            <img alt="image" src="{{ asset('auction-app/assets/images/bg/prod-gallery3.png') }}"
-                                 class="img-fluid">
                         </div>
                     </div>
                 </div>
@@ -110,7 +105,7 @@
                         </div>
 
                         @if (!$lot->is_cancelled)
-                            @include('livewire.components.lot-timer', ['lot' => $lot])
+{{--                            @include('livewire.components.lot-timer', ['lot' => $lot])--}}
                             @if ($lot->isStartedAndApplied())
                                 <div class="bid-form">
                                     <div class="form-title">
@@ -211,3 +206,55 @@
         </div>
     </div>
 </div>
+
+@script
+<script>
+
+    const startTime = new Date('{{ $lot->starts_at }}').getTime();
+    const endsTime = new Date('{{ $lot->ends_at }}').getTime();
+    const now = new Date().getTime();
+
+    function getDateLeft(distance) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        return days + "д " + hours + "ч " + minutes + "м " + seconds + "с";
+    }
+
+    let distanceToStart = startTime - now;
+    let distanceToEnd = endsTime - now;
+
+    if (distanceToStart > 0) {
+        const x = setInterval(function () {
+            const now = new Date().getTime();
+            const distance = startTime - now;
+            if (distance > 0 && document.getElementById("start_time")) {
+                document.getElementById("start_time").innerHTML = getDateLeft(distance);
+            } else {
+                if (distance <= 0) {
+                    $wire.dispatch('lot_started')
+                    clearInterval(x);
+                }
+            }
+        }, 1000);
+    }
+
+    if (distanceToStart < 0 && distanceToEnd > 0) {
+        const x = setInterval(function () {
+            const now = new Date().getTime();
+            const distance = endsTime - now;
+            if (distance > 0 && document.getElementById("ends_time")) {
+                document.getElementById("ends_time").innerHTML = getDateLeft(distance);
+            } else {
+                if (distance <= 0) {
+                    $wire.dispatch('lot_ended')
+                    clearInterval(x);
+                }
+            }
+        }, 1000);
+    }
+
+</script>
+@endscript

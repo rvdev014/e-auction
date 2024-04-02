@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Region;
 use Livewire\Component;
 use App\Models\District;
-use Illuminate\Http\Request;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Rule;
 use App\Models\UserUpdateRequest;
@@ -29,7 +28,25 @@ class UserProfileForm extends Component
     #[Rule(['files.*' => 'image'])]
     public $files;
 
-    public function onSubmit($formData, Request $request): void
+    public function mount(): void
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        $this->region_id = $user->region_id;
+        $this->district_id = $user->district_id;
+        $this->type = $user->type;
+    }
+
+    public function render(): View
+    {
+        return view('livewire.components.user-profile-form', [
+            'regions' => Region::all(),
+            'districts' => District::where('region_id', $this->region_id)->get(),
+            'user' => auth()->user(),
+        ]);
+    }
+
+    public function onSubmit($formData): void
     {
         DB::beginTransaction();
 
@@ -74,20 +91,5 @@ class UserProfileForm extends Component
     public function updatedDistrictId()
     {
         $this->dispatch('regionIdUpdated', $this->region_id);
-    }
-
-    public function render(): View
-    {
-        /** @var User $user */
-        $user = auth()->user();
-        $this->region_id = $user->region_id;
-        $this->district_id = $user->district_id;
-        $this->type = $user->type;
-
-        return view('livewire.components.user-profile-form', [
-            'regions' => Region::all(),
-            'districts' => District::where('region_id', $this->region_id)->get(),
-            'user' => $user,
-        ]);
     }
 }

@@ -11,6 +11,7 @@ use App\Models\District;
 use Filament\Actions\Action;
 use App\Services\FileService;
 use App\Enums\AttachmentType;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Notifications\Notification;
@@ -23,6 +24,9 @@ class EditUserUpdateRequest extends EditRecord
 {
     protected static string $resource = UserUpdateRequestResource::class;
 
+    /**
+     * @throws ValidationException
+     */
     protected function beforeSave(): void
     {
         $formState = $this->form->getState();
@@ -34,31 +38,23 @@ class EditUserUpdateRequest extends EditRecord
 
             /** @var (TemporaryUploadedFile|string)[] $files */
             $files = $formState['files'] ?? [];
-            if (!empty($files)) {
-                foreach ($user->attachments as $oldAttachment) {
-                    if (!in_array($oldAttachment->file_path, $oldAttachment)) {
-                        $oldAttachment->delete();
-                    }
+            foreach ($files as $file) {
+                if (is_string($file)) {
+                    $existedFile = new File(Storage::disk('public')->path($file));
+                    $attachmentData = [
+                        'file_name' => $existedFile->getFilename(),
+                        'file_path' => $file,
+                        'file_type' => $existedFile->getMimeType(),
+                        'file_size' => $existedFile->getSize(),
+                    ];
+                } else {
+                    $attachmentData = FileService::createAttachmentFromFile($file);
                 }
 
-                foreach ($files as $file) {
-                    if (is_string($file)) {
-                        $existedFile = new File(Storage::disk('public')->path($file));
-                        $attachmentData = [
-                            'file_name' => $existedFile->getFilename(),
-                            'file_path' => $file,
-                            'file_type' => $existedFile->getMimeType(),
-                            'file_size' => $existedFile->getSize(),
-                        ];
-                    } else {
-                        $attachmentData = FileService::createAttachmentFromFile($file);
-                    }
-
-                    $user->attachments()->create([
-                        ...$attachmentData,
-                        'type' => AttachmentType::Document,
-                    ]);
-                }
+                $user->attachments()->create([
+                    ...$attachmentData,
+                    'type' => AttachmentType::Document,
+                ]);
             }
 
             Notification::make()
@@ -66,6 +62,8 @@ class EditUserUpdateRequest extends EditRecord
                 ->success()
                 ->send();
 
+            $this->record->delete();
+            redirect()->route('filament.admin.resources.user-update-requests.index');
         } catch (Throwable $e) {
             Notification::make()
                 ->title('Хатолик юз берди: ' . $e->getMessage())
@@ -101,13 +99,11 @@ class EditUserUpdateRequest extends EditRecord
     public function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('user_id')
+            Forms\Components\Select::make('user_id')
                 ->label('Фойдаланувчи')
-                ->formatStateUsing(function($record) {
-                    return $record->user->name ?? $record->user->phone;
-                })
-                ->readOnly()
-                ->required(),
+                ->relationship('user', 'phone')
+                ->native(false)
+                ->disabled(),
 
             Forms\Components\TextInput::make('name')
                 ->label('Фамилия Исм Шарифи')
