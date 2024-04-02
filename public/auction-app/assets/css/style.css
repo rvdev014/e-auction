@@ -8950,12 +8950,25 @@ button {
 }
 
 .lot-document-name p {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
     color: #fff;
     margin: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .text-bold {
     font-weight: bold!important;
+}
+
+select {
+    display: block;
+    padding: 10px 20px;
+    width: 100%;
+    height: 50px;
+    outline: none;
+    border: 1px solid #EEEEEE;
 }

@@ -201,31 +201,38 @@
                             @error('type') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-12 col-md-6">
+                    @if ($user->attachments->isNotEmpty())
                         <div class="form-inner">
-                            <label for="type">Файл юклаш: </label>
-                            <input id="files" type="file" wire:model="files" multiple/>
-                            <div wire:loading wire:target="files">Uploading...</div>
-                            @error('files') <span class="error">{{ $message }}</span> @enderror
-                        </div>
-                        @if ($user->attachments->isNotEmpty())
-                            <div class="form-inner">
-                                <label for="type">Юкланган файллар: </label>
-                                <ul>
-                                    @foreach($user->attachments as $file)
-                                        <li>
-                                            <a href="{{ $file->file_path }}" target="_blank">{{ $file->file_name }}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                            <label for="type">Юкланган файллар: </label>
+                            <div class="d-flex" style="gap: 10px">
+                                @foreach($user->attachments as $file)
+                                    <a href="{{ asset('storage/' . $file->file_path) }}"
+                                       download="{{ $file->file_name }}">
+                                        <div class="lot-document">
+                                            <img src="{{ asset('auction-app/assets/images/doc.png') }}" alt="document">
+                                            <div class="lot-document-name">
+                                                <p>{{ $file->file_name }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @else
+                        <div class="col-xl-6 col-lg-12 col-md-6">
+                            <div class="form-inner">
+                                <label for="type">Файл юклаш: </label>
+                                <input id="files" type="file" wire:model="files" multiple/>
+                                <div wire:loading wire:target="files">Uploading...</div>
+                                @error('files') <span class="error">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
                 <button
                     type="submit"
-                    class="eg-btn btn--primary"
+                    class="btn btn--primary"
                     wire:loading.attr="disabled"
                     wire:target="files"
                 >Сақлаш</button>

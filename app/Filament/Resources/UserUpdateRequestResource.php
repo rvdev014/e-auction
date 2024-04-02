@@ -2,21 +2,19 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Models\UserUpdateRequest;
 use App\Filament\Resources\UserUpdateRequestResource\Pages;
 use App\Filament\Resources\UserUpdateRequestResource\RelationManagers;
-use App\Models\UserUpdateRequest;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserUpdateRequestResource extends Resource
 {
     protected static ?string $model = UserUpdateRequest::class;
-
+    protected static ?string $pluralLabel = 'Фойдаланувчи маълумотлари янгилаш';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -41,13 +39,16 @@ class UserUpdateRequestResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
+                    ->formatStateUsing(function($record) {
+                        return $record->user->name . ' (' . $record->user->phone . ')';
+                    })
                     ->label('Фойдаланувчи'),
                 /*Tables\Columns\TextColumn::make('status')
                     ->badge(),*/
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Суровнома яратилган сана')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

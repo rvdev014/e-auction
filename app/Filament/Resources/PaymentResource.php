@@ -15,7 +15,7 @@ use App\Filament\Resources\PaymentResource\RelationManagers;
 class PaymentResource extends Resource
 {
     protected static ?string $model = Payment::class;
-
+    protected static ?string $pluralLabel = 'Тўловлар';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

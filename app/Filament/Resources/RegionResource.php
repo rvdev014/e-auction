@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class RegionResource extends Resource
 {
     protected static ?string $model = Region::class;
-
+    protected static ?string $pluralLabel = 'Вилоятлар';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

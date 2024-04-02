@@ -51,7 +51,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Attachment $attachments
+ * @property Attachment[] $attachments
  * @property Region $region
  * @property District $district
  * @property Lot[] $lots

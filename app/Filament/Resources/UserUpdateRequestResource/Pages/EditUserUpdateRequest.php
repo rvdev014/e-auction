@@ -34,29 +34,31 @@ class EditUserUpdateRequest extends EditRecord
 
             /** @var (TemporaryUploadedFile|string)[] $files */
             $files = $formState['files'] ?? [];
-            foreach ($user->attachments as $oldAttachment) {
-                if (!in_array($oldAttachment->file_path, $oldAttachment)) {
-                    $oldAttachment->delete();
-                }
-            }
-
-            foreach ($files as $file) {
-                if (is_string($file)) {
-                    $existedFile = new File(Storage::disk('public')->path($file));
-                    $attachmentData = [
-                        'file_name' => $existedFile->getFilename(),
-                        'file_path' => $file,
-                        'file_type' => $existedFile->getMimeType(),
-                        'file_size' => $existedFile->getSize(),
-                    ];
-                } else {
-                    $attachmentData = FileService::createAttachmentFromFile($file);
+            if (!empty($files)) {
+                foreach ($user->attachments as $oldAttachment) {
+                    if (!in_array($oldAttachment->file_path, $oldAttachment)) {
+                        $oldAttachment->delete();
+                    }
                 }
 
-                $user->attachments()->create([
-                    ...$attachmentData,
-                    'type' => AttachmentType::Document,
-                ]);
+                foreach ($files as $file) {
+                    if (is_string($file)) {
+                        $existedFile = new File(Storage::disk('public')->path($file));
+                        $attachmentData = [
+                            'file_name' => $existedFile->getFilename(),
+                            'file_path' => $file,
+                            'file_type' => $existedFile->getMimeType(),
+                            'file_size' => $existedFile->getSize(),
+                        ];
+                    } else {
+                        $attachmentData = FileService::createAttachmentFromFile($file);
+                    }
+
+                    $user->attachments()->create([
+                        ...$attachmentData,
+                        'type' => AttachmentType::Document,
+                    ]);
+                }
             }
 
             Notification::make()
@@ -99,24 +101,35 @@ class EditUserUpdateRequest extends EditRecord
     public function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\Select::make('user_id')
-                ->relationship('user', 'phone')
-                ->native(false)
-                ->disabled()
+            Forms\Components\TextInput::make('user_id')
+                ->label('Фойдаланувчи')
+                ->formatStateUsing(function($record) {
+                    return $record->user->name ?? $record->user->phone;
+                })
+                ->readOnly()
                 ->required(),
 
             Forms\Components\TextInput::make('name')
+                ->label('Фамилия Исм Шарифи')
                 ->formatStateUsing(function($record) {
                     return $record->data->get('name');
                 }),
 
             Forms\Components\TextInput::make('email')
                 ->readOnly()
+                ->label('Электрон почта')
                 ->formatStateUsing(function($record) {
                     return $record->data->get('email');
                 }),
 
+            Forms\Components\DatePicker::make('birth_date')
+                ->label('Туғилган кун')
+                ->formatStateUsing(function($record) {
+                    return $record->data->get('birth_date');
+                }),
+
             Forms\Components\TextInput::make('stir')
+                ->label('СТИР')
                 ->formatStateUsing(function($record) {
                     return $record->data->get('stir');
                 }),
@@ -132,19 +145,20 @@ class EditUserUpdateRequest extends EditRecord
                 }),
 
             Forms\Components\TextInput::make('address')
+                ->label('Манзил')
                 ->formatStateUsing(function($record) {
                     return $record->data->get('address');
                 }),
 
             Forms\Components\Select::make('region_id')
-                ->label('Вилоят')
+                ->label('Вилоят/Шаҳар')
                 ->options(Region::pluck('name', 'id')->toArray())
                 ->formatStateUsing(function($record) {
                     return $record->data->get('region_id');
                 }),
 
             Forms\Components\Select::make('district_id')
-                ->label('Вилоят')
+                ->label('Туман/Шаҳар')
                 ->options(function($record) {
                     return District::where('region_id', $record->data->get('region_id'))->pluck('name', 'id')->toArray(
                     );
@@ -153,27 +167,26 @@ class EditUserUpdateRequest extends EditRecord
                     return $record->data->get('district_id');
                 }),
 
-            Forms\Components\DatePicker::make('birth_date')
-                ->formatStateUsing(function($record) {
-                    return $record->data->get('birth_date');
-                }),
-
             Forms\Components\TextInput::make('passport')
+                ->label('Паспорт серия ва рақами')
                 ->formatStateUsing(function($record) {
                     return $record->data->get('passport');
                 }),
 
             Forms\Components\DatePicker::make('passport_date')
+                ->label('Паспорт берилган сана')
                 ->formatStateUsing(function($record) {
                     return $record->data->get('passport_date');
                 }),
 
             Forms\Components\TextInput::make('passport_given')
+                ->label('Паспорт берган манзил')
                 ->formatStateUsing(function($record) {
                     return $record->data->get('passport_given');
                 }),
 
             Forms\Components\TextInput::make('pinfl')
+                ->label('ЖШШИР')
                 ->formatStateUsing(function($record) {
                     return $record->data->get('pinfl');
                 }),
