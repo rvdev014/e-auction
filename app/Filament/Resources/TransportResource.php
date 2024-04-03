@@ -28,49 +28,79 @@ class TransportResource extends Resource
             ->schema([
                 Forms\Components\Grid::make(3)->schema([
                     Forms\Components\TextInput::make('name')
-                        ->label('Номи')
+                        ->label(Transport::label('name'))
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('owner')
-                        ->label('Автотранспорт эгаси')
+                        ->label(Transport::label('owner'))
                         ->maxLength(255),
                     Forms\Components\TextInput::make('car_number')
-                        ->label('Давлат рақами')
+                        ->label(Transport::label('car_number'))
                         ->maxLength(255),
                 ]),
                 Forms\Components\Grid::make(3)->schema([
                     Forms\Components\TextInput::make('year_of_issue')
-                        ->label('Ишлаб чиқарилган йили')
+                        ->label(Transport::label('year_of_issue'))
                         ->maxLength(255),
                     Forms\Components\TextInput::make('color')
-                        ->label('Ранги')
+                        ->label(Transport::label('color'))
                         ->maxLength(255),
                     Forms\Components\TextInput::make('technical_condition')
-                        ->label('Техник ҳолати')
+                        ->label(Transport::label('technical_condition'))
                         ->maxLength(255),
                 ]),
                 Forms\Components\Grid::make(3)->schema([
                     Forms\Components\TextInput::make('model')
-                        ->label('Русуми/Модели')
+                        ->label(Transport::label('model'))
                         ->maxLength(255),
                     Forms\Components\TextInput::make('contract')
-                        ->label('Шартнома')
+                        ->label(Transport::label('contract'))
                         ->maxLength(255),
                     Forms\Components\TextInput::make('address')
-                        ->label('Манзил')
+                        ->label(Transport::label('address'))
+                        ->maxLength(255),
+                ]),
+                Forms\Components\Grid::make(3)->schema([
+                    Forms\Components\TextInput::make('body_number')
+                        ->label(Transport::label('body_number'))
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('curb_weight')
+                        ->label(Transport::label('curb_weight'))
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('unladen_weight')
+                        ->label(Transport::label('unladen_weight'))
+                        ->maxLength(255),
+                ]),
+                Forms\Components\Grid::make(3)->schema([
+                    Forms\Components\TextInput::make('engine_number')
+                        ->label(Transport::label('engine_number'))
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('engine_power')
+                        ->label(Transport::label('engine_power'))
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('fuel_type')
+                        ->label(Transport::label('fuel_type'))
+                        ->maxLength(255),
+                ]),
+                Forms\Components\Grid::make()->schema([
+                    Forms\Components\TextInput::make('seats_amount')
+                        ->label(Transport::label('seats_amount'))
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('standings_amount')
+                        ->label(Transport::label('standings_amount'))
                         ->maxLength(255),
                 ]),
                 Forms\Components\Textarea::make('additional_info')
-                    ->label('Кушимча маълумот')
+                    ->label(Transport::label('additional_info'))
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('additional_info2')
-                    ->label('Дополнительная информация 2')
+                    ->label(Transport::label('additional_info2'))
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('additional_info3')
-                    ->label('Дополнительная информация 3')
+                    ->label(Transport::label('additional_info3'))
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('mediaAttachments')
-                    ->label('Медиа файллар')
+                    ->label(Transport::label('mediaAttachments'))
                     ->multiple()
                     ->formatStateUsing(function($record) {
                         if (!$record) {
@@ -84,7 +114,7 @@ class TransportResource extends Resource
                     ->image()
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('docAttachments')
-                    ->label('Документлар')
+                    ->label(Transport::label('docAttachments'))
                     ->multiple()
                     ->formatStateUsing(function($record) {
                         if (!$record) {
@@ -115,36 +145,62 @@ class TransportResource extends Resource
                     ->view('tables.columns.multi-file-column', [
                         'relation' => 'mediaAttachments',
                     ])
-                    ->label('Медиа файллар'),
+                    ->label(Transport::label('mediaAttachments')),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Номи')
+                    ->label(Transport::label('name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('owner')
-                    ->label('Автотранспорт эгаси')
+                    ->label(Transport::label('owner'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('car_number')
-                    ->label('Давлат рақами')
+                    ->label(Transport::label('car_number'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('year_of_issue')
-                    ->label('Ишлаб чиқарилган йили')
+                    ->label(Transport::label('year_of_issue'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('color')
-                    ->label('Ранги')
+                    ->label(Transport::label('color'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('technical_condition')
-                    ->label('Техник ҳолати')
+                    ->label(Transport::label('technical_condition'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contract')
-                    ->label('Шартнома')
+                    ->label(Transport::label('contract'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
-                    ->label('Манзил')
+                    ->label(Transport::label('address'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('model')
-                    ->label('Модели')
+                    ->label(Transport::label('model'))
                     ->searchable(),
+
+                Tables\Columns\TextColumn::make('body_number')
+                    ->label(Transport::label('body_number'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('curb_weight')
+                    ->label(Transport::label('curb_weight'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('unladen_weight')
+                    ->label(Transport::label('unladen_weight'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('engine_number')
+                    ->label(Transport::label('engine_number'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('engine_power')
+                    ->label(Transport::label('engine_power'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('fuel_type')
+                    ->label(Transport::label('fuel_type'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('seats_amount')
+                    ->label(Transport::label('seats_amount'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('standings_amount')
+                    ->label(Transport::label('standings_amount'))
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Яратилган вақти')
+                    ->label(Transport::label('created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

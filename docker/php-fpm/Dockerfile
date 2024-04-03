@@ -15,6 +15,11 @@ RUN apt-get update && apt-get install -y \
     zip && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update; \
+    apt-get install -y libmagickwand-dev; \
+    pecl install imagick; \
+    docker-php-ext-enable imagick;
+
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install pgsql pdo_pgsql && \
     docker-php-ext-configure intl && \

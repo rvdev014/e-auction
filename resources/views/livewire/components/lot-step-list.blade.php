@@ -27,7 +27,7 @@
                             <div class="bidder-content">
                                 <h6 style="margin-bottom: 0">
                                     {{ $step->lotUser->user->name }} (#{{ $step->lotUser->user->lots_member_number }})
-                                    @if ($step->lotUser->is_winner)
+                                    @if ($step->lotUser->is_winner && $step->lotUser->lastStep->id === $step->id)
                                         <span class="badge bg-success">Голиб</span>
                                     @endif
                                 </h6>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-5 text-end">
                         <div class="bid-time">
-                            <p>{{ $step->updated_at->format('d-M H:i') }}</p>
+                            <p>{{ $step->updated_at->format('d-M H:i:s') }}</p>
                         </div>
                     </div>
                 </div>

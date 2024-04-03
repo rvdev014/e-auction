@@ -25,11 +25,11 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property LotType $type
  * @property int $lotable_id
  * @property string $lotable_type
- * @property string $apply_deadline
  * @property string $number
  * @property DateTime $starts_at
  * @property DateTime $ends_at
  * @property DateTime $payment_deadline
+ * @property DateTime $apply_deadline
  * @property DateTime $reports_at
  * @property int $starting_price
  * @property int $deposit_amount
@@ -124,7 +124,8 @@ class Lot extends Model
 
     public function steps(): HasManyThrough
     {
-        return $this->hasManyThrough(LotUserStep::class, LotUser::class);
+        return $this->hasManyThrough(LotUserStep::class, LotUser::class)
+            ->orderBy('price', 'desc');
     }
 
     public function scopeActive(Builder $query)

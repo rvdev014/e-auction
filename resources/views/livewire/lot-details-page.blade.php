@@ -13,43 +13,28 @@
              class="img-fluid section-bg-bottom">
         <div class="container">
             <div class="row g-4 mb-50">
-                <div
-                    class="col-xl-6 col-lg-7 d-flex flex-row align-items-start justify-content-lg-start justify-content-center flex-md-nowrap flex-wrap gap-4">
-                    <ul class="nav small-image-list d-flex flex-md-column flex-row justify-content-center gap-4  wow fadeInDown"
-                        data-wow-duration="1.5s" data-wow-delay=".4s">
-
-                        @foreach($lot->lotable->mediaAttachments as $image)
+                <div class="col-xl-6 col-lg-7 d-flex flex-row align-items-start justify-content-lg-start justify-content-center flex-md-nowrap flex-wrap gap-4">
+                    <ul class="nav small-image-list d-flex flex-md-column flex-row justify-content-center gap-4  wow fadeInDown"  data-wow-duration="1.5s" data-wow-delay=".4s">
+                        @foreach($lot->lotable->mediaAttachments as $attachment)
                             <li class="nav-item">
-                                <div id="details-img{{ $loop->index + 4 }}" data-bs-toggle="pill"
-                                     data-bs-target="#gallery-img{{ $loop->index + 4 }}"
-                                     aria-controls="gallery-img{{ $loop->index + 4 }}">
-                                    <img alt="image" src="{{ asset('storage/' . $image->file_path) }}"
-                                         class="img-fluid">
+                                <div id="details-img{{ $attachment->id }}" data-bs-toggle="pill" data-bs-target="#gallery-img{{ $attachment->id }}" aria-controls="gallery-img{{ $attachment->id }}">
+                                    <img alt="image" src="{{ asset('storage/' . $attachment->file_path) }}" class="img-fluid" >
                                 </div>
                             </li>
                         @endforeach
-
                     </ul>
-                    <div
-                        class="tab-content mb-4 d-flex justify-content-lg-start justify-content-center  wow fadeInUp"
-                        data-wow-duration="1.5s"
-                        data-wow-delay=".4s"
-                    >
-                        <div class="tab-pane big-image fade show active" id="gallery-img1">
-                            @if($lot->starts_at > now())
-                                <div
-                                    class="auction-gallery-timer d-flex align-items-center justify-content-center flex-wrap">
-                                    <h3 id="start_time">&nbsp;</h3>
-                                </div>
-                            @endif
-                            @if (!$lot->lotable->mediaAttachments->isEmpty())
-                                <img
-                                    alt="image"
-                                    src="{{ asset('storage/' . $lot->lotable->mediaAttachments[0]?->file_path) }}"
-                                    class="img-fluid"
-                                >
-                            @endif
-                        </div>
+
+                    <div class="auction-gallery-tab tab-content mb-4 d-flex justify-content-lg-start justify-content-center  wow fadeInUp"  data-wow-duration="1.5s" data-wow-delay=".4s">
+                        @if($lot->starts_at > now())
+                            <div class="auction-gallery-timer d-flex align-items-center justify-content-center flex-wrap">
+                                <h3 id="start_time">&nbsp;</h3>
+                            </div>
+                        @endif
+                        @foreach($lot->lotable->mediaAttachments as $index => $attachment)
+                            <div class="tab-pane big-image fade {{ $index === 0 ? 'show active' : '' }}" id="gallery-img{{ $attachment->id }}">
+                                <img alt="image" src="{{ asset('storage/' . $attachment->file_path) }}" class="img-fluid" >
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-5">
@@ -105,7 +90,7 @@
                         </div>
 
                         @if (!$lot->is_cancelled)
-{{--                            @include('livewire.components.lot-timer', ['lot' => $lot])--}}
+                            @include('livewire.components.lot-timer', ['lot' => $lot])
                             @if ($lot->isStartedAndApplied())
                                 <div class="bid-form">
                                     <div class="form-title">
@@ -235,6 +220,7 @@
             } else {
                 if (distance <= 0) {
                     $wire.dispatch('lot_started')
+                    location.reload();
                     clearInterval(x);
                 }
             }
@@ -249,7 +235,8 @@
                 document.getElementById("ends_time").innerHTML = getDateLeft(distance);
             } else {
                 if (distance <= 0) {
-                    $wire.dispatch('lot_ended')
+                    $wire.dispatch('lot_ended');
+                    location.reload();
                     clearInterval(x);
                 }
             }

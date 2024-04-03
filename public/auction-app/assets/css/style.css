@@ -8983,3 +8983,16 @@ select {
     height: 100%;
     object-fit: cover;
 }
+
+
+.auction-gallery-tab {
+    position: relative;
+}
+
+.auction-gallery-timer {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 999;
+}

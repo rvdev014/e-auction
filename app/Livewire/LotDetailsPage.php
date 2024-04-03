@@ -54,44 +54,9 @@ class LotDetailsPage extends Component
             $lotUser->steps()->create(['price' => $this->step]);
 
             $this->reset('step');
-            $this->tab = 'lot-step';
+            $this->tab = 'lot-steps';
         } catch (Throwable $e) {
             $this->addError('step', $e->getMessage());
-        }
-    }
-
-    #[On('lot_started')]
-    public function lotStarted(): void
-    {
-        try {
-            app(LotService::class)->startLot($this->lot);
-            session()->flash('success', 'Аукцион бошланди');
-            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
-        } catch (Throwable $e) {
-            session()->flash('error', $e->getMessage());
-            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
-        }
-
-        if (!$this->lot->isActive()) {
-            session()->flash('error', 'Аукцион бошланмади. Иштирокчилар йетарли эмас');
-            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
-            return;
-        }
-
-        session()->flash('success', 'Аукцион бошланди');
-        $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
-    }
-
-    #[On('lot_ended')]
-    public function lotEnded(): void
-    {
-        try {
-            app(LotService::class)->endLot($this->lot);
-            session()->flash('success', 'Аукцион тугади');
-            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
-        } catch (Throwable $e) {
-            session()->flash('error', $e->getMessage());
-            $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
         }
     }
 
@@ -109,6 +74,14 @@ class LotDetailsPage extends Component
             'status' => LotStatus::Active,
             'ends_at' => now()->addMinutes(20),
         ]);*/
+
+        if ($this->lot->starts_at <= now() && $this->lot->status === LotStatus::Active) {
+            app(LotService::class)->startLot($this->lot);
+        }
+
+        if ($this->lot->ends_at <= now() && $this->lot->status === LotStatus::Started) {
+            app(LotService::class)->endLot($this->lot);
+        }
 
         return view('livewire.lot-details-page');
     }

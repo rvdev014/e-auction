@@ -1,3 +1,4 @@
+@php use App\Models\Transport; @endphp
 @php
     /** @var \App\Models\Lot $lot */
 @endphp
@@ -17,28 +18,61 @@
                     <div class="accordion-body">
                         <ul class="describe-list">
                             <li>
-                                <b>Автотранспорт номи:</b>
+                                <b>{{ Transport::label('name') }}:</b>
                                 <span>{{ $lot->lotable->name }}</span>
                             </li>
                             <li>
-                                <b>Давлат рақами:</b>
+                                <b>{{ Transport::label('car_number') }}:</b>
                                 <span>{{ $lot->lotable->car_number }}</span>
                             </li>
                             <li>
-                                <b>Ишлаб чиқарилган йили:</b>
+                                <b>{{ Transport::label('year_of_issue') }}:</b>
                                 <span>{{ $lot->lotable->year_of_issue }}</span>
                             </li>
                             <li>
-                                <b>Ранги:</b>
+                                <b>{{ Transport::label('color') }}:</b>
                                 <span>{{ $lot->lotable->color }}</span>
                             </li>
                             <li>
-                                <b>Техник ҳолати:</b>
+                                <b>{{ Transport::label('technical_condition') }}:</b>
                                 <span>{{ $lot->lotable->technical_condition }}</span>
                             </li>
                             <li>
-                                <b>Модели:</b>
+                                <b>{{ Transport::label('model') }}:</b>
                                 <span>{{ $lot->lotable->model }}</span>
+                            </li>
+
+                            <li>
+                                <b>{{ Transport::label('body_number') }}:</b>
+                                <span>{{ $lot->lotable->body_number }}</span>
+                            </li>
+                            <li>
+                                <b>{{ Transport::label('curb_weight') }}:</b>
+                                <span>{{ $lot->lotable->curb_weight }}</span>
+                            </li>
+                            <li>
+                                <b>{{ Transport::label('unladen_weight') }}:</b>
+                                <span>{{ $lot->lotable->unladen_weight }}</span>
+                            </li>
+                            <li>
+                                <b>{{ Transport::label('engine_number') }}:</b>
+                                <span>{{ $lot->lotable->engine_number }}</span>
+                            </li>
+                            <li>
+                                <b>{{ Transport::label('engine_power') }}:</b>
+                                <span>{{ $lot->lotable->engine_power }}</span>
+                            </li>
+                            <li>
+                                <b>{{ Transport::label('fuel_type') }}:</b>
+                                <span>{{ $lot->lotable->fuel_type }}</span>
+                            </li>
+                            <li>
+                                <b>{{ Transport::label('seats_amount') }}:</b>
+                                <span>{{ $lot->lotable->seats_amount }}</span>
+                            </li>
+                            <li>
+                                <b>{{ Transport::label('standings_amount') }}:</b>
+                                <span>{{ $lot->lotable->standings_amount }}</span>
                             </li>
                         </ul>
                     </div>
@@ -56,15 +90,15 @@
                     <div class="accordion-body">
                         <ul class="describe-list">
                             <li>
-                                <b>Автотранспорт эгаси:</b>
+                                <b>{{ Transport::label('owner') }}:</b>
                                 <span>{{ $lot->lotable->owner }}</span>
                             </li>
                             <li>
-                                <b>Манзил:</b>
+                                <b>{{ Transport::label('address') }}:</b>
                                 <span>{{ $lot->lotable->address }}</span>
                             </li>
                             <li>
-                                <b>Шартнома:</b>
+                                <b>{{ Transport::label('contract') }}:</b>
                                 <span>{{ $lot->lotable->contract }}</span>
                             </li>
                         </ul>

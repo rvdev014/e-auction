@@ -7,7 +7,7 @@ use App\Livewire\LoginPage;
 use App\Livewire\LotListPage;
 use App\Livewire\LotApplyPage;
 use App\Livewire\RegisterPage;
-use Barryvdh\DomPDF\Facade\PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Livewire\LotDetailsPage;
 use App\Livewire\VerifyPhonePage;
 use App\Livewire\UserProfilePage;

@@ -20,6 +20,11 @@ class LotApplyPage extends Component
             return;
         }
 
+        if ($this->lot->apply_deadline->isPast()) {
+            $this->addError('isApproved', 'Ариза кабул килиш муддати ўтган');
+            return;
+        }
+
         try {
             app(LotService::class)->applyLot($this->lot);
             session()->flash('success', 'Лотга аризангиз кабул килинди');
