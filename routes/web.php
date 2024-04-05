@@ -50,13 +50,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
         ->where('lot', '[0-9]+')
         ->name('lot.details');
 
-    Route::get('lot-report/{lot}', function(Lot $lot) {
-        if (!$lot->reports_at) {
-            abort(404);
-        }
-        return view('lot-report', ['lot' => $lot]);
-    })->where('lot', '[0-9]+')->name('lot.report');
-
     Route::get('lot-report/{lot}/download', function(Lot $lot) {
         $pdf = Pdf::loadView('layouts.lot-report', ['lot' => $lot]);
         return $pdf->download("lot-report-$lot->id.pdf");
@@ -66,6 +59,13 @@ Route::middleware(['auth', 'verified'])->group(function() {
         ->where('lot', '[0-9]+')
         ->name('lot.apply');
 });
+
+Route::get('lot-report/{lot}', function(Lot $lot) {
+    if (!$lot->reports_at) {
+        abort(404);
+    }
+    return view('lot-report', ['lot' => $lot]);
+})->where('lot', '[0-9]+')->name('lot.report');
 
 Route::get('/test', function() {
     return view('test');
