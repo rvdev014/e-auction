@@ -128,8 +128,8 @@
                     $qrCode = (new chillerlan\QRCode\QRCode)->render($appUrl);
                 @endphp
                 <img
-                    width="300"
-                    height="300"
+                    width="150"
+                    height="150"
                     src="{{ $qrCode }}"
                     alt="qr-code"
                 />
