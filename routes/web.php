@@ -67,4 +67,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
         ->name('lot.apply');
 });
 
+Route::get('/test', function() {
+    return view('test');
+});
+
 Route::view('{any}', 'layouts.404')->name('error.404');
