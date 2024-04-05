@@ -112,9 +112,12 @@
             <div class="qr-code">
                 @php
                     $appUrl = config('app.url') . '/lot-report/' . $lot->id;
+                    $qrCode = (new chillerlan\QRCode\QRCode)->render($appUrl);
                 @endphp
                 <img
-                    src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->generate($appUrl)) !!}"
+                    width="300"
+                    height="300"
+                    src="{{ $qrCode }}"
                     alt="qr-code"
                 />
             </div>

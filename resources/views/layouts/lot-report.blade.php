@@ -2,7 +2,7 @@
     /** @var App\Models\Lot $lot */
 @endphp
 
-<!doctype html>
+    <!doctype html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -10,17 +10,21 @@
         ul {
             list-style: none;
         }
+
         h3 {
             font-size: 18px;
         }
+
         td {
             padding-bottom: 10px;
             font-size: 14px;
             max-width: 400px;
         }
+
         p {
             font-size: 12px;
         }
+
         .bold {
             font-weight: bold;
             padding-right: 10px;
@@ -36,7 +40,7 @@
 </div>
 
 <div class="row">
-    <div class="product-details-right col-12" >
+    <div class="product-details-right col-12">
         <table class="d-flex flex-column gap-3">
             <tr class="d-flex align-content-center gap-3 w-100">
                 <td class="bold w-50 text-danger"> Баённома расмийлаштирилган сана:</td>
@@ -48,7 +52,8 @@
             </tr>
             <tr class="d-flex align-content-center gap-3 w-100">
                 <td class="bold w-50 text-danger"> Лот рақами ва автотранспорт тури:</td>
-                <td class="w-50">Лот № {{ $lot->number }} {{ $lot->lotable->categories->map(fn($category) => $category->title)->implode(', ') }}</td>
+                <td class="w-50">Лот
+                    № {{ $lot->number }} {{ $lot->lotable->categories->map(fn($category) => $category->title)->implode(', ') }}</td>
             </tr>
             <tr class="d-flex align-content-center gap-3 w-100">
                 <td class="bold w-50 text-danger">Сотувчи маълумотлари:</td>
@@ -119,10 +124,13 @@
         <tr>
             <td style="min-width: 200px; margin-right: 20px">
                 @php
-                $appUrl = config('app.url') . '/lot-report/' . $lot->id;
+                    $appUrl = config('app.url') . '/lot-report/' . $lot->id;
+                    $qrCode = (new chillerlan\QRCode\QRCode)->render($appUrl);
                 @endphp
                 <img
-                    src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->generate($appUrl)) !!}"
+                    width="300"
+                    height="300"
+                    src="{{ $qrCode }}"
                     alt="qr-code"
                 />
             </td>

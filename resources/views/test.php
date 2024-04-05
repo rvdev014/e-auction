@@ -1,8 +1,7 @@
 <?php
 
-$qrCode = Endroid\QrCode\QrCode::create('test');
-$writer = new Endroid\QrCode\Writer\PngWriter();
-$result = $writer->write($qrCode);
+use chillerlan\QRCode\QRCode;
 
-header('Content-Type: ' . $result->getMimeType());
-$result->getString();
+$data = 'https://youtube.com';
+
+echo '<img width="300" height="300" src="'.(new QRCode)->render($data).'" alt="QR Code" />';
