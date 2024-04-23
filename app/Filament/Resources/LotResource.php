@@ -56,9 +56,9 @@ class LotResource extends Resource
                 Forms\Components\DateTimePicker::make('starts_at')
                     ->label('Аукцион бошланиш вақти')
                     ->required(),
-                Forms\Components\DateTimePicker::make('ends_at')
+                /*Forms\Components\DateTimePicker::make('ends_at')
                     ->label('Аукцион тугаши вақти')
-                    ->required(),
+                    ->required(),*/
                 Forms\Components\TextInput::make('starting_price')
                     ->label('Бошланиш нархи (сўм)')
                     ->required()
@@ -112,10 +112,10 @@ class LotResource extends Resource
                     ->label('Аукцион бошланиш вақти')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('ends_at')
+                /*Tables\Columns\TextColumn::make('ends_at')
                     ->label('Аукцион тугаши вақти')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable(),*/
                 Tables\Columns\TextColumn::make('starting_price')
                     ->label('Бошланиш нархи (сўм)')
                     ->numeric(),

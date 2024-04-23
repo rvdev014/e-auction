@@ -8,7 +8,7 @@
         >
             {{ LotStatus::Cancelled->getLabel() }}
         </x-filament::badge>
-    @elseif ($getRecord()->ends_at->isPast())
+    @elseif ($getRecord()->status === LotStatus::Ended)
         <x-filament::badge
             color="{{ LotStatus::Ended->getColor() }}"
             icon="{{ LotStatus::Ended->getIcon() }}"

@@ -1,3 +1,7 @@
+@php
+    /** @var App\Models\Lot $lot */
+@endphp
+
 <div class="col-lg-4 col-md-6 col-sm-10 ">
     <div class="eg-card c-feature-card1 wow animate fadeInDown" data-wow-duration="1.5s"
          data-wow-delay="0.2s">
@@ -21,23 +25,7 @@
                     Батафсил
                 </a>
                 <div class="share-area">
-                    <ul class="social-icons d-flex">
-                        <li>
-                            <a href="https://www.facebook.com/"><i class="bx bxl-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.twitter.com/"><i class="bx bxl-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.pinterest.com/"><i class="bx bxl-pinterest"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/"><i class="bx bxl-instagram"></i></a>
-                        </li>
-                    </ul>
-                    <div>
-                        <div class="share-btn"><i class='bx bxs-share-alt'></i></div>
-                    </div>
+                    <b>#{{ $lot->number }}</b>
                 </div>
             </div>
         </div>

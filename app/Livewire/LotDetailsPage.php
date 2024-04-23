@@ -23,6 +23,8 @@ class LotDetailsPage extends Component
     #[Rule('required|integer')]
     public int $step;
 
+    public string $endsTimer = '';
+
     public Lot $lot;
 
     #[Url(keep: true)]
@@ -44,7 +46,7 @@ class LotDetailsPage extends Component
                 return;
             }
 
-            if ($this->maxPrice > 0 && $this->step <= $this->maxPrice) {
+            if ($this->maxPrice > 0 && $this->step < $this->maxPrice) {
                 $this->addError('step', 'Минимум нарх: ' . $this->maxPrice);
                 return;
             }
@@ -54,6 +56,7 @@ class LotDetailsPage extends Component
             $lotUser->steps()->create(['price' => $this->step]);
 
             $this->reset('step');
+            $this->endsTimer = now();
             $this->tab = 'lot-steps';
         } catch (Throwable $e) {
             $this->addError('step', $e->getMessage());
@@ -63,25 +66,25 @@ class LotDetailsPage extends Component
     #[Computed('maxPrice')]
     public function getMaxPriceProperty(): int
     {
-        return $this->lot->steps()->max('price') ?: $this->lot->starting_price;
+        $stepPrice = $this->lot->starting_price * $this->lot->step_amount / 100;
+        return ($this->lot->steps()->max('price') ?: $this->lot->starting_price) + $stepPrice;
     }
 
     public function render(): View
     {
-        // FOR TESTING PURPOSES
-        /*$this->lot->update([
-            'starts_at' => now()->addSeconds(10),
-            'status' => LotStatus::Active,
-            'ends_at' => now()->addMinutes(20),
-        ]);*/
+        try {
+            if ($this->lot->starts_at <= now() && $this->lot->status === LotStatus::Active) {
+                app(LotService::class)->startLot($this->lot);
+            }
 
-        if ($this->lot->starts_at <= now() && $this->lot->status === LotStatus::Active) {
-            app(LotService::class)->startLot($this->lot);
+            /*if ($this->lot->ends_at <= now() && $this->lot->status === LotStatus::Started) {
+                app(LotService::class)->endLot($this->lot);
+            }*/
+        } catch (Throwable $e) {
+            session()->flash('error', $e->getMessage());
         }
 
-        if ($this->lot->ends_at <= now() && $this->lot->status === LotStatus::Started) {
-            app(LotService::class)->endLot($this->lot);
-        }
+        $this->step = $this->maxPrice;
 
         return view('livewire.lot-details-page');
     }

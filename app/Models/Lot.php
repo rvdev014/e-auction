@@ -44,6 +44,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property Transport|Model $lotable
  * @property User[] $users
  * @property LotUserStep[] $steps
+ * @property LotUserStep $lastStep
  * @property LotUser $winner
  * @property User $winnerUser
  * @property LotUser[] $lotUsers
@@ -128,10 +129,16 @@ class Lot extends Model
             ->orderBy('price', 'desc');
     }
 
+    public function lastStep(): HasOneThrough
+    {
+        return $this->hasOneThrough(LotUserStep::class, LotUser::class)
+            ->orderBy('price', 'desc');
+    }
+
     public function scopeActive(Builder $query)
     {
         return $query
-            ->where('ends_at', '>', now())
+            ->where('status', '!=', LotStatus::Ended)
             ->where('is_cancelled', false);
     }
 
@@ -163,7 +170,7 @@ class Lot extends Model
 
     public function isCanBeStarted(): bool
     {
-        return $this->isValid() && $this->starts_at < now() && $this->ends_at > now() && $this->status === LotStatus::Active;
+        return $this->isValid() && $this->starts_at < now() && $this->status === LotStatus::Active;
     }
 
     public function isCanBeEnded(): bool
@@ -181,8 +188,17 @@ class Lot extends Model
         return $this->isValid() && $this->starts_at < now() && $this->status === LotStatus::Started;
     }
 
+    public function hasSteps(): bool
+    {
+        return $this->steps()->exists();
+    }
+
     public function isApplied(): bool
     {
+        if (!auth()->user()) {
+            return false;
+        }
+
         return $this->users()->where('user_id', auth()->user()->id)->exists();
     }
 

@@ -42,23 +42,24 @@ Route::middleware('auth')->group(function() {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('profile', UserProfilePage::class)->name('user.profile');
-    Route::get('lot-list/{status}', LotListPage::class)
-        ->whereIn('status', LotStatus::values())
-        ->name('lots');
-
-    Route::get('lot-details/{lot}', LotDetailsPage::class)
-        ->where('lot', '[0-9]+')
-        ->name('lot.details');
-
-    Route::get('lot-report/{lot}/download', function(Lot $lot) {
-        $pdf = Pdf::loadView('layouts.lot-report', ['lot' => $lot]);
-        return $pdf->download("lot-report-$lot->id.pdf");
-    })->where('lot', '[0-9]+')->name('lot.report.pdf');
 
     Route::get('lot-apply/{lot}', LotApplyPage::class)
         ->where('lot', '[0-9]+')
         ->name('lot.apply');
 });
+
+Route::get('lot-list/{status}', LotListPage::class)
+    ->whereIn('status', LotStatus::values())
+    ->name('lots');
+
+Route::get('lot-details/{lot}', LotDetailsPage::class)
+    ->where('lot', '[0-9]+')
+    ->name('lot.details');
+
+Route::get('lot-report/{lot}/download', function(Lot $lot) {
+    $pdf = Pdf::loadView('layouts.lot-report', ['lot' => $lot]);
+    return $pdf->download("lot-report-$lot->id.pdf");
+})->where('lot', '[0-9]+')->name('lot.report.pdf');
 
 Route::get('lot-report/{lot}', function(Lot $lot) {
     if (!$lot->reports_at) {
