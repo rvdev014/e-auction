@@ -23,6 +23,7 @@ class LotDetailsPage extends Component
     #[Rule('required|integer')]
     public int $step;
 
+    public int $stepsCount = 0;
     public string $endsTimer = '';
 
     public Lot $lot;
@@ -70,6 +71,14 @@ class LotDetailsPage extends Component
         return ($this->lot->steps()->max('price') ?: $this->lot->starting_price) + $stepPrice;
     }
 
+    public function polling(): void
+    {
+        if ($this->stepsCount < $this->lot->steps()->count()) {
+            $this->stepsCount = $this->lot->steps()->count();
+            $this->dispatch('refreshTimer', $this->lot->lastStep->created_at);
+        }
+    }
+
     public function render(): View
     {
         try {
@@ -77,9 +86,8 @@ class LotDetailsPage extends Component
                 app(LotService::class)->startLot($this->lot);
             }
 
-            /*if ($this->lot->ends_at <= now() && $this->lot->status === LotStatus::Started) {
-                app(LotService::class)->endLot($this->lot);
-            }*/
+//            app(LotService::class)->endLot($this->lot);
+
         } catch (Throwable $e) {
             session()->flash('error', $e->getMessage());
         }

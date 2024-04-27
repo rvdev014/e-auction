@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Lot;
 use App\Models\User;
@@ -83,10 +84,11 @@ class MessagesTest extends TestCase
         /** @var Lot $lot */
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinutes(5),
-            'ends_at' => now()->subMinute(),
             'status' => LotStatus::Started,
         ]);
         $this->addUserApplicationsToLot($lot, $usersCount = 5, true);
+
+        Carbon::setTestNow(now()->addMinutes(10));
 
         $this->smsServiceMock->shouldReceive('sendSms')->once();
         app(LotService::class)->endLot($lot);

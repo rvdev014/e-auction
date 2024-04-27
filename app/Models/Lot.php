@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string $lotable_type
  * @property string $number
  * @property DateTime $starts_at
- * @property DateTime $ends_at
  * @property DateTime $payment_deadline
  * @property DateTime $apply_deadline
  * @property DateTime $reports_at
@@ -63,7 +62,6 @@ class Lot extends Model
         'lotable_type',
         'apply_deadline',
         'starts_at',
-        'ends_at',
         'starting_price',
         'deposit_amount',
         'step_amount',
@@ -82,7 +80,6 @@ class Lot extends Model
         'payment_status' => LotPaymentStatus::class,
         'apply_deadline' => 'datetime',
         'starts_at' => 'datetime',
-        'ends_at' => 'datetime',
         'payment_deadline' => 'datetime',
         'reports_at' => 'datetime',
         'created_at' => 'datetime',
@@ -144,7 +141,7 @@ class Lot extends Model
 
     public function scopeEnded(Builder $query)
     {
-        return $query->where('ends_at', '<', now());
+        return $query->where('status', LotStatus::Ended);
     }
 
     public function scopeCancelled(Builder $query)
@@ -165,22 +162,25 @@ class Lot extends Model
 
     public function isActive(): bool
     {
-        return $this->isValid() && $this->ends_at > now() && $this->status === LotStatus::Active;
+        return $this->isValid() && $this->status === LotStatus::Active;
     }
 
     public function isCanBeStarted(): bool
     {
-        return $this->isValid() && $this->starts_at < now() && $this->status === LotStatus::Active;
+        return $this->isValid() && $this->starts_at <= now() && $this->status === LotStatus::Active;
     }
 
     public function isCanBeEnded(): bool
     {
-        return $this->ends_at < now() && $this->status === LotStatus::Started;
+        if (!$this->lastStep) {
+            return false;
+        }
+        return $this->status === LotStatus::Started && $this->lastStep->created_at->addMinutes(10) < now();
     }
 
     public function isEnded(): bool
     {
-        return $this->isValid() && $this->ends_at < now() && $this->status === LotStatus::Ended;
+        return $this->status === LotStatus::Ended;
     }
 
     public function isStarted(): bool

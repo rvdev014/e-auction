@@ -5,9 +5,21 @@ namespace Tests\Helpers;
 use App\Models\Lot;
 use App\Models\User;
 use App\Models\LotUser;
+use App\Models\LotUserStep;
 
 trait LotsTestHelper
 {
+    private function addStep(Lot $lot): LotUserStep
+    {
+        /** @var LotUser $lotUser */
+        /** @var LotUserStep $step */
+
+        $lotUser = $lot->lotUsers()->first();
+        $step = $lotUser->steps()->create(['price' => rand(1000, 10000)]);
+
+        return $step;
+    }
+
     private function addUserApplicationsToLot(Lot $lot, int $usersCount = 3, bool $withSteps = false): void
     {
         /** @var User[] $lotUsers */

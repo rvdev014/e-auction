@@ -35,7 +35,6 @@ class DailyCommandsTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->addMinutes(3),
-            'ends_at' => now()->addMinutes(5),
         ]);
         $this->addUserApplicationsToLot($lot);
 
@@ -52,8 +51,7 @@ class DailyCommandsTest extends TestCase
     public function test_lots_start(): void
     {
         $lot = Lot::factory()->create([
-            'starts_at' => now()->subMinutes(10),
-            'ends_at' => now()->addMinutes(5),
+            'starts_at' => now()->subMinutes(10)
         ]);
         $this->addUserApplicationsToLot($lot);
 
@@ -71,36 +69,53 @@ class DailyCommandsTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinutes(10),
-            'ends_at' => now()->subMinutes(5),
             'status' => LotStatus::Started,
         ]);
+
         $this->addUserApplicationsToLot($lot);
+        $this->addStep($lot);
 
         $this->assertTrue($lot->status === LotStatus::Started);
+        Carbon::setTestNow(now()->addMinutes(10));
 
-        $this->smsServiceMock->shouldNotHaveReceived('sendSms');
+        $this->smsServiceMock->shouldReceive('sendSms');
         $this->lotService->endLots();
         $lot->refresh();
 
         $this->assertTrue($lot->status === LotStatus::Ended);
     }
 
+    public function test_lots_end_ignore_because_of_steps(): void
+    {
+        $lot = Lot::factory()->create([
+            'starts_at' => now()->subMinutes(10),
+            'status' => LotStatus::Started,
+        ]);
+        $this->addUserApplicationsToLot($lot);
+        $this->assertTrue($lot->status === LotStatus::Started);
+
+        $this->smsServiceMock->shouldNotHaveReceived('sendSms');
+        $this->lotService->endLots();
+        $lot->refresh();
+
+        $this->assertTrue($lot->status === LotStatus::Started);
+    }
+
     public function test_check_payments(): void
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinutes(10),
-            'ends_at' => now()->subMinutes(5),
             'status' => LotStatus::Started,
         ]);
         $this->addUserApplicationsToLot($lot, withSteps: true);
+        Carbon::setTestNow(now()->addMinutes(10));
 
         $this->smsServiceMock->shouldReceive('sendSms')->times(3);
+
         $this->lotService->endLots();
         $lot->refresh();
 
         $oldWinner = $lot->winner;
-        print_r($oldWinner->user_id . "\n\n");
-
         $this->assertDatabaseHas('lot_users', ['user_id' => $oldWinner->user_id, 'is_winner' => true]);
 
         $this->assertTrue($lot->payment_deadline > now());

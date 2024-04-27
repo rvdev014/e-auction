@@ -38,7 +38,6 @@ class LotTest extends TestCase
     {
         $newLot = Lot::factory()->create([
             'starts_at' => now()->addMinutes(3),
-            'ends_at' => now()->addMinutes(5),
         ]);
 
         $this->assertFalse($newLot->isActive());
@@ -119,7 +118,6 @@ class LotTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinute(),
-            'ends_at' => now()->addMinutes(20),
         ]);
         $this->assertFalse($lot->isStarted());
 
@@ -133,7 +131,6 @@ class LotTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->addSeconds(10),
-            'ends_at' => now()->addMinutes(20),
         ]);
         $this->addUserApplicationsToLot($lot);
 
@@ -149,7 +146,6 @@ class LotTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinute(),
-            'ends_at' => now()->addMinutes(20),
         ]);
         $this->addUserApplicationsToLot($lot);
 
@@ -165,7 +161,6 @@ class LotTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->addSeconds(10),
-            'ends_at' => now()->addMinutes(20),
         ]);
         $this->addUserApplicationsToLot($lot);
 
@@ -179,7 +174,6 @@ class LotTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinute(),
-            'ends_at' => now()->addMinutes(20),
         ]);
         $this->addUserApplicationsToLot($lot);
 
@@ -191,24 +185,22 @@ class LotTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinute(),
-            'ends_at' => now()->addMinutes(20),
         ]);
         $this->addUserApplicationsToLot($lot);
-
-        $this->expectException(Throwable::class);
-        $this->expectExceptionMessage('Аукцион тугатила олмайди');
-
         $this->lotService->endLot($lot);
+
+        $this->assertFalse($lot->isEnded());
     }
 
     public function test_lot_end_with_winner(): void
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinutes(10),
-            'ends_at' => now()->subMinute(),
             'status' => LotStatus::Started,
         ]);
         $this->addUserApplicationsToLot($lot, withSteps: true);
+
+        Carbon::setTestNow(now()->addMinutes(10));
 
         $this->smsServiceMock->shouldReceive('sendSms')->once();
         $this->lotService->endLot($lot);
@@ -222,7 +214,6 @@ class LotTest extends TestCase
     {
         $lot = Lot::factory()->create([
             'starts_at' => now()->subMinutes(10),
-            'ends_at' => now()->subMinute(),
             'status' => LotStatus::Started,
         ]);
         $this->addUserApplicationsToLot($lot);

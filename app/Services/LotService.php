@@ -79,6 +79,10 @@ TEXT
     {
         $this->guardAlreadyStarted($lot);
         $this->guardCanBeStarted($lot);
+        /*if (!$lot->isCanBeStarted()) {
+            logger()->error("Lot {$lot->id} cannot be started");
+            return;
+        }*/
 
         $lot->updateOrFail(['status' => LotStatus::Started]);
 
@@ -111,7 +115,6 @@ TEXT
     {
         // Get all lots that are not ended yet and should be ended
         $lots = Lot::query()
-            ->where('ends_at', '<=', now())
             ->where('status', LotStatus::Started)
             ->get();
 
@@ -132,7 +135,11 @@ TEXT
     public function endLot(Lot $lot): void
     {
         $this->guardAlreadyEnded($lot);
-        $this->guardCanBeEnded($lot);
+//        $this->guardCanBeEnded($lot);
+        if (!$lot->isCanBeEnded()) {
+            logger()->error("Lot $lot->id cannot be ended");
+            return;
+        }
 
         DB::beginTransaction();
         try {

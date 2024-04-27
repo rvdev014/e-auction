@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,8 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $id
  * @property int $lot_user_id
  * @property int $price
- * @property string $created_at
- * @property string $updated_at
+ * @property DateTime $created_at
+ * @property DateTime $updated_at
  *
  * @property LotUser $lotUser
  *
@@ -27,6 +28,11 @@ class LotUserStep extends Model
     protected $fillable = [
         'lot_user_id',
         'price',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function lotUser(): BelongsTo

@@ -26,7 +26,6 @@ class LotFactory extends Factory
             'lotable_type' => 'transports',
             'apply_deadline' => $this->faker->dateTimeBetween('now', '+1 month')->format('Y-m-d H:i:s'),
             'starts_at' => $this->faker->dateTimeBetween('+1 month', '+2 month')->format('Y-m-d H:i:s'),
-            'ends_at' => $this->faker->dateTimeBetween('+2 month', '+3 month')->format('Y-m-d H:i:s'),
             'starting_price' => $this->faker->numberBetween(1000, 10000),
             'deposit_amount' => $this->faker->numberBetween(10, 50),
             'step_amount' => $this->faker->numberBetween(5, 10),

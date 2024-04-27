@@ -2,7 +2,7 @@
     /** @var App\Models\Lot $lot */
 @endphp
 
-<div class="bid-list-area" @if($lot->isStarted()) wire:poll.visible.5s @endif>
+<div class="bid-list-area" @if($lot->isStarted()) wire:poll.5s="polling" @endif>
     <div class="bid-step-header">
         <h3 class="bid-title">Ставкалар тарихи</h3>
         @if($lot->isStarted())
