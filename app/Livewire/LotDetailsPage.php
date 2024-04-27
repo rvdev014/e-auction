@@ -86,7 +86,7 @@ class LotDetailsPage extends Component
                 app(LotService::class)->startLot($this->lot);
             }
 
-//            app(LotService::class)->endLot($this->lot);
+            app(LotService::class)->endLot($this->lot);
 
         } catch (Throwable $e) {
             session()->flash('error', $e->getMessage());
