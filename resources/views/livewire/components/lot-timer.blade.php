@@ -18,7 +18,6 @@
     let endsInterval = null;
 
     Livewire.on('refreshTimer', (stepDate) => {
-        console.log('refreshTimer', stepDate);
         if (endsInterval) {
             clearInterval(endsInterval);
         }
@@ -61,6 +60,6 @@
         }
     }
 
-    updateTimer("{{ $lot->lastStep->created_at }}");
+    updateTimer("{{ $lot->lastStep?->created_at }}");
 </script>
 @endscript
