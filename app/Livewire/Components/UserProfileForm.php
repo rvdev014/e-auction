@@ -76,18 +76,12 @@ class UserProfileForm extends Component
             $currentUser = User::where('id', auth()->id())->firstOrFail();
 
             $formData = array_filter($formData, fn($value) => !empty($value));
-            $currentUser->update([
+            $currentUser->updateOrFail([
                 ...$formData,
                 'region_id' => $this->region_id,
                 'district_id' => $this->district_id,
                 'type' => $this->type,
             ]);
-            /*$currentUser->save([
-                ...$formData,
-                'region_id' => $this->region_id,
-                'district_id' => $this->district_id,
-                'type' => $this->type,
-            ]);*/
 
             DB::commit();
             session()->flash('success', 'Маълумотлар озгартириш учун суровнома юборилди');
