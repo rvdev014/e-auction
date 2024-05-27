@@ -6,7 +6,7 @@
         <a href="{{ route('lot.details', $lot->id) }}" style="display: block;margin-bottom: 20px">< Орқага</a>
         <p style='margin-top:0cm;margin-right:-21.3pt;margin-bottom:.0001pt;margin-left:-49.65pt;font-size:11.0pt;font-family:"Calibri",sans-serif;text-align:center;text-indent:21.3pt;line-height:normal;background:white;'>
             <strong><span
-                    style='font-size:14px;font-family:"Times New Roman",serif;color:black;'>&ldquo;E-auksion</span></strong><strong><span
+                    style='font-size:14px;font-family:"Times New Roman",serif;color:black;'>&ldquo;E-trading</span></strong><strong><span
                     style='font-size:14px;font-family:"Times New Roman",serif;color:black;'>savdo</span></strong><strong><span
                     style='font-size:14px;font-family:"Times New Roman",serif;color:black;'>&rdquo; elektron savdo platformasida elektron onlayn-auksionlar tashkil etish va o&lsquo;tkazish xizmatlarini &nbsp; &nbsp; &nbsp;ko&lsquo;rsatish bo&lsquo;yicha</span></strong>
         </p>

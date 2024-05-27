@@ -9,8 +9,8 @@ use Livewire\Component;
 use App\Models\District;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Rule;
-use App\Models\UserUpdateRequest;
 use Illuminate\Http\UploadedFile;
+use App\Models\UserUpdateRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use App\Enums\UserUpdateRequestStatus;
@@ -71,6 +71,23 @@ class UserProfileForm extends Component
                 ],
                 'status' => UserUpdateRequestStatus::Pending
             ]);
+
+            /** @var User $currentUser */
+            $currentUser = User::where('id', auth()->id())->firstOrFail();
+
+            $formData = array_filter($formData, fn($value) => !empty($value));
+            $currentUser->update([
+                ...$formData,
+                'region_id' => $this->region_id,
+                'district_id' => $this->district_id,
+                'type' => $this->type,
+            ]);
+            /*$currentUser->save([
+                ...$formData,
+                'region_id' => $this->region_id,
+                'district_id' => $this->district_id,
+                'type' => $this->type,
+            ]);*/
 
             DB::commit();
             session()->flash('success', 'Маълумотлар озгартириш учун суровнома юборилди');

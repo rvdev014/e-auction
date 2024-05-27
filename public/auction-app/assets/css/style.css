@@ -8996,3 +8996,24 @@ select {
     right: 0;
     z-index: 999;
 }
+
+
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99;
+    max-width: 300px;
+    padding-right: 50px;
+}
+
+.alert-close {
+    font-size: 29px;
+    font-weight: 100;
+    line-height: 24px;
+    color: #000;
+    position: absolute;
+    top: 4px;
+    right: 9px;
+    cursor: pointer;
+}

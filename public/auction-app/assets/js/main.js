@@ -703,4 +703,8 @@ $('.popup-youtube').magnificPopup({
   type: 'iframe'
 });
 
+$('.alert-close').on('click', function(){
+    $(this).closest('.alert').hide();
+});
+
 }(jQuery));

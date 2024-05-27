@@ -34,7 +34,7 @@
 <body>
 
 <div style="text-align: center" class="table-title-area d-flex justify-content-center flex-column mt-5 text-center">
-    <h3>"E-AUKSIONSAVDO" платформасида бўлиб ўтган электрон-онлайн
+    <h3>"E-TRADINGSAVDO" платформасида бўлиб ўтган электрон-онлайн
         аукцион натижалари тўғрисид</h3>
     <p class="para mt-3" style="font-weight: bold; font-size: 12px;">БАЁННОМА № {{ $lot->number }}</p>
 </div>
