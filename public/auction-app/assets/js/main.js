@@ -704,11 +704,11 @@ $('.popup-youtube').magnificPopup({
 });
 
 $('.alert-close').on('click', function(){
-    $(this).closest('.alert').fadeOut();
+    $(this).closest('.alert-flash').fadeOut();
 });
 
 setTimeout(function(){
-    $('.alert').fadeOut();
+    $('.alert-flash').fadeOut();
 }, 10000);
 
 }(jQuery));
