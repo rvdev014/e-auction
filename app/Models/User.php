@@ -122,9 +122,37 @@ class User extends Authenticatable implements MustVerifyPhone, FilamentUser
         });
     }
 
-    private function generateLotsMemberNumber(): void
+    private function generateHash(): string
     {
-        $this->lots_member_number = str_pad($this->id, 10, '0', STR_PAD_LEFT);
+        $letters = '';
+        $numbers = '';
+
+        // Generate two random uppercase letters
+        for ($i = 0; $i < 2; $i++) {
+            $letters .= chr(rand(65, 90)); // ASCII values for A-Z are 65-90
+        }
+
+        // Generate two random digits
+        for ($i = 0; $i < 2; $i++) {
+            $numbers .= rand(0, 9);
+        }
+
+        return $letters . $numbers;
+    }
+
+    private function generateUniqueHash(): string
+    {
+        $hash = $this->generateHash();
+        if (User::where('lots_member_number', $hash)->exists()) {
+            return $this->generateUniqueHash();
+        }
+        return $hash;
+    }
+
+    public function generateLotsMemberNumber(): void
+    {
+//        $this->lots_member_number = str_pad($this->id, 10, '0', STR_PAD_LEFT);
+        $this->lots_member_number = $this->generateUniqueHash();
         $this->save();
     }
 

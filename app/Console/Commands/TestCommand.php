@@ -30,7 +30,12 @@ class TestCommand extends Command
      */
     public function handle(): void
     {
-        User::factory()->count(1)->create();
+        /*$users = User::all();
+        $users->each(function(User $user) {
+            $user->generateLotsMemberNumber();
+        });*/
+
+//        User::factory()->count(1)->create();
 
 //        app(SmsService::class)->sendSms('998935146491', 'Test message from TestCommand.');
     }

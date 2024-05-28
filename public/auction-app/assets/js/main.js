@@ -704,7 +704,11 @@ $('.popup-youtube').magnificPopup({
 });
 
 $('.alert-close').on('click', function(){
-    $(this).closest('.alert').hide();
+    $(this).closest('.alert').fadeOut();
 });
+
+setTimeout(function(){
+    $('.alert').fadeOut();
+}, 10000);
 
 }(jQuery));
