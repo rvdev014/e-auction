@@ -30,10 +30,10 @@ class TestCommand extends Command
      */
     public function handle(): void
     {
-        $users = User::all();
+        /*$users = User::all();
         $users->each(function(User $user) {
             $user->generateLotsMemberNumber();
-        });
+        });*/
 
 //        User::factory()->count(1)->create();
 
