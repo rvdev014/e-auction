@@ -149,9 +149,9 @@ class Lot extends Model
         return $query->where('is_cancelled', true);
     }
 
-    private function generateNumber(): void
+    public function generateNumber(): void
     {
-        $this->number = str_pad($this->id, 10, '0', STR_PAD_LEFT);
+        $this->number = str_pad($this->id, 5, '0', STR_PAD_LEFT);
         $this->save();
     }
 

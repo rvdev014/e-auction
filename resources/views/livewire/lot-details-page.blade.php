@@ -61,8 +61,12 @@
                     <div class="product-details-right  wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s">
 
                         <div class="bid-form" style="margin-top: 0">
-                            <div class="form-title" style="margin-bottom: 20px">
+                            <div
+                                class="form-title"
+                                style="display: flex; align-items: center; justify-content: space-between;margin-bottom: 20px"
+                            >
                                 <h3>{{ $lot->lotable->name }}</h3>
+                                <span>#{{ $lot->number }}</span>
                             </div>
 
                             <div class="lot-item-wrapper">
