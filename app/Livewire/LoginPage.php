@@ -20,15 +20,11 @@ class LoginPage extends Component
 
     public function submitForm(): void
     {
-        try {
-            $this->validate();
-            app(AuthService::class)->login([
-                'phone' => $this->phone,
-                'password' => $this->password,
-            ]);
-            $this->redirectIntended(route(RouteServiceProvider::HOME), navigate: true);
-        } catch (Exception $e) {
-            $this->addError('phone', $e->getMessage());
-        }
+        $this->validate();
+        app(AuthService::class)->login([
+            'phone' => $this->phone,
+            'password' => $this->password,
+        ]);
+        $this->redirectIntended(route(RouteServiceProvider::HOME), navigate: true);
     }
 }

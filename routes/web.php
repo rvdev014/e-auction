@@ -5,6 +5,7 @@ use App\Enums\LotStatus;
 use App\Livewire\HomePage;
 use App\Livewire\LoginPage;
 use App\Livewire\LotListPage;
+use App\Livewire\ContactPage;
 use App\Livewire\LotApplyPage;
 use App\Livewire\RegisterPage;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -47,6 +48,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
         ->where('lot', '[0-9]+')
         ->name('lot.apply');
 });
+
+Route::get('contact', ContactPage::class)->name('contact');
 
 Route::get('lot-list/{status}', LotListPage::class)
     ->whereIn('status', LotStatus::values())

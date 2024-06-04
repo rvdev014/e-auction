@@ -17,6 +17,13 @@
             </div>
         </div>
         <ul class="menu-list">
+
+            <li>
+                <a href="{{ route('contact') }}" wire:navigate>
+                    Контактлар
+                </a>
+            </li>
+
             <li class="menu-item-has-children">
                 <a href="#" wire:navigate>Лотлар</a>
                 <i class='bx bx-plus dropdown-icon'></i>

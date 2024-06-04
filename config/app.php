@@ -207,4 +207,10 @@ return [
             'expired_in' => 5 * 60,
         ],
     ],
+
+    'telegram' => [
+        'token' => env('TELEGRAM_BOT_TOKEN'),
+        'base_url' => env('TELEGRAM_BASE_URL', 'https://api.telegram.org'),
+        'group_id' => env('TELEGRAM_GROUP_ID', 355919981),
+    ]
 ];
