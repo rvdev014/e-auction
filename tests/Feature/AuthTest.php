@@ -15,7 +15,7 @@ class AuthTest extends TestCase
         $user = User::find($userObj->id);
 
         $this->assertNotEmpty($user->lots_member_number);
-        $this->assertEquals(str_pad($user->id, 10, '0', STR_PAD_LEFT), $user->lots_member_number);
+        $this->assertEquals(4, strlen($user->lots_member_number));
     }
 
     public function test_send_verification_sms(): void

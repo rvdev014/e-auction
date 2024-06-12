@@ -79,4 +79,47 @@ TEXT
         }
     }
 
+    public static function underThousandToText($n): string
+    {
+        $ones = ["", "бир", "икки", "уч", "тўрт", "беш", "олти", "етти", "саккиз", "тўққиз"];
+        $tens = ["", "ўн", "йигирма", "ўттиз", "қирқ", "эллик", "олтмиш", "етмиш", "саксон", "тўқсон"];
+        $hundreds = ["", "юз", "икки юз", "уч юз", "тўрт юз", "беш юз", "олти юз", "йетти юз", "саккиз юз", "тўққиз юз"];
+
+        if ($n == 0) {
+            return "";
+        } elseif ($n < 10) {
+            return $ones[$n];
+        } elseif ($n < 100) {
+            return $tens[floor($n / 10)] . ($n % 10 != 0 ? " " . $ones[$n % 10] : "");
+        } else {
+            return $hundreds[floor($n / 100)] . ($n % 100 >= 10 ? " " . $tens[floor(($n % 100) / 10)] : "") . ($n % 10 != 0 ? " " . $ones[$n % 10] : "");
+        }
+    }
+
+    public static function numberToUzbekText($number): string
+    {
+        if ($number == 0) {
+            return "нол";
+        }
+
+        $integerPart = floor($number);
+        $fractionPart = round(($number - $integerPart) * 100);
+
+        $result = "";
+        if ($integerPart >= 1000) {
+            $result .= self::underThousandToText(floor($integerPart / 1000)) . " минг";
+            $integerPart %= 1000;
+            if ($integerPart > 0) {
+                $result .= " ";
+            }
+        }
+
+        $result .= self::underThousandToText($integerPart) . " сўм";
+
+        if ($fractionPart > 0) {
+            $result .= " " . self::underThousandToText($fractionPart) . " тийин";
+        }
+
+        return $result;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use DateTime;
 use Filament\Panel;
 use Nette\Utils\Random;
 use App\Services\SmsService;
@@ -37,7 +38,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int $region_id
  * @property int $district_id
  * @property string $passport
- * @property string $passport_date
+ * @property DateTime $passport_date
  * @property string $passport_given
  * @property string $pinfl
  * @property string $birth_date
@@ -111,6 +112,7 @@ class User extends Authenticatable implements MustVerifyPhone, FilamentUser
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
         'password' => 'hashed',
+        'passport_date' => 'date',
     ];
 
     protected static function boot(): void

@@ -33,14 +33,14 @@ class TestCommand extends Command
         /*$users = User::all();
         $users->each(function(User $user) {
             $user->generateLotsMemberNumber();
-        });*/
+        });
 
         $lots = Lot::all();
         $lots->each(function(Lot $lot) {
             $number = ltrim($lot->number, '0');
             $lot->number = str_pad($number, 5, '0', STR_PAD_LEFT);
             $lot->save();
-        });
+        });*/
 
 //        User::factory()->count(1)->create();
 

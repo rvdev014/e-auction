@@ -29,7 +29,7 @@ class LotTest extends TestCase
     public function test_lot_creating_with_number(): void
     {
         $lot = Lot::factory()->create();
-        $expectedNumber = str_pad($lot->id, 10, '0', STR_PAD_LEFT);
+        $expectedNumber = str_pad($lot->id, 5, '0', STR_PAD_LEFT);
 
         $this->assertEquals($expectedNumber, $lot->number);
     }

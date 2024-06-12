@@ -100,6 +100,7 @@ class LotResource extends Resource
                     ->label('Лот холати'),
                 Tables\Columns\TextColumn::make('payment_status')
                     ->label('Тўлов холати')
+                    ->width('200px')
                     ->badge(),
                 Tables\Columns\TextColumn::make('lotable_id')
                     ->label('Товар')
