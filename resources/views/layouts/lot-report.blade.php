@@ -1,5 +1,5 @@
-@php use App\Models\User; @endphp
 @php
+    use App\Services\PaymentService;
     /** @var App\Models\Lot $lot */
 @endphp
 
@@ -119,10 +119,11 @@
                 </td>
             </tr>
             <tr class="d-flex align-content-center gap-3 w-100">
-                <td class="bold w-50 text-danger">Иштирокчилар</td>
+                <td class="bold w-50 text-danger">Иштирокчилар фишка рақами:</td>
                 <td class="w-50">
                     @php
-                        $users = $lot->lotUsers->map(fn($user) => $user->lots_member_number)->implode(', ');
+                        $users = $lot->users->map(fn($user) => "$user->lots_member_number");
+                        echo implode(', ', $users->toArray());
                     @endphp
                 </td>
             </tr>
