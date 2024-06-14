@@ -82,6 +82,7 @@
                     Ранги: {{ $lot->lotable->color }} <br>
                     Ишлаб чиқарилган йили: {{ $lot->lotable->year_of_issue }}. <br>
                     Техник ҳолати: {{ $lot->lotable->technical_condition }}. <br>
+                    Гувохнома рақами: {{ $lot->lotable->contract }}. <br>
                 </td>
             </tr>
             <tr class="d-flex align-content-center gap-3 w-100">

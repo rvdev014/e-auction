@@ -96,7 +96,7 @@ class Transport extends Model
             'year_of_issue' => 'Ишлаб чиқарилган йили',
             'color' => 'Ранги',
             'technical_condition' => 'Техник ҳолати',
-            'contract' => 'Шартнома',
+            'contract' => 'Гувохнома рақами',
             'address' => 'Манзил',
             'additional_info' => 'Қўшимча маълумот',
             'additional_info2' => 'Қўшимча маълумот 2',
