@@ -35,7 +35,7 @@
 <body>
 
 <div style="text-align: center" class="table-title-area d-flex justify-content-center flex-column mt-5 text-center">
-    <h3>"E-TRADINGSAVDO" платформасида бўлиб ўтган электрон-онлайн
+    <h3>"E-TRADING" платформасида бўлиб ўтган электрон-онлайн
         аукцион натижалари тўғрисидаги</h3>
     <p class="para mt-3" style="font-weight: bold; font-size: 12px;">ҒОЛИБЛИК БАЁННОМАСИ №{{ $lot->number }}</p>
 </div>
@@ -63,7 +63,10 @@
             </tr>
             <tr class="d-flex align-content-center gap-3 w-100">
                 <td class="bold w-50 text-danger">Автотранспортни онлайн аукционга қўйиш учун асос:</td>
-                <td class="w-50">{{ $lot->lotable->contract }}</td>
+                <td class="w-50">
+                    "Chinobod Neft baza" МЧЖнинг 2024 йил 19 апрелдаги 17-207-sonli buyurtmanoma
+                </td>
+{{--                <td class="w-50">{{ $lot->lotable->contract }}</td>--}}
             </tr>
             <tr class="d-flex align-content-center gap-3 w-100">
                 <td class="bold w-50 text-danger">Автотранспортнинг номи:</td>
@@ -72,13 +75,14 @@
             <tr class="d-flex align-content-center gap-3 w-100">
                 <td class="bold w-50 text-danger"> Автотранспортни тавсифловчи маълумотлар:</td>
                 <td class="w-50">
-                    Модели: {{ $lot->lotable->model }} <br>
+                    {{--                        Модели: {{ $lot->lotable->model }} <br>--}}
                     Давлат раками №: {{ $lot->lotable->car_number }} <br>
-                    Ишлаб чиқарилган йили: {{ $lot->lotable->year_of_issue }}. <br>
-                    Ранги: {{ $lot->lotable->color }} <br>
-                    Техник ҳолати: {{ $lot->lotable->technical_condition }}. <br>
+                    Двигатель №: {{ $lot->lotable->engine_number }}. <br>
                     Кузов/Шасси рақами: {{ $lot->lotable->body_number }}. <br>
-                    Двигатель рақами: {{ $lot->lotable->engine_number }}. <br>
+                    Ранги: {{ $lot->lotable->color }} <br>
+                    Ишлаб чиқарилган йили: {{ $lot->lotable->year_of_issue }}. <br>
+                    Техник ҳолати: {{ $lot->lotable->technical_condition }}. <br>
+                    Гувохнома рақами: {{ $lot->lotable->contract }}. <br>
                 </td>
             </tr>
             <tr class="d-flex align-content-center gap-3 w-100">
@@ -94,7 +98,8 @@
                 </td>
                 <td class="w-50">
                     @php
-                        $content = $lot->winner?->user?->name ? "Голиб: " . $lot->winner->user->name . ",<br>" : "";
+                        $content = $lot->winner?->user?->name ? $lot->winner->user->name . ",<br>" : "";
+                        $content .= $lot->winner?->user?->lots_member_number ? "Фишка рақами №: " . $lot->winner->user->lots_member_number . ",<br>" : "";
                         $content .= $lot->winner?->user?->passport ? "Пасспорт: " . $lot->winner->user->passport . ",<br>" : "";
                         $content .= $lot->winner?->user?->passport_given ? $lot->winner->user->passport_given . " томонидан " : "";
                         $content .= $lot->winner?->user?->passport_date ? $lot->winner->user->passport_date->format('d.m.Y') . " санасида берилган" . ",<br>" : "";
