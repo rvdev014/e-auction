@@ -45,12 +45,17 @@ class AuthService
     {
         $phone = $data['phone'];
         $password = $data['password'];
+        $user = User::whereRaw("REPLACE(REPLACE(phone, '+', ''), ' ', '') = ?", [str_replace([' ', '+'], ['', ''], $phone)])->first();
 
-        if (!Auth::attempt(['phone' => $phone, 'password' => $password])) {
-            throw new Exception('Телефон рақам ёки парол нотўғри');
+        if ($user && Hash::check($password, $user->password)) {
+            // Log in the user
+            Auth::login($user);
+
+            // Redirect to the intended page or show a success message
+            return Auth::user();
         }
 
-        return Auth::user();
+        throw new Exception('Телефон рақам ёки парол нотўғри');
     }
 
     public function verify(User $user): void
