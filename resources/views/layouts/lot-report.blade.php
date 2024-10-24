@@ -64,7 +64,7 @@
             <tr class="d-flex align-content-center gap-3 w-100">
                 <td class="bold w-50 text-danger">Автотранспортни онлайн аукционга қўйиш учун асос:</td>
                 <td class="w-50">
-                    "Chinobod Neft baza" МЧЖнинг 2024 йил 19 апрелдаги 17-207-sonli buyurtmanoma
+                    Toshkent shahar hokimligi mahkamasining  2024 yil 20 sentyabrdagi 11-5-144-sonli buyurtmanoma
                 </td>
 {{--                <td class="w-50">{{ $lot->lotable->contract }}</td>--}}
             </tr>
