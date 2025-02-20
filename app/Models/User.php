@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use DateTime;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Collection;
 use Nette\Utils\Random;
 use App\Services\SmsService;
 use Laravel\Sanctum\HasApiTokens;
@@ -56,6 +57,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property Region $region
  * @property District $district
  * @property Lot[] $lots
+ * @property Collection<LotWinningReport> $winningReports
  * @property Message[] $messages
  *
  * @mixin Builder
@@ -238,5 +240,10 @@ TEXT
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->isAdmin();
+    }
+
+    public function winningReports(): HasMany
+    {
+        return $this->hasMany(LotWinningReport::class);
     }
 }

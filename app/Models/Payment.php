@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Enums\PaymentType;
 use App\Enums\PaymentSubject;
+use App\Observers\PaymentObserver;
+use App\Observers\TourDayExpenseObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +17,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property PaymentType type
  * @property string created_at
  * @property string updated_at
+ *
+ * @property User user
  */
+#[ObservedBy([PaymentObserver::class])]
 class Payment extends Model
 {
     use HasFactory;

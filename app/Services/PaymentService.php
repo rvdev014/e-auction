@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\LotWinningReport;
 use Throwable;
 use App\Models\Lot;
 use App\Models\LotUserStep;
@@ -48,6 +49,7 @@ class PaymentService
                         'payment_deadline' => $this->lotService->getPaymentDeadline()
                     ]);
                     $newLotUser->updateOrFail(['is_winner' => true]);
+
                     $this->lotService->sendSmsToWinner($lot, $newLotUser);
                 }
 

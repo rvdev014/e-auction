@@ -128,7 +128,12 @@
                                                        wire:model="step">
                                                 @error('step') <span class="error">{{ $message }}</span> @enderror
                                             </div>
-                                            <button class="eg-btn btn--primary btn--sm">Кадам қўйиш</button>
+                                            <button
+                                                class="eg-btn btn--primary btn--sm"
+                                                @if ($lot->lastStep->lotUser->user_id === auth()->id())
+                                                disabled
+                                                @endif
+                                            >Кадам қўйиш</button>
                                         </div>
                                     </form>
                                 </div>
@@ -195,7 +200,7 @@
                                     aria-controls="pills-bid"
                                     aria-selected="false"
                                     wire:click="setTab('lot-steps')"
-                                >Ставкалар тарихи
+                                >Кадамлар тарихи
                                 </button>
                             </li>
                         @endif

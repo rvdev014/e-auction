@@ -41,6 +41,12 @@ class LotDetailsPage extends Component
         try {
             $this->validateOnly('step');
 
+            if ($this->lot->lastStep?->lotUser?->user_id === auth()->id()) {
+                session()->flash('error', 'Сиз охирги нархни киритгансиз');
+                $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);
+                return;
+            }
+
             if (!$this->lot->isStarted()) {
                 session()->flash('error', 'Аукцион бошланмаган ёки тугаган');
                 $this->redirectRoute('lot.details', ['lot' => $this->lot->id], navigate: true);

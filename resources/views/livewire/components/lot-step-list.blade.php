@@ -4,7 +4,7 @@
 
 <div class="bid-list-area" @if($lot->isStarted()) wire:poll.5s="polling" @endif>
     <div class="bid-step-header">
-        <h3 class="bid-title">Ставкалар тарихи</h3>
+        <h3 class="bid-title">Кадамлар тарихи</h3>
         @if($lot->isStarted())
             <button class="eg-btn btn--primary btn--sm" wire:click="$refresh">Йангилаш</button>
         @endif
@@ -13,7 +13,7 @@
     <ul class="bid-list">
         @if ($lot->steps->isEmpty())
             <div class="alert alert-warning">
-                Ставкалар мавжуд эмас
+                Кадамлар мавжуд эмас
             </div>
         @endif
         @foreach($lot->steps as $step)

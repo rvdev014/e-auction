@@ -1,6 +1,9 @@
 @php
     use App\Services\PaymentService;
+    /** @var App\Models\LotWinningReport $winningReport */
     /** @var App\Models\Lot $lot */
+
+$lot = $winningReport->lot;
 @endphp
 
     <!doctype html>
@@ -37,7 +40,7 @@
 <div style="text-align: center" class="table-title-area d-flex justify-content-center flex-column mt-5 text-center">
     <h3>"E-TRADING" платформасида бўлиб ўтган электрон-онлайн
         аукцион натижалари тўғрисидаги</h3>
-    <p class="para mt-3" style="font-weight: bold; font-size: 12px;">ҒОЛИБЛИК БАЁННОМАСИ №{{ $lot->number }}</p>
+    <p class="para mt-3" style="font-weight: bold; font-size: 12px;">ҒОЛИБЛИК БАЁННОМАСИ №{{ $winningReport->id }}</p>
 </div>
 
 <div class="row">

@@ -1,8 +1,9 @@
 @php
     use App\Services\PaymentService;
-    /**
-     * @var App\Models\Lot $lot
-     */
+    /** @var App\Models\LotWinningReport $winningReport */
+    /** @var App\Models\Lot $lot */
+
+$lot = $winningReport->lot;
 @endphp
 
         <!doctype html>
@@ -30,7 +31,7 @@
             "E-TRADING" платформасида бўлиб ўтган электрон-онлайн
             аукцион натижалари тўғрисидаги
         </h3>
-        <p class="para mt-3">ҒОЛИБЛИК БАЁННОМАСИ №{{ $lot->number }}</p>
+        <p class="para mt-3">ҒОЛИБЛИК БАЁННОМАСИ №{{ $winningReport->id }}</p>
     </div>
 
     <div class="row">
@@ -166,7 +167,7 @@
 </div>
 
 <div class="d-flex justify-content-center py-5">
-    <a href="{{ route('lot.report.pdf', $lot->id) }}" class="btn--lg btn--primary">PDF юклаб олиш</a>
+    <a href="{{ route('lot.report.pdf', $winningReport->id) }}" class="btn--lg btn--primary">PDF юклаб олиш</a>
 </div>
 
 @include('includes.footer')

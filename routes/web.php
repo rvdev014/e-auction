@@ -8,6 +8,7 @@ use App\Livewire\LotListPage;
 use App\Livewire\ContactPage;
 use App\Livewire\LotApplyPage;
 use App\Livewire\RegisterPage;
+use App\Models\LotWinningReport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Livewire\LotDetailsPage;
 use App\Livewire\VerifyPhonePage;
@@ -59,17 +60,14 @@ Route::get('lot-details/{lot}', LotDetailsPage::class)
     ->where('lot', '[0-9]+')
     ->name('lot.details');
 
-Route::get('lot-report/{lot}/download', function(Lot $lot) {
-    $pdf = Pdf::loadView('layouts.lot-report', ['lot' => $lot]);
-    return $pdf->download("lot-report-$lot->id.pdf");
-})->where('lot', '[0-9]+')->name('lot.report.pdf');
+Route::get('lot-report/{winningReport}/download', function(LotWinningReport $winningReport) {
+    $pdf = Pdf::loadView('layouts.lot-report', ['winningReport' => $winningReport]);
+    return $pdf->download("lot-report-$winningReport->id.pdf");
+})->where('winningReport', '[0-9]+')->name('lot.report.pdf');
 
-Route::get('lot-report/{lot}', function(Lot $lot) {
-    if (!$lot->reports_at) {
-        abort(404);
-    }
-    return view('lot-report', ['lot' => $lot]);
-})->where('lot', '[0-9]+')->name('lot.report');
+Route::get('lot-report/{winningReport}', function(LotWinningReport $winningReport) {
+    return view('lot-report', ['winningReport' => $winningReport]);
+})->where('winningReport', '[0-9]+')->name('lot.report');
 
 Route::get('/test', function() {
     return view('test');

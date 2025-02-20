@@ -15,7 +15,11 @@ class UserWinningReports extends Component
         $user = auth()->user();
 
         return view('livewire.components.user-winning-reports', [
-            'reports' => $user->lots()->where('payment_status', LotPaymentStatus::Paid)->get(),
+            'winningReports' => $user->winningReports
+            /*'reports' => $user->lots()
+                ->where('payment_status', LotPaymentStatus::Paid)
+                ->wherePivot('is_winner', true)
+                ->get(),*/
         ]);
     }
 }
