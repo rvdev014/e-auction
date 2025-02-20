@@ -67,7 +67,7 @@ $lot = $winningReport->lot;
             <tr class="d-flex align-content-center gap-3 w-100">
                 <td class="bold w-50 text-danger">Автотранспортни онлайн аукционга қўйиш учун асос:</td>
                 <td class="w-50">
-                    Toshkent shahar hokimligi mahkamasining  2024 yil 20 sentyabrdagi 11-5-144-sonli buyurtmanoma
+                    "Chinobod neft bazasi" MCHJning  2024 yil 2 dekabrdagi 17-410-sonli buyurtmanomasi
                 </td>
 {{--                <td class="w-50">{{ $lot->lotable->contract }}</td>--}}
             </tr>
