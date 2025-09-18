@@ -152,7 +152,7 @@ $lot = $winningReport->lot;
         <tr>
             <td style="min-width: 200px; margin-right: 20px">
                 @php
-                    $appUrl = config('app.url') . '/lot-report/' . $lot->id;
+                    $appUrl = config('app.url') . '/lot-report/' . $winningReport->id;
                     $qrCode = (new chillerlan\QRCode\QRCode)->render($appUrl);
                 @endphp
                 <img
