@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="lot-item">
                                     <p class="lot-item-label">Консалтинг хизмат хаққи: </p>
-                                    <p class="lot-item-text">750 000 сўм</p>
+                                    <p class="lot-item-text">824 000 сўм</p>
                                 </div>
                                 <div class="lot-item">
                                     <p class="lot-item-label">Аукцион холати: </p>
