@@ -130,7 +130,7 @@
                                             </div>
                                             <button
                                                 class="eg-btn btn--primary btn--sm"
-                                                @if ($lot->lastStep->lotUser->user_id === auth()->id())
+                                                @if ($lot->lastStep?->lotUser?->user_id === auth()->id())
                                                 disabled
                                                 @endif
                                             >Кадам қўйиш</button>
